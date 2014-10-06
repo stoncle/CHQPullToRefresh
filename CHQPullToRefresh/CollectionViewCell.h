@@ -1,5 +1,5 @@
 //
-//  STAppDelegate.h
+//  STCollectionViewCell.h
 //  MyCollectionvView
 //
 //  Created by stoncle on 14-9-29.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface CollectionViewCell : UICollectionViewCell
 
 @end

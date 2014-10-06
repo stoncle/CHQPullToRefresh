@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		F9272EA219E27E09007A5C61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EA119E27E09007A5C61 /* main.m */; };
-		F9272EA519E27E09007A5C61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EA419E27E09007A5C61 /* AppDelegate.m */; };
-		F9272EA819E27E09007A5C61 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EA719E27E09007A5C61 /* ViewController.m */; };
-		F9272EAB19E27E09007A5C61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9272EA919E27E09007A5C61 /* Main.storyboard */; };
 		F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9272EAC19E27E09007A5C61 /* Images.xcassets */; };
-		F9272EB019E27E09007A5C61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9272EAE19E27E09007A5C61 /* LaunchScreen.xib */; };
 		F9272EBC19E27E09007A5C61 /* CHQPullToRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EBB19E27E09007A5C61 /* CHQPullToRefreshTests.m */; };
+		F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EC619E27EF0007A5C61 /* AppDelegate.m */; };
+		F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EC819E27EF0007A5C61 /* CollectionViewCell.m */; };
+		F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */; };
+		F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */; };
+		F9272EDD19E27EF0007A5C61 /* CHQPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */; };
+		F9272EDE19E27EF0007A5C61 /* CHQSpiralRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */; };
+		F9272EE019E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */; };
+		F9272EE119E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */; };
+		F9272EE519E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EE419E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +35,29 @@
 		F9272E9C19E27E09007A5C61 /* CHQPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHQPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9272EA019E27E09007A5C61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9272EA119E27E09007A5C61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F9272EA319E27E09007A5C61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F9272EA419E27E09007A5C61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F9272EA619E27E09007A5C61 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F9272EA719E27E09007A5C61 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F9272EAA19E27E09007A5C61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9272EAC19E27E09007A5C61 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F9272EAF19E27E09007A5C61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F9272EB519E27E09007A5C61 /* CHQPullToRefreshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CHQPullToRefreshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9272EBA19E27E09007A5C61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9272EBB19E27E09007A5C61 /* CHQPullToRefreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHQPullToRefreshTests.m; sourceTree = "<group>"; };
+		F9272EC519E27EF0007A5C61 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F9272EC619E27EF0007A5C61 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F9272EC719E27EF0007A5C61 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		F9272EC819E27EF0007A5C61 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		F9272EC919E27EF0007A5C61 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		F9272ECB19E27EF0007A5C61 /* CollectionViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHeader.h; sourceTree = "<group>"; };
+		F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewHeader.m; sourceTree = "<group>"; };
+		F9272ECE19E27EF0007A5C61 /* CHQPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQPullToRefreshView.h; sourceTree = "<group>"; };
+		F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQPullToRefreshView.m; sourceTree = "<group>"; };
+		F9272ED019E27EF0007A5C61 /* CHQSpiralRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQSpiralRefreshView.h; sourceTree = "<group>"; };
+		F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQSpiralRefreshView.m; sourceTree = "<group>"; };
+		F9272ED419E27EF0007A5C61 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		F9272ED519E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		F9272ED719E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		F9272EE319E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SpiralPullToRefresh.h"; sourceTree = "<group>"; };
+		F9272EE419E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SpiralPullToRefresh.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,13 +99,17 @@
 		F9272E9E19E27E09007A5C61 /* CHQPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				F9272EA319E27E09007A5C61 /* AppDelegate.h */,
-				F9272EA419E27E09007A5C61 /* AppDelegate.m */,
-				F9272EA619E27E09007A5C61 /* ViewController.h */,
-				F9272EA719E27E09007A5C61 /* ViewController.m */,
-				F9272EA919E27E09007A5C61 /* Main.storyboard */,
+				F9272EE219E27FFF007A5C61 /* Spiral Pull */,
+				F9272EC519E27EF0007A5C61 /* AppDelegate.h */,
+				F9272EC619E27EF0007A5C61 /* AppDelegate.m */,
+				F9272EC719E27EF0007A5C61 /* CollectionViewCell.h */,
+				F9272EC819E27EF0007A5C61 /* CollectionViewCell.m */,
+				F9272EC919E27EF0007A5C61 /* CollectionViewController.h */,
+				F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */,
+				F9272ECB19E27EF0007A5C61 /* CollectionViewHeader.h */,
+				F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */,
+				F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */,
 				F9272EAC19E27E09007A5C61 /* Images.xcassets */,
-				F9272EAE19E27E09007A5C61 /* LaunchScreen.xib */,
 				F9272E9F19E27E09007A5C61 /* Supporting Files */,
 			);
 			path = CHQPullToRefresh;
@@ -117,6 +139,31 @@
 				F9272EBA19E27E09007A5C61 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				F9272ECE19E27EF0007A5C61 /* CHQPullToRefreshView.h */,
+				F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */,
+				F9272ED019E27EF0007A5C61 /* CHQSpiralRefreshView.h */,
+				F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */,
+				F9272ED419E27EF0007A5C61 /* SVPullToRefresh.h */,
+				F9272ED519E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.h */,
+				F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */,
+				F9272ED719E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.h */,
+				F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		F9272EE219E27FFF007A5C61 /* Spiral Pull */ = {
+			isa = PBXGroup;
+			children = (
+				F9272EE319E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.h */,
+				F9272EE419E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.m */,
+			);
+			path = "Spiral Pull";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,8 +246,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9272EAB19E27E09007A5C61 /* Main.storyboard in Resources */,
-				F9272EB019E27E09007A5C61 /* LaunchScreen.xib in Resources */,
 				F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,9 +264,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9272EA819E27E09007A5C61 /* ViewController.m in Sources */,
-				F9272EA519E27E09007A5C61 /* AppDelegate.m in Sources */,
+				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
+				F9272EDE19E27EF0007A5C61 /* CHQSpiralRefreshView.m in Sources */,
+				F9272EE519E27FFF007A5C61 /* UIScrollView+SpiralPullToRefresh.m in Sources */,
+				F9272EE019E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
+				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
+				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
+				F9272EE119E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F9272EA219E27E09007A5C61 /* main.m in Sources */,
+				F9272EDD19E27EF0007A5C61 /* CHQPullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,25 +294,6 @@
 			targetProxy = F9272EB619E27E09007A5C61 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		F9272EA919E27E09007A5C61 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F9272EAA19E27E09007A5C61 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F9272EAE19E27E09007A5C61 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F9272EAF19E27E09007A5C61 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F9272EBD19E27E09007A5C61 /* Debug */ = {
