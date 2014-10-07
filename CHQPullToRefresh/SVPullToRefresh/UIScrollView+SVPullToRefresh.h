@@ -9,22 +9,27 @@
 
 #import <UIKit/UIKit.h>
 #import <AvailabilityMacros.h>
+#import "CHQPullToRefreshView.h"
+#define fequal(a,b) (fabs((a) - (b)) < FLT_EPSILON)
+#define fequalzero(a) (fabs(a) < FLT_EPSILON)
 
 
 @class SVPullToRefreshView;
+typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
+{
+    CHQRefreshThemeArrow = 0,
+    CHQRefreshThemeSpiral,
+    
+    CHQRefreshThemeDefault = CHQRefreshThemeArrow
+};
 
 @interface UIScrollView (SVPullToRefresh)
 
-typedef NS_ENUM(NSUInteger, SVPullToRefreshPosition) {
-    SVPullToRefreshPositionTop = 0,
-    SVPullToRefreshPositionBottom,
-};
-
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler position:(SVPullToRefreshPosition)position;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
 - (void)triggerPullToRefresh;
 
-@property (nonatomic, strong, readonly) SVPullToRefreshView *pullToRefreshView;
+@property (nonatomic, strong, readonly) CHQPullToRefreshView *pullToRefreshView;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 
 @end
@@ -37,6 +42,7 @@ typedef NS_ENUM(NSUInteger, SVPullToRefreshState) {
     SVPullToRefreshStateAll = 10
 };
 
+
 @interface SVPullToRefreshView : UIView
 
 @property (nonatomic, strong) UIColor *arrowColor;
@@ -47,7 +53,6 @@ typedef NS_ENUM(NSUInteger, SVPullToRefreshState) {
 @property (nonatomic, readwrite) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
 
 @property (nonatomic, readonly) SVPullToRefreshState state;
-@property (nonatomic, readonly) SVPullToRefreshPosition position;
 
 - (void)setTitle:(NSString *)title forState:(SVPullToRefreshState)state;
 - (void)setSubtitle:(NSString *)subtitle forState:(SVPullToRefreshState)state;

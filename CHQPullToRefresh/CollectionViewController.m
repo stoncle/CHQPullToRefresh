@@ -11,7 +11,8 @@
 #import "CollectionViewHeader.h"
 #define kCellIdentifier @"collectionViewCell"
 #define kHeaderIdentifier @"collectionHeader"
-#import "UIScrollView+SpiralPullToRefresh.h"
+#import "UIScrollView+SVPullToRefresh.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface CollectionViewController ()
@@ -42,22 +43,17 @@
 {
     
     _collectionView.alwaysBounceVertical = YES;
-//    NSLog(@"%@", _collectionView.infiniteScrollingView);
-//    [_collectionView.infiniteScrollingView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _data = [[NSMutableArray alloc]initWithCapacity:10];
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
     [_collectionView setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:_collectionView];
-//    [_collectionView addHeaderWithTarget:self action:@selector(headerRereshing)];
-//    [_collectionView addFooterWithTarget:self action:@selector(footerRereshing)];
     __block UICollectionView *d = _collectionView;
     __block NSMutableArray *a = _data;
-    [_collectionView jjaddPullToRefreshWithActionHandler:^{
+    [_collectionView addPullToRefreshWithActionHandler:^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         if(a.count > 10)
         {
-            
             for(int i=0; i<10; i++)
             {
                 [a removeObjectAtIndex:i];
@@ -68,67 +64,30 @@
         [d deleteItemsAtIndexPaths:arr];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			[d.pullToRefreshController didFinishRefresh];
+            [d.pullToRefreshView stopAnimating];
         });
+    }WithCurrentTheme:CHQRefreshThemeSpiral];
+    [_collectionView addInfiniteScrollingWithActionHandler:^{
+        // append data to data source, insert new cells at the end of table view
+        // call [tableView.infiniteScrollingView stopAnimating] when done
+        
+        NSLog(@"good");
+        int j = [a count];
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        
+        for(int i=0; i<10; i++)
+        {
+            [a addObject:@"hhh"];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
+            [arr addObject:indexPath];
+        }
+        [d insertItemsAtIndexPaths:arr];
+        [d.infiniteScrollingView stopAnimating];
     }];
-//    [_collectionView addPullToRefreshWithActionHandler:^{
-//        NSLog(@"good");
-//        int j = [a count];
-//        NSMutableArray *arr = [[NSMutableArray alloc]init];
-//        for(int i=0; i<10; i++)
-//        {
-//            [a addObject:@"hhh"];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
-//            [arr addObject:indexPath];
-//        }
-//        [d insertItemsAtIndexPaths:arr];
-//        [d.pullToRefreshView stopAnimating];
-//    } position:SVPullToRefreshPositionBottom];
-//    JZRefreshControl *jz = [[JZRefreshControl alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-//    [_collectionView addInfiniteScrollingWithActionHandler:^{
-//        // append data to data source, insert new cells at the end of table view
-//        // call [tableView.infiniteScrollingView stopAnimating] when done
-//        
-//        NSLog(@"good");
-//        int j = [a count];
-//        NSMutableArray *arr = [[NSMutableArray alloc]init];
-//        
-//        for(int i=0; i<10; i++)
-//        {
-//            [a addObject:@"hhh"];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
-//            [arr addObject:indexPath];
-//        }
-//        [d insertItemsAtIndexPaths:arr];
-//        [d.infiniteScrollingView stopAnimating];
-//    }];
     [self addConstraints];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    CGFloat height = scrollView.frame.size.height;
-//    CGFloat contentYoffset = scrollView.contentOffset.y;
-//    CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset;
-//    __block UICollectionView *d = _collectionView;
-//    __block NSMutableArray *a = _data;
-////    NSLog(@"height:%f contentYoffset:%f frame.y:%f",height,contentYoffset,scrollView.frame.origin.y);
-//    if (distanceFromBottom < height) {
-//        
-//        NSLog(@"end of table");
-//        int j = [a count];
-//        NSMutableArray *arr = [[NSMutableArray alloc]init];
-//        for(int i=0; i<10; i++)
-//        {
-//            [a addObject:@"hhh"];
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
-//            [arr addObject:indexPath];
-//        }
-//        [d insertItemsAtIndexPaths:arr];
-//        [d.pullToRefreshView stopAnimating];
-//    }
-//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -171,7 +130,8 @@
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGRect r = [UIScreen mainScreen].bounds;
+    CGRect r = [UIScreen mainScreen].applicationFrame;
+    NSLog(@"%f", r.size.width/3.05);
 	return CGSizeMake(r.size.width/3.05, r.size.width/3*1.15);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

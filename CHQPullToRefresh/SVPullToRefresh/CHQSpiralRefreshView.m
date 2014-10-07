@@ -121,8 +121,6 @@
                        middleLeftView, middleCenterView, middleRightView,
                        topLeftView, topCenterView, topRightView];
     }
-    NSLog(@"%f, %f", frame.origin.x, frame.origin.y);
-    NSLog(@"%f, %f", self.frame.origin.x, self.frame.origin.y);
     return self;
 }
 
@@ -171,7 +169,7 @@
 - (void) contentOffsetChanged:(float)contentOffset {
     contentOffset = -contentOffset / 2;
     
-    if (isRefreshing) {
+    if (isRefreshing || (!self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateLoading)) {
         return;
     }
     
@@ -222,7 +220,6 @@
     if(self.currentState != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
         scrollOffsetThreshold = self.frame.origin.y - SpiralPullToRefreshViewHangingHeight;
-        NSLog(@"%f", scrollOffsetThreshold);
         if(!self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateTriggered)
             self.currentState = CHQPullToRefreshStateLoading;
         else if(((contentOffset.y < -SpiralPullToRefreshViewTriggerAreaHeight)) && self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateStopped)
@@ -247,7 +244,6 @@
     
     [self setScrollViewContentInset:currentInsets];
 }
-
 
 - (void)setWaitingAnimation:(SpiralPullToRefreshWaitAnimation)waitingAnimation {
     _waitingAnimation = waitingAnimation;
@@ -393,9 +389,8 @@
     animationStep = 0;
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onAnimationTimer) userInfo:nil repeats:YES];
 }
-
-- (void)didFinishRefresh {
-    
+- (void)stopAnimating
+{
     if (isRefreshing == NO) {
         return;
     }
@@ -436,7 +431,6 @@
             break;
             
         case CHQPullToRefreshStateTriggered:
-//            [self startAnimating];
             break;
             
         case CHQPullToRefreshStateLoading:
@@ -451,14 +445,5 @@
         default: break;
     }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

@@ -54,7 +54,6 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
 #pragma mark - Scroll View
 
 - (void)resetScrollViewContentInset {
-    NSLog(@"%f", self.scrollView.contentInset.top);
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.top = self.originalTopInset;
     [self setScrollViewContentInset:currentInsets];
@@ -106,7 +105,7 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
         scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
-        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging)
+        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == SVPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateTriggered;
         else if(contentOffset.y >= scrollOffsetThreshold && self.state != CHQPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateStopped;
@@ -130,15 +129,13 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
 }
 
 - (void)startAnimating{
-//            
-//            if(fequalzero(self.scrollView.contentOffset.y)) {
-//                [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.frame.size.height) animated:YES];
-//                self.wasTriggeredByUser = NO;
-//            }
-//            else
-//                self.wasTriggeredByUser = YES;
-//    
-//    self.state = CHQPullToRefreshStateLoading;
+    if(fequalzero(self.scrollView.contentOffset.y)) {
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.frame.size.height) animated:YES];
+        self.wasTriggeredByUser = NO;
+    }
+    else
+        self.wasTriggeredByUser = YES;
+    self.state = CHQPullToRefreshStateLoading;
 }
 
 - (void)stopAnimating {
@@ -170,9 +167,8 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
             
         case CHQPullToRefreshStateLoading:
             [self setScrollViewContentInsetForLoading];
-            
-            if(previousState == CHQPullToRefreshStateTriggered && pullToRefreshActionHandler)
-                pullToRefreshActionHandler();
+            if(previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
+                self.pullToRefreshActionHandler();
             
             break;
     }
