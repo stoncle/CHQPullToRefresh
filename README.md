@@ -44,6 +44,7 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 * CHQRefreshThemeSpiral
   rectangle spiral from around gathering at middle.
 * New Theme coming soon...
+
 ###You can design your own theme
   by subclassing the CHQPullToRefresh
   ...
