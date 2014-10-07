@@ -40,10 +40,10 @@ Being a catagory of UIScrollView, you may find the following methods in it:
     tableView.showsInfiniteScrolling = NO;
 ##Supporting Theme so far
 * CHQRefreshThemeArrow(Default)
-  normal refresh view with an arrow pointing directions.
+  normal refresh view with an arrow pointing directions.  
 * CHQRefreshThemeSpiral
-  rectangle spiral from around gathering at middle.
-* New Theme coming soon...
+  rectangle spiral from around gathering at middle.  
+* New Theme coming soon...  
 
 ###You can design your own theme
   by subclassing the CHQPullToRefresh
