@@ -14,11 +14,11 @@
 		F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EC819E27EF0007A5C61 /* CollectionViewCell.m */; };
 		F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */; };
 		F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */; };
-		F9272EDD19E27EF0007A5C61 /* CHQPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */; };
-		F9272EDE19E27EF0007A5C61 /* CHQSpiralRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */; };
-		F9272EE019E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */; };
-		F9272EE119E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */; };
-		F9272EEA19E2A676007A5C61 /* CHQArrowRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EE919E2A676007A5C61 /* CHQArrowRefreshView.m */; };
+		F9272EF919E3BC4B007A5C61 /* CHQArrowRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */; };
+		F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF019E3BC4B007A5C61 /* CHQSpiralRefreshView.m */; };
+		F9272EFB19E3BC4B007A5C61 /* CHQPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */; };
+		F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF619E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m */; };
+		F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,17 +47,17 @@
 		F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		F9272ECB19E27EF0007A5C61 /* CollectionViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHeader.h; sourceTree = "<group>"; };
 		F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewHeader.m; sourceTree = "<group>"; };
-		F9272ECE19E27EF0007A5C61 /* CHQPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHQPullToRefreshView.h; path = SVPullToRefresh/CHQPullToRefreshView.h; sourceTree = "<group>"; };
-		F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHQPullToRefreshView.m; path = SVPullToRefresh/CHQPullToRefreshView.m; sourceTree = "<group>"; };
-		F9272ED019E27EF0007A5C61 /* CHQSpiralRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHQSpiralRefreshView.h; path = SVPullToRefresh/CHQSpiralRefreshView.h; sourceTree = "<group>"; };
-		F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHQSpiralRefreshView.m; path = SVPullToRefresh/CHQSpiralRefreshView.m; sourceTree = "<group>"; };
-		F9272ED419E27EF0007A5C61 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
-		F9272ED519E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
-		F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
-		F9272ED719E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
-		F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		F9272EE819E2A676007A5C61 /* CHQArrowRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQArrowRefreshView.h; sourceTree = "<group>"; };
-		F9272EE919E2A676007A5C61 /* CHQArrowRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQArrowRefreshView.m; sourceTree = "<group>"; };
+		F9272EED19E3BC4A007A5C61 /* CHQArrowRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQArrowRefreshView.h; sourceTree = "<group>"; };
+		F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQArrowRefreshView.m; sourceTree = "<group>"; };
+		F9272EEF19E3BC4A007A5C61 /* CHQSpiralRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQSpiralRefreshView.h; sourceTree = "<group>"; };
+		F9272EF019E3BC4B007A5C61 /* CHQSpiralRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQSpiralRefreshView.m; sourceTree = "<group>"; };
+		F9272EF119E3BC4B007A5C61 /* CHQPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQPullToRefreshView.h; sourceTree = "<group>"; };
+		F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQPullToRefreshView.m; sourceTree = "<group>"; };
+		F9272EF419E3BC4B007A5C61 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		F9272EF519E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		F9272EF619E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		F9272EF719E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +99,7 @@
 		F9272E9E19E27E09007A5C61 /* CHQPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				F9272EE619E29318007A5C61 /* CHQPullToRefreshView */,
+				F9272EEB19E3BC4A007A5C61 /* CHQPullToRefreshView */,
 				F9272EC519E27EF0007A5C61 /* AppDelegate.h */,
 				F9272EC619E27EF0007A5C61 /* AppDelegate.m */,
 				F9272EC719E27EF0007A5C61 /* CollectionViewCell.h */,
@@ -140,38 +140,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */ = {
+		F9272EEB19E3BC4A007A5C61 /* CHQPullToRefreshView */ = {
 			isa = PBXGroup;
 			children = (
-				F9272ED419E27EF0007A5C61 /* SVPullToRefresh.h */,
-				F9272ED519E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.h */,
-				F9272ED619E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m */,
-				F9272ED719E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.h */,
-				F9272ED819E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m */,
+				F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */,
+				F9272EF119E3BC4B007A5C61 /* CHQPullToRefreshView.h */,
+				F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */,
+				F9272EF319E3BC4B007A5C61 /* SVPullToRefresh */,
+			);
+			path = CHQPullToRefreshView;
+			sourceTree = "<group>";
+		};
+		F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */ = {
+			isa = PBXGroup;
+			children = (
+				F9272EED19E3BC4A007A5C61 /* CHQArrowRefreshView.h */,
+				F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */,
+				F9272EEF19E3BC4A007A5C61 /* CHQSpiralRefreshView.h */,
+				F9272EF019E3BC4B007A5C61 /* CHQSpiralRefreshView.m */,
+			);
+			path = CHQPullToRefreshCustomView;
+			sourceTree = "<group>";
+		};
+		F9272EF319E3BC4B007A5C61 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				F9272EF419E3BC4B007A5C61 /* SVPullToRefresh.h */,
+				F9272EF519E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.h */,
+				F9272EF619E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m */,
+				F9272EF719E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.h */,
+				F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */,
 			);
 			path = SVPullToRefresh;
-			sourceTree = "<group>";
-		};
-		F9272EE619E29318007A5C61 /* CHQPullToRefreshView */ = {
-			isa = PBXGroup;
-			children = (
-				F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */,
-				F9272EE719E2934E007A5C61 /* CHQPullToRefreshCustomView */,
-				F9272ECE19E27EF0007A5C61 /* CHQPullToRefreshView.h */,
-				F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */,
-			);
-			name = CHQPullToRefreshView;
-			sourceTree = "<group>";
-		};
-		F9272EE719E2934E007A5C61 /* CHQPullToRefreshCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				F9272ED019E27EF0007A5C61 /* CHQSpiralRefreshView.h */,
-				F9272ED119E27EF0007A5C61 /* CHQSpiralRefreshView.m */,
-				F9272EE819E2A676007A5C61 /* CHQArrowRefreshView.h */,
-				F9272EE919E2A676007A5C61 /* CHQArrowRefreshView.m */,
-			);
-			name = CHQPullToRefreshCustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,16 +272,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9272EEA19E2A676007A5C61 /* CHQArrowRefreshView.m in Sources */,
+				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
-				F9272EDE19E27EF0007A5C61 /* CHQSpiralRefreshView.m in Sources */,
-				F9272EE019E27EF0007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
+				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
 				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
-				F9272EE119E27EF0007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F9272EA219E27E09007A5C61 /* main.m in Sources */,
-				F9272EDD19E27EF0007A5C61 /* CHQPullToRefreshView.m in Sources */,
+				F9272EF919E3BC4B007A5C61 /* CHQArrowRefreshView.m in Sources */,
+				F9272EFB19E3BC4B007A5C61 /* CHQPullToRefreshView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
