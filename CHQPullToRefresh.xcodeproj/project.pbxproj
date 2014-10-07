@@ -108,7 +108,6 @@
 				F9272ECA19E27EF0007A5C61 /* CollectionViewController.m */,
 				F9272ECB19E27EF0007A5C61 /* CollectionViewHeader.h */,
 				F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */,
-				F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */,
 				F9272EAC19E27E09007A5C61 /* Images.xcassets */,
 				F9272E9F19E27E09007A5C61 /* Supporting Files */,
 			);
@@ -156,6 +155,7 @@
 		F9272EE619E29318007A5C61 /* CHQPullToRefreshView */ = {
 			isa = PBXGroup;
 			children = (
+				F9272ECD19E27EF0007A5C61 /* SVPullToRefresh */,
 				F9272EE719E2934E007A5C61 /* CHQPullToRefreshCustomView */,
 				F9272ECE19E27EF0007A5C61 /* CHQPullToRefreshView.h */,
 				F9272ECF19E27EF0007A5C61 /* CHQPullToRefreshView.m */,
