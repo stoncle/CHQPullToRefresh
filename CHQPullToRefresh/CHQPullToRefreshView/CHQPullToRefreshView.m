@@ -136,10 +136,15 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
     else
         self.wasTriggeredByUser = YES;
     self.state = CHQPullToRefreshStateLoading;
+    
 }
 
 - (void)stopAnimating {
     self.state = CHQPullToRefreshStateStopped;
+    if([self respondsToSelector:@selector(doSomethingWhenStopingAnimating)])
+    {
+        [self performSelector:@selector(doSomethingWhenStopingAnimating)];
+    }
     
             if(!self.wasTriggeredByUser)
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
@@ -169,7 +174,10 @@ static CGFloat const CHQPullToRefreshViewHeight = 60;
             [self setScrollViewContentInsetForLoading];
             if(previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
                 self.pullToRefreshActionHandler();
-            
+            if([self respondsToSelector:@selector(doSomethingWhenStartingAnimating)])
+            {
+                [self performSelector:@selector(doSomethingWhenStartingAnimating)];
+            }
             break;
     }
 }

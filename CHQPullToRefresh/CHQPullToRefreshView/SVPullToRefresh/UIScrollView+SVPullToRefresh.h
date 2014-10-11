@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
 {
     CHQRefreshThemeArrow = 0,
     CHQRefreshThemeSpiral,
+    CHQRefreshThemeEatBeans,
     
     CHQRefreshThemeDefault = CHQRefreshThemeArrow
 };

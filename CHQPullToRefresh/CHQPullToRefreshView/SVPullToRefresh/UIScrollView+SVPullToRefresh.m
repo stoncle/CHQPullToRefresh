@@ -11,6 +11,7 @@
 #import "UIScrollView+SVPullToRefresh.h"
 #import "CHQSpiralRefreshView.h"
 #import "CHQArrowRefreshView.h"
+#import "CHQEatBeansRefreshView.h"
 
 
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
@@ -29,7 +30,7 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
 {
-    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeDefault];
+    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeEatBeans];
 }
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme {
@@ -44,6 +45,9 @@ static char UIScrollViewPullToRefreshView;
                 break;
             case CHQRefreshThemeSpiral:
                 view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeEatBeans:
+                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");

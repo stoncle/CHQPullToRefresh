@@ -19,6 +19,11 @@
 		F9272EFB19E3BC4B007A5C61 /* CHQPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */; };
 		F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF619E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m */; };
 		F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */; };
+		F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F955A98119E982F2006D29FB /* CHQEatBeansRefreshView.m */; };
+		F955A98B19E985C0006D29FB /* Pac.m in Sources */ = {isa = PBXBuildFile; fileRef = F955A98619E985C0006D29FB /* Pac.m */; };
+		F955A98C19E985C0006D29FB /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98819E985C0006D29FB /* dot@2x.png */; };
+		F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98919E985C0006D29FB /* pac-bottom@2x.png */; };
+		F955A98E19E985C0006D29FB /* pac-top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98A19E985C0006D29FB /* pac-top@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,14 @@
 		F9272EF619E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		F9272EF719E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		F955A98019E982F2006D29FB /* CHQEatBeansRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQEatBeansRefreshView.h; sourceTree = "<group>"; };
+		F955A98119E982F2006D29FB /* CHQEatBeansRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQEatBeansRefreshView.m; sourceTree = "<group>"; };
+		F955A98419E985C0006D29FB /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
+		F955A98519E985C0006D29FB /* Pac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pac.h; sourceTree = "<group>"; };
+		F955A98619E985C0006D29FB /* Pac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pac.m; sourceTree = "<group>"; };
+		F955A98819E985C0006D29FB /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
+		F955A98919E985C0006D29FB /* pac-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pac-bottom@2x.png"; sourceTree = "<group>"; };
+		F955A98A19E985C0006D29FB /* pac-top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pac-top@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +167,7 @@
 		F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				F955A97F19E9827E006D29FB /* CHQEatBeansRefreshView */,
 				F9272EED19E3BC4A007A5C61 /* CHQArrowRefreshView.h */,
 				F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */,
 				F9272EEF19E3BC4A007A5C61 /* CHQSpiralRefreshView.h */,
@@ -172,6 +186,37 @@
 				F9272EF819E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m */,
 			);
 			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		F955A97F19E9827E006D29FB /* CHQEatBeansRefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				F955A98319E985C0006D29FB /* Characters */,
+				F955A98719E985C0006D29FB /* images */,
+				F955A98019E982F2006D29FB /* CHQEatBeansRefreshView.h */,
+				F955A98119E982F2006D29FB /* CHQEatBeansRefreshView.m */,
+			);
+			path = CHQEatBeansRefreshView;
+			sourceTree = "<group>";
+		};
+		F955A98319E985C0006D29FB /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				F955A98419E985C0006D29FB /* Character.h */,
+				F955A98519E985C0006D29FB /* Pac.h */,
+				F955A98619E985C0006D29FB /* Pac.m */,
+			);
+			path = Characters;
+			sourceTree = "<group>";
+		};
+		F955A98719E985C0006D29FB /* images */ = {
+			isa = PBXGroup;
+			children = (
+				F955A98819E985C0006D29FB /* dot@2x.png */,
+				F955A98919E985C0006D29FB /* pac-bottom@2x.png */,
+				F955A98A19E985C0006D29FB /* pac-top@2x.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +299,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F955A98C19E985C0006D29FB /* dot@2x.png in Resources */,
+				F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */,
 				F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */,
+				F955A98E19E985C0006D29FB /* pac-top@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,11 +320,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F955A98B19E985C0006D29FB /* Pac.m in Sources */,
 				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
 				F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
 				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
 				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
 				F9272EA219E27E09007A5C61 /* main.m in Sources */,

@@ -66,7 +66,7 @@
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    }WithCurrentTheme:CHQRefreshThemeSpiral];
+    }WithCurrentTheme:CHQRefreshThemeEatBeans];
     [_collectionView addInfiniteScrollingWithActionHandler:^{
         // append data to data source, insert new cells at the end of table view
         // call [tableView.infiniteScrollingView stopAnimating] when done
