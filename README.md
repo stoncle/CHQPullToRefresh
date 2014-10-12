@@ -42,7 +42,9 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 * CHQRefreshThemeArrow(Default)
   * normal refresh view with an arrow pointing directions.  
 * CHQRefreshThemeSpiral
-  * rectangle spiral from around gathering at middle.  
+  * rectangle spiral from around gathering at middle. 
+* CHQRefreshThemeEatBeans
+  * little bite eating beans.
 * New Theme coming soon...  
 
 ###You can design your own theme
