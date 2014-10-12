@@ -419,6 +419,7 @@
     
     [self setNeedsLayout];
     
+    
     switch (newState) {
         case CHQPullToRefreshStateStopped:
             [self resetScrollViewContentInset];
