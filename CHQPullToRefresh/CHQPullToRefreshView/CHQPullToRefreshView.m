@@ -8,7 +8,6 @@
 
 #import "CHQPullToRefreshView.h"
 #import "UIScrollView+SVPullToRefresh.h"
-static CGFloat const CHQPullToRefreshViewHeight = 60;
 
 @implementation CHQPullToRefreshView
 

@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#define CHQPullToRefreshViewHeight 60
+#define CHQPullToRefreshViewTriggerHeight 65
+#define CHQPullToRefreshViewHangingHeight 60
 typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
     CHQPullToRefreshStateStopped = 0,
     CHQPullToRefreshStateTriggered,

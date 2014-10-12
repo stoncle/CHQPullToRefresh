@@ -17,8 +17,6 @@
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
 
 
-static CGFloat const SVPullToRefreshViewHeight = 60;
-
 #pragma mark - UIScrollView (SVPullToRefresh)
 #import <objc/runtime.h>
 
@@ -38,16 +36,16 @@ static char UIScrollViewPullToRefreshView;
     if(!self.pullToRefreshView) {
         CHQPullToRefreshView *view;
         CGFloat yOrigin;
-        yOrigin = -SVPullToRefreshViewHeight;
+        yOrigin = -CHQPullToRefreshViewHeight;
         switch (theme) {
             case CHQRefreshThemeArrow:
-                view = [[CHQArrowRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQArrowRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             case CHQRefreshThemeSpiral:
-                view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             case CHQRefreshThemeEatBeans:
-                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");
@@ -75,16 +73,16 @@ static char UIScrollViewPullToRefreshView;
         [previousView removeFromSuperview];
         CHQPullToRefreshView *view;
         CGFloat yOrigin;
-        yOrigin = -SVPullToRefreshViewHeight;
+        yOrigin = -CHQPullToRefreshViewHeight;
         switch (theme) {
             case CHQRefreshThemeArrow:
-                view = [[CHQArrowRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQArrowRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             case CHQRefreshThemeSpiral:
-                view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             case CHQRefreshThemeEatBeans:
-                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");

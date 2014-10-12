@@ -15,8 +15,6 @@ typedef enum {
 } SpiralPullToRefreshWaitAnimation;
 
 @interface CHQSpiralRefreshView : CHQPullToRefreshView
-@property (nonatomic, readwrite) CHQPullToRefreshState currentState;
 @property (nonatomic, assign) SpiralPullToRefreshWaitAnimation waitingAnimation;
 @property (nonatomic, strong) NSArray *particles;
-- (void)didFinishRefresh;
 @end

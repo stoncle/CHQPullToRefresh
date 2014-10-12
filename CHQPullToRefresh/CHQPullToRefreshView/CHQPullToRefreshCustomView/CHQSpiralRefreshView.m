@@ -10,8 +10,6 @@
 #define ScreenWidth  self.frame.size.width
 
 #define SpiralPullToRefreshViewHeight 180
-#define SpiralPullToRefreshViewTriggerAreaHeight 65
-#define SpiralPullToRefreshViewHangingHeight 60
 #define SpiralPullToRefreshViewParticleSize 7
 
 #define SpiralPullToRefreshViewAnimationAngle (360.0 / 10.0)
@@ -44,12 +42,8 @@
 @end
 
 @implementation CHQSpiralRefreshView
-@synthesize pullToRefreshActionHandler;
-
+@synthesize state = _state;
 @synthesize waitingAnimation = _waitingAnimation;
-@synthesize currentState = _state;
-@synthesize scrollView = _scrollView;
-@synthesize showsPullToRefresh = _showsPullToRefresh;
 @synthesize particles = _particles;
 
 //init your customize view
@@ -58,7 +52,7 @@
         
         // default styling values
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.currentState = CHQPullToRefreshStateStopped;
+        self.state = CHQPullToRefreshStateStopped;
         
         self.backgroundColor = kBackgroundColor;
         self.clipsToBounds = YES;
@@ -140,7 +134,7 @@
 }
 
 - (void)layoutSubviews {
-    switch (self.currentState) {
+    switch (self.state) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
             [self changeSpiralColor:kSpiralNormalColor];
@@ -169,7 +163,7 @@
 - (void) contentOffsetChanged:(float)contentOffset {
     contentOffset = -contentOffset / 2;
     
-    if (isRefreshing || (!self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateLoading)) {
+    if (isRefreshing || (!self.scrollView.isDragging && self.state == CHQPullToRefreshStateLoading)) {
         return;
     }
     
@@ -177,11 +171,11 @@
         contentOffset = -10;
     }
     
-    if (contentOffset > SpiralPullToRefreshViewTriggerAreaHeight / 2) {
-        contentOffset = SpiralPullToRefreshViewTriggerAreaHeight / 2;
+    if (contentOffset > CHQPullToRefreshViewTriggerHeight / 2) {
+        contentOffset = CHQPullToRefreshViewTriggerHeight / 2;
     }
     
-    if (contentOffset == SpiralPullToRefreshViewTriggerAreaHeight / 2) {
+    if (contentOffset == CHQPullToRefreshViewTriggerHeight / 2) {
         [UIView animateWithDuration:0.3
                               delay:0.0
                             options: UIViewAnimationOptionCurveEaseOut
@@ -208,7 +202,7 @@
             
             UIView *particleView = self.particles [i];
             
-            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((SpiralPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewTriggerHeight / 2) + radius * sin(angle)));
         }
         lastOffset = contentOffset * 2;
     }
@@ -217,22 +211,22 @@
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
-    if(self.currentState != CHQPullToRefreshStateLoading) {
+    if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-        scrollOffsetThreshold = self.frame.origin.y - SpiralPullToRefreshViewHangingHeight;
-        if(!self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateTriggered)
-            self.currentState = CHQPullToRefreshStateLoading;
-        else if(((contentOffset.y < -SpiralPullToRefreshViewTriggerAreaHeight)) && self.scrollView.isDragging && self.currentState == CHQPullToRefreshStateStopped)
-            self.currentState = CHQPullToRefreshStateTriggered;
-        else if(contentOffset.y >= -SpiralPullToRefreshViewTriggerAreaHeight && self.currentState != CHQPullToRefreshStateStopped)
-            self.currentState = CHQPullToRefreshStateStopped;
+        scrollOffsetThreshold = self.frame.origin.y - CHQPullToRefreshViewHangingHeight;
+        if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
+            self.state = CHQPullToRefreshStateLoading;
+        else if(((contentOffset.y < -CHQPullToRefreshViewTriggerHeight)) && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
+            self.state = CHQPullToRefreshStateTriggered;
+        else if(contentOffset.y >= -CHQPullToRefreshViewTriggerHeight && self.state != CHQPullToRefreshStateStopped)
+            self.state = CHQPullToRefreshStateStopped;
     }
     else {
         CGFloat offset;
         UIEdgeInsets contentInset;
         NSLog(@"%f, %f", self.originalTopInset, self.bounds.size.height);
         offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, SpiralPullToRefreshViewHangingHeight);
+        offset = MIN(offset, CHQPullToRefreshViewHangingHeight);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
     }
@@ -240,7 +234,7 @@
 
 - (void)setScrollViewContentInsetForLoading {
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
-    currentInsets.top = SpiralPullToRefreshViewTriggerAreaHeight;
+    currentInsets.top = CHQPullToRefreshViewTriggerHeight;
     
     [self setScrollViewContentInset:currentInsets];
 }
@@ -358,7 +352,7 @@
             [animationTimer invalidate];
             animationTimer = nil;
             
-            self.currentState = CHQPullToRefreshStateStopped;
+            self.state = CHQPullToRefreshStateStopped;
             
             if (!self.wasTriggeredByUser) {
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0) animated:YES];
@@ -374,13 +368,13 @@
 }
 - (void)startAnimating {
     if (self.scrollView.contentOffset.y == 0) {
-        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -SpiralPullToRefreshViewTriggerAreaHeight) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -CHQPullToRefreshViewTriggerHeight) animated:YES];
         self.wasTriggeredByUser = NO;
     }
     else
         self.wasTriggeredByUser = YES;
     
-    self.currentState = CHQPullToRefreshStateLoading;
+    self.state = CHQPullToRefreshStateLoading;
     
     [animationTimer invalidate];
     animationTimer = nil;
@@ -415,7 +409,7 @@
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onAnimationTimer) userInfo:nil repeats:YES];
 }
 
-- (void)setCurrentState:(CHQPullToRefreshState)newState {
+- (void)setState:(CHQPullToRefreshState)newState {
     
     if (_state == newState)
         return;
@@ -438,8 +432,8 @@
             [self setScrollViewContentInsetForLoading];
             [self startAnimating];
             
-            if (previousState == CHQPullToRefreshStateTriggered && pullToRefreshActionHandler)
-                pullToRefreshActionHandler();
+            if (previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
+                self.pullToRefreshActionHandler();
             break;
             
         default: break;

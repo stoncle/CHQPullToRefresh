@@ -12,8 +12,6 @@
 #define kPixelsPerSecond 150
 #define kStartingNumberOfDots 5
 #define kMinNumberOfDots 3
-#define kCHQEatBeansRefreshViewHangingHeight 60
-#define kCHQEatBeansRefreshViewTriggerHeight 65
 @interface CHQEatBeansRefreshView()
 @property (nonatomic, assign) NSTimeInterval lastTime;
 @property (nonatomic, strong) CADisplayLink *displayLink;
@@ -124,19 +122,19 @@
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-        scrollOffsetThreshold = self.frame.origin.y - kCHQEatBeansRefreshViewHangingHeight;
+        scrollOffsetThreshold = self.frame.origin.y - CHQPullToRefreshViewHangingHeight;
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
-        else if(((contentOffset.y < -kCHQEatBeansRefreshViewTriggerHeight)) && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
+        else if(((contentOffset.y < -CHQPullToRefreshViewTriggerHeight)) && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateTriggered;
-        else if(contentOffset.y >= -kCHQEatBeansRefreshViewTriggerHeight && self.state != CHQPullToRefreshStateStopped)
+        else if(contentOffset.y >= -CHQPullToRefreshViewTriggerHeight && self.state != CHQPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateStopped;
     }
     else {
         CGFloat offset;
         UIEdgeInsets contentInset;
         offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, kCHQEatBeansRefreshViewHangingHeight);
+        offset = MIN(offset, CHQPullToRefreshViewHangingHeight);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
     }

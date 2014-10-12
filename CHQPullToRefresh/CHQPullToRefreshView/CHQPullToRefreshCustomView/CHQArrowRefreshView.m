@@ -9,7 +9,6 @@
 #import "CHQArrowRefreshView.h"
 #import "UIScrollView+SVPullToRefresh.h"
 
-#define kCHQPullToRefreshViewHeight 60
 @interface CHQPullToRefreshArrow : UIView
 
 @property (nonatomic, strong) UIColor *arrowColor;
@@ -17,26 +16,16 @@
 @end
 @interface CHQArrowRefreshView ()
 
-@property (nonatomic, copy) void (^pullToRefreshActionHandler)(void);
-
 @property (nonatomic, strong) CHQPullToRefreshArrow *arrow;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, strong, readwrite) UILabel *subtitleLabel;
-//@property (nonatomic, readwrite) CHQPullToRefreshState state;
 
 @property (nonatomic, strong) NSMutableArray *titles;
 @property (nonatomic, strong) NSMutableArray *subtitles;
-@property (nonatomic, strong) NSMutableArray *viewForState;
-
-@property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, readwrite) CGFloat originalTopInset;
-@property (nonatomic, readwrite) CGFloat originalBottomInset;
 
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
-@property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL showsDateLabel;
-@property(nonatomic, assign) BOOL isObserving;
 
 - (void)rotateArrow:(float)degrees hide:(BOOL)hide;
 
@@ -45,7 +34,7 @@
 @implementation CHQArrowRefreshView
 
 // public properties
-@synthesize pullToRefreshActionHandler, arrowColor, textColor, activityIndicatorViewColor, activityIndicatorViewStyle, lastUpdatedDate, dateFormatter;
+@synthesize arrowColor, textColor, activityIndicatorViewColor, activityIndicatorViewStyle, lastUpdatedDate, dateFormatter;
 
 @synthesize arrow = _arrow;
 @synthesize activityIndicatorView = _activityIndicatorView;
