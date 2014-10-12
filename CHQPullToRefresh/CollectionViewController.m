@@ -82,6 +82,10 @@
             [arr addObject:indexPath];
         }
         [d insertItemsAtIndexPaths:arr];
+        
+        srand((unsigned)time(0));
+        int i = rand() % 3;
+        [d changeCurrentRefreshThemeToTheme:i];
         [d.infiniteScrollingView stopAnimating];
     }];
     [self addConstraints];

@@ -58,13 +58,53 @@ static char UIScrollViewPullToRefreshView;
         {
             view.pullToRefreshActionHandler = actionHandler;
             view.scrollView = self;
-            [self addSubview:view];
+            [self insertSubview:view atIndex:0];
             
             view.originalTopInset = self.contentInset.top;
 //            view.originalBottomInset = self.contentInset.bottom;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
+    }
+}
+- (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme
+{
+    if(self.pullToRefreshView)
+    {
+        CHQPullToRefreshView *previousView = self.pullToRefreshView;
+        [previousView removeFromSuperview];
+        CHQPullToRefreshView *view;
+        CGFloat yOrigin;
+        yOrigin = -SVPullToRefreshViewHeight;
+        switch (theme) {
+            case CHQRefreshThemeArrow:
+                view = [[CHQArrowRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeSpiral:
+                view = [[CHQSpiralRefreshView alloc]initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeEatBeans:
+                view = [[CHQEatBeansRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight)];
+                break;
+            default:
+                NSLog(@"theme not found!");
+                return;
+                break;
+        }
+        if(view)
+        {
+            view.pullToRefreshActionHandler = previousView.pullToRefreshActionHandler;
+            view.scrollView = self;
+            [self addSubview:view];
+            
+            view.originalTopInset = self.contentInset.top;
+            self.pullToRefreshView = view;
+            self.showsPullToRefresh = YES;
+        }
+    }
+    else
+    {
+        NSLog(@"You may need to call [aScrollView addPullToRefreshWithActionHandler:WithCurrentTheme:] first to add a refresh view before changing its theme.");
     }
 }
 
