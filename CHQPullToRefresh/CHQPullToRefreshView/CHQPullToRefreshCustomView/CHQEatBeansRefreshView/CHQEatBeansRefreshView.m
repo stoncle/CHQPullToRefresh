@@ -42,7 +42,7 @@
         self.pac = [[Pac alloc] init];
         self.pac.center = CGPointMake(-(self.pac.frame.size.width / 2), frame.size.height / 2);
         [self addSubview:self.pac];
-        NSLog(@"%@", NSStringFromCGRect(self.pac.frame));
+//        NSLog(@"%@", NSStringFromCGRect(self.pac.frame));
         
         self.dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];
         for (int i = 0; i < kStartingNumberOfDots; ++i)
@@ -56,17 +56,24 @@
         self.dotSpacing = frame.size.width / kStartingNumberOfDots;
         [self reset];
     }
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_dotsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_dotsView)]];
     return self;
 }
 
 - (void)refresh
 {
+//    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
     if (self.state == CHQPullToRefreshStateLoading)
     {
         CGFloat diff = self.lastTime == 0 ? 0 : self.displayLink.timestamp - self.lastTime;
         [self refreshingWithDelta:diff];
         self.lastTime = self.displayLink.timestamp;
     }
+}
+
+- (void)layoutSubviews
+{
+    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
 }
 
 - (void)reset
@@ -81,12 +88,14 @@
         dot.transform = CGAffineTransformMakeScale(1, 1);
     }];
     self.dotsView.transform = CGAffineTransformMakeRotation(0);
+    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
 }
 
 - (void)refreshingWithDelta:(CGFloat)delta
 {
+    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
     [self.pac tick:delta];
-    NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
+//    NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
     if (self.pac.center.x < self.frame.size.width / 2)
     {
         for (UIImageView *dot in self.dots)
@@ -100,7 +109,7 @@
         CGRect frame = self.pac.frame;
         frame.origin.x = x;
         self.pac.frame = frame;
-        NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
+//        NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
     }
     else
     {
@@ -150,7 +159,8 @@
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     } else {
         if ([keyPath isEqualToString:@"frame"]) {
-            [self layoutSubviews];
+            [self setNeedsLayout];
+            [self layoutIfNeeded];
         }
     }
 }

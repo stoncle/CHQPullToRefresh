@@ -28,6 +28,7 @@
         self.state = CHQPullToRefreshStateStopped;
         
         self.wasTriggeredByUser = YES;
+        [self addNotifications];
     }
     
     return self;
@@ -47,6 +48,21 @@
             }
         }
     }
+}
+
+#pragma mark private methods
+- (void)addNotifications
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(statusBarFrameOrOrientationChanged:)
+     name:UIApplicationDidChangeStatusBarOrientationNotification
+     object:nil];
+}
+#pragma mark notificatios
+- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+{
+    
 }
 
 
@@ -73,7 +89,7 @@
                          self.scrollView.contentInset = contentInset;
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"%f", self.scrollView.contentInset.top);
+//                         NSLog(@"%f", self.scrollView.contentInset.top);
                      }];
 }
 
@@ -87,15 +103,17 @@
     if([keyPath isEqualToString:@"contentOffset"])
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     else if([keyPath isEqualToString:@"contentSize"]) {
-        [self layoutSubviews];
-        
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
         CGFloat yOrigin;
         yOrigin = -CHQPullToRefreshViewHeight;
         self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight);
     }
     else if([keyPath isEqualToString:@"frame"])
-        [self layoutSubviews];
-    
+    {
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {

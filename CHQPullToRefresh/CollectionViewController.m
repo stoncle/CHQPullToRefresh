@@ -66,7 +66,7 @@
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    }WithCurrentTheme:CHQRefreshThemeEatBeans];
+    }WithCurrentTheme:CHQRefreshThemeSpiral];
     [_collectionView addInfiniteScrollingWithActionHandler:^{
         // append data to data source, insert new cells at the end of table view
         // call [tableView.infiniteScrollingView stopAnimating] when done
@@ -81,7 +81,10 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
             [arr addObject:indexPath];
         }
-        [d insertItemsAtIndexPaths:arr];
+        [d performBatchUpdates:^{
+            [d insertItemsAtIndexPaths:arr];
+        } completion:^(BOOL finished) {}];
+        
         
         srand((unsigned)time(0));
         int i = rand() % 3;

@@ -63,6 +63,8 @@ static char UIScrollViewPullToRefreshView;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
+        
     }
 }
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme
