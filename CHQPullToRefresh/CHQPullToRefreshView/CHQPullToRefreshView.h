@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 - (void)rotateArrow:(float)degrees hide:(BOOL)hide;
 - (void)scrollViewDidScroll:(CGPoint)contentOffset;
 - (void)didFinishRefresh;
+- (void)addNotifications:(CHQPullToRefreshView *)view;
+- (void)removeNotifications:(CHQPullToRefreshView *)view;
 - (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification;
 @end
 

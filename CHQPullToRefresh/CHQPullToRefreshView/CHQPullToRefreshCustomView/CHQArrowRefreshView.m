@@ -162,6 +162,12 @@
     }
 }
 
+#pragma mark notificatios
+- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+{
+    
+}
+
 #pragma mark - Getters
 
 - (CHQPullToRefreshArrow *)arrow {

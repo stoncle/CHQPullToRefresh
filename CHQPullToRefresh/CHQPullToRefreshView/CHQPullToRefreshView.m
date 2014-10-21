@@ -28,7 +28,7 @@
         self.state = CHQPullToRefreshStateStopped;
         
         self.wasTriggeredByUser = YES;
-        [self addNotifications];
+//        [self addNotifications];
     }
     
     return self;
@@ -51,13 +51,20 @@
 }
 
 #pragma mark private methods
-- (void)addNotifications
+- (void)addNotifications:(CHQPullToRefreshView *)view
 {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(statusBarFrameOrOrientationChanged:)
-     name:UIApplicationDidChangeStatusBarOrientationNotification
-     object:nil];
+    if([view respondsToSelector:@selector(statusBarFrameOrOrientationChanged:)])
+    {
+        [[NSNotificationCenter defaultCenter]
+         addObserver:view
+         selector:@selector(statusBarFrameOrOrientationChanged:)
+         name:UIApplicationDidChangeStatusBarOrientationNotification
+         object:nil];
+    }
+}
+- (void)removeNotifications:(CHQPullToRefreshView *)view
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:view name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 #pragma mark notificatios
 - (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification

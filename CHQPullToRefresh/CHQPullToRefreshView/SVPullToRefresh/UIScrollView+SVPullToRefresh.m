@@ -72,6 +72,7 @@ static char UIScrollViewPullToRefreshView;
     if(self.pullToRefreshView)
     {
         CHQPullToRefreshView *previousView = self.pullToRefreshView;
+        [previousView removeNotifications:previousView];
         [previousView removeFromSuperview];
         CHQPullToRefreshView *view;
         CGFloat yOrigin;
@@ -95,6 +96,7 @@ static char UIScrollViewPullToRefreshView;
         {
             view.pullToRefreshActionHandler = previousView.pullToRefreshActionHandler;
             view.scrollView = self;
+            [view addNotifications:view];
             [self addSubview:view];
             
             view.originalTopInset = self.contentInset.top;

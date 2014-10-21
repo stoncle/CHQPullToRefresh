@@ -71,11 +71,11 @@
         // append data to data source, insert new cells at the end of table view
         // call [tableView.infiniteScrollingView stopAnimating] when done
         
-        NSLog(@"good");
+//        NSLog(@"good");
         int j = [a count];
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         
-        for(int i=0; i<10; i++)
+        for(int i=0; i<20; i++)
         {
             [a addObject:@"hhh"];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
@@ -133,12 +133,28 @@
     cell.backgroundColor = [UIColor grayColor];
     return cell;
 }
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static CGFloat duration = .3;
+    static NSUInteger xOffset = 0;
+    static NSUInteger yOffset = 300;
+    if(collectionView.visibleCells.count <12 && ![collectionView.visibleCells containsObject:cell])
+    {
+        cell.frame = CGRectMake(cell.frame.origin.x - xOffset, cell.frame.origin.y+yOffset, cell.frame.size.width, cell.frame.size.height);
+        [UIView animateWithDuration:duration
+                         animations:^{
+                             cell.frame = CGRectMake(cell.frame.origin.x + xOffset, cell.frame.origin.y - yOffset, cell.frame.size.width, cell.frame.size.height);
+                         } completion:^(BOOL finished) {
+                         }];
+    }
+}
+
 
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect r = [UIScreen mainScreen].applicationFrame;
-    NSLog(@"%f", r.size.width/3.05);
+//    NSLog(@"%f", r.size.width/3.05);
 	return CGSizeMake(r.size.width/3.05, r.size.width/3*1.15);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
