@@ -133,28 +133,6 @@
     }
 }
 
-- (void)scrollViewDidScroll:(CGPoint)contentOffset {
-    if(self.state != CHQPullToRefreshStateLoading) {
-        CGFloat scrollOffsetThreshold = 0;
-        scrollOffsetThreshold = self.frame.origin.y - CHQPullToRefreshViewHangingHeight;
-        if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
-            self.state = CHQPullToRefreshStateLoading;
-        else if(((contentOffset.y < -CHQPullToRefreshViewTriggerHeight)) && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
-            self.state = CHQPullToRefreshStateTriggered;
-        else if(contentOffset.y >= -CHQPullToRefreshViewTriggerHeight && self.state != CHQPullToRefreshStateStopped)
-            self.state = CHQPullToRefreshStateStopped;
-    }
-    else {
-        CGFloat offset;
-        UIEdgeInsets contentInset;
-        offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, CHQPullToRefreshViewHangingHeight);
-        contentInset = self.scrollView.contentInset;
-        self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
-    }
-}
-
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentOffset"]) {
         
@@ -174,10 +152,11 @@
 {
     CGFloat offset = self.scrollView.contentOffset.y;
     CGFloat percent = CGFLOAT_MAX;
+    NSLog(@"%f", self.frame.size.height);
     if (offset == 0)
         percent = offset;
     else if (offset < 0)
-        percent = MIN(ABS(offset) / self.frame.size.height, 1);
+        percent = MIN(ABS(offset) / (self.frame.size.height+self.originalTopInset), 1);
     
     if (percent < CGFLOAT_MAX)
     {
@@ -187,7 +166,7 @@
             dot.center = CGPointMake(x, dot.center.y);
             dot.transform = CGAffineTransformMakeScale(percent, percent);
         }];
-        self.dotsView.transform = CGAffineTransformMakeRotation(M_PI * ((1 - percent) * 90) / 180.0);
+        self.dotsView.transform = CGAffineTransformMakeScale(percent, percent);
 
     }
 }

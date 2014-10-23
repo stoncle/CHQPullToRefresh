@@ -10,4 +10,6 @@
 
 @interface CollectionViewCell : UICollectionViewCell
 
+@property (nonatomic, assign) BOOL everDisplayed;
+
 @end

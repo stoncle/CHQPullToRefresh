@@ -58,7 +58,12 @@ static char UIScrollViewPullToRefreshView;
             view.scrollView = self;
             [self insertSubview:view atIndex:0];
             
-            view.originalTopInset = self.contentInset.top;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                view.originalTopInset = self.contentInset.top;
+            } else {
+                //set to 64 if exists navigation bar, or any you want
+                view.originalTopInset = 64;
+            }
 //            view.originalBottomInset = self.contentInset.bottom;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;

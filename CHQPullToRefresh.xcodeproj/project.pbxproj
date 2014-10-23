@@ -24,6 +24,9 @@
 		F955A98C19E985C0006D29FB /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98819E985C0006D29FB /* dot@2x.png */; };
 		F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98919E985C0006D29FB /* pac-bottom@2x.png */; };
 		F955A98E19E985C0006D29FB /* pac-top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F955A98A19E985C0006D29FB /* pac-top@2x.png */; };
+		F996728B19F7E54E002C43AD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F996728A19F7E54E002C43AD /* DetailViewController.m */; };
+		F996728E19F7E600002C43AD /* ScaleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F996728D19F7E600002C43AD /* ScaleAnimation.m */; };
+		F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F996729019F7EA9B002C43AD /* BaseAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,12 @@
 		F955A98819E985C0006D29FB /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
 		F955A98919E985C0006D29FB /* pac-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pac-bottom@2x.png"; sourceTree = "<group>"; };
 		F955A98A19E985C0006D29FB /* pac-top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pac-top@2x.png"; sourceTree = "<group>"; };
+		F996728919F7E54E002C43AD /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		F996728A19F7E54E002C43AD /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		F996728C19F7E600002C43AD /* ScaleAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleAnimation.h; sourceTree = "<group>"; };
+		F996728D19F7E600002C43AD /* ScaleAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleAnimation.m; sourceTree = "<group>"; };
+		F996728F19F7EA9B002C43AD /* BaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAnimation.h; sourceTree = "<group>"; };
+		F996729019F7EA9B002C43AD /* BaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +121,10 @@
 		F9272E9E19E27E09007A5C61 /* CHQPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
+				F996728F19F7EA9B002C43AD /* BaseAnimation.h */,
+				F996729019F7EA9B002C43AD /* BaseAnimation.m */,
+				F996728C19F7E600002C43AD /* ScaleAnimation.h */,
+				F996728D19F7E600002C43AD /* ScaleAnimation.m */,
 				F9272EEB19E3BC4A007A5C61 /* CHQPullToRefreshView */,
 				F9272EC519E27EF0007A5C61 /* AppDelegate.h */,
 				F9272EC619E27EF0007A5C61 /* AppDelegate.m */,
@@ -123,6 +136,8 @@
 				F9272ECC19E27EF0007A5C61 /* CollectionViewHeader.m */,
 				F9272EAC19E27E09007A5C61 /* Images.xcassets */,
 				F9272E9F19E27E09007A5C61 /* Supporting Files */,
+				F996728919F7E54E002C43AD /* DetailViewController.h */,
+				F996728A19F7E54E002C43AD /* DetailViewController.m */,
 			);
 			path = CHQPullToRefresh;
 			sourceTree = "<group>";
@@ -321,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F955A98B19E985C0006D29FB /* Pac.m in Sources */,
+				F996728E19F7E600002C43AD /* ScaleAnimation.m in Sources */,
 				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
 				F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
@@ -328,7 +344,9 @@
 				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
+				F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */,
 				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
+				F996728B19F7E54E002C43AD /* DetailViewController.m in Sources */,
 				F9272EA219E27E09007A5C61 /* main.m in Sources */,
 				F9272EF919E3BC4B007A5C61 /* CHQArrowRefreshView.m in Sources */,
 				F9272EFB19E3BC4B007A5C61 /* CHQPullToRefreshView.m in Sources */,

@@ -194,11 +194,11 @@
         contentOffset = -10;
     }
     
-    if (contentOffset > CHQPullToRefreshViewTriggerHeight / 2) {
-        contentOffset = CHQPullToRefreshViewTriggerHeight / 2;
+    if (contentOffset > CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2) {
+        contentOffset = CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2;
     }
     
-    if (contentOffset == CHQPullToRefreshViewTriggerHeight / 2) {
+    if (contentOffset == CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2) {
         [UIView animateWithDuration:0.3
                               delay:0.0
                             options: UIViewAnimationOptionCurveEaseOut
@@ -220,46 +220,17 @@
         
         for (int i=0; i<self.particles.count; i++) {
             
-            float angle = - (i * SpiralPullToRefreshViewAnimationAngle + contentOffset + 100) * M_PI / 180;
-            float radius = 130 - (contentOffset * 4);
+            float angle = - (i * SpiralPullToRefreshViewAnimationAngle + contentOffset + (-self.originalTopInset) / 2 + 100) * M_PI / 180;
+            float radius = 130 - ((contentOffset + (-self.originalTopInset) / 2) * 4);
             
             UIView *particleView = self.particles [i];
             
-            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewTriggerHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewHangingHeight / 2) + radius * sin(angle)));
         }
-        lastOffset = contentOffset * 2;
+        lastOffset = (contentOffset + (-self.originalTopInset) / 2)* 2;
     }
     
     [self setNeedsDisplay];
-}
-
-- (void)scrollViewDidScroll:(CGPoint)contentOffset {
-    if(self.state != CHQPullToRefreshStateLoading) {
-        CGFloat scrollOffsetThreshold = 0;
-        scrollOffsetThreshold = self.frame.origin.y - CHQPullToRefreshViewHangingHeight;
-        if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
-            self.state = CHQPullToRefreshStateLoading;
-        else if(((contentOffset.y < -CHQPullToRefreshViewTriggerHeight)) && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
-            self.state = CHQPullToRefreshStateTriggered;
-        else if(contentOffset.y >= -CHQPullToRefreshViewTriggerHeight && self.state != CHQPullToRefreshStateStopped)
-            self.state = CHQPullToRefreshStateStopped;
-    }
-    else {
-        CGFloat offset;
-        UIEdgeInsets contentInset;
-//        NSLog(@"%f, %f", self.originalTopInset, self.bounds.size.height);
-        offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, CHQPullToRefreshViewHangingHeight);
-        contentInset = self.scrollView.contentInset;
-        self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
-    }
-}
-
-- (void)setScrollViewContentInsetForLoading {
-    UIEdgeInsets currentInsets = self.scrollView.contentInset;
-    currentInsets.top = CHQPullToRefreshViewTriggerHeight;
-    
-    [self setScrollViewContentInset:currentInsets];
 }
 
 - (void)setWaitingAnimation:(SpiralPullToRefreshWaitAnimation)waitingAnimation {
