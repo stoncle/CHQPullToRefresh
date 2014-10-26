@@ -2,12 +2,13 @@ CHQPullToRefresh
 ================
 base on [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by [@samvermette](https://github.com/samvermette)  
 
-Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.  
+Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing.
 Being a catagory of UIScrollView, you may find the following methods in it:  
 ```Objective-C
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
 ```
 ##Installation
 * Drag the CHQPullToRefreshView folder into your project.
@@ -25,6 +26,12 @@ Being a catagory of UIScrollView, you may find the following methods in it:
         // prepend data to dataSource, insert cells at top of table view
         // call [collectionView.pullToRefreshView stopAnimating] when done
     } WithCurrentTheme:CHQRefreshThemeDefault];
+###Adding Pull to Refresh with gif picture
+    [_collectionView addPullToRefreshWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        // call [collectionView.pullToRefreshView stopAnimating] when done
+        });
+    } WithProgressImageName:@"cat.gif" RefreshingImageName:@"run@2x.gif"];
 ###Adding Infinite Scrolling
     [tableView addInfiniteScrollingWithActionHandler:^{
     // append data to data source, insert new cells at the end of table view
