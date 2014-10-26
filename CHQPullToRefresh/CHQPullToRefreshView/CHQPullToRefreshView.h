@@ -31,9 +31,9 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 
 - (void)startAnimating;
 - (void)stopAnimating;
-- (void)resetScrollViewContentInset;
+- (void)resetScrollViewContentInset:(void (^)(void))actionHandler;
 - (void)setScrollViewContentInsetForLoading;
-- (void)setScrollViewContentInset:(UIEdgeInsets)insets;
+- (void)setScrollViewContentInset:(UIEdgeInsets)insets Handler:(void (^)(void))actionHandler;
 - (void)rotateArrow:(float)degrees hide:(BOOL)hide;
 - (void)scrollViewDidScroll:(CGPoint)contentOffset;
 - (void)didFinishRefresh;

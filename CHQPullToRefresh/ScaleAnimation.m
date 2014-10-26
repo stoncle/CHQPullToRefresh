@@ -87,7 +87,7 @@
 }
 
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.6;
+    return 0.3;
 }
 
 -(void)animationEnded:(BOOL)transitionCompleted {

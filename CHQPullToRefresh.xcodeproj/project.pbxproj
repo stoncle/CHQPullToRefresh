@@ -27,6 +27,14 @@
 		F996728B19F7E54E002C43AD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F996728A19F7E54E002C43AD /* DetailViewController.m */; };
 		F996728E19F7E600002C43AD /* ScaleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F996728D19F7E600002C43AD /* ScaleAnimation.m */; };
 		F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F996729019F7EA9B002C43AD /* BaseAnimation.m */; };
+		F99672A219FBC107002C43AD /* CHQGIFRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F99672A119FBC107002C43AD /* CHQGIFRefreshView.m */; };
+		F99672AA19FCEED6002C43AD /* cat.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A419FCEED6002C43AD /* cat.gif */; };
+		F99672AB19FCEED6002C43AD /* cupido@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A519FCEED6002C43AD /* cupido@2x.gif */; };
+		F99672AC19FCEED6002C43AD /* jgr@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A619FCEED6002C43AD /* jgr@2x.gif */; };
+		F99672AD19FCEED6002C43AD /* Preloader_10@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A719FCEED6002C43AD /* Preloader_10@2x.gif */; };
+		F99672AE19FCEED6002C43AD /* run@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A819FCEED6002C43AD /* run@2x.gif */; };
+		F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */; };
+		F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +88,16 @@
 		F996728D19F7E600002C43AD /* ScaleAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleAnimation.m; sourceTree = "<group>"; };
 		F996728F19F7EA9B002C43AD /* BaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAnimation.h; sourceTree = "<group>"; };
 		F996729019F7EA9B002C43AD /* BaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAnimation.m; sourceTree = "<group>"; };
+		F99672A019FBC107002C43AD /* CHQGIFRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQGIFRefreshView.h; sourceTree = "<group>"; };
+		F99672A119FBC107002C43AD /* CHQGIFRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQGIFRefreshView.m; sourceTree = "<group>"; };
+		F99672A419FCEED6002C43AD /* cat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cat.gif; sourceTree = "<group>"; };
+		F99672A519FCEED6002C43AD /* cupido@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "cupido@2x.gif"; sourceTree = "<group>"; };
+		F99672A619FCEED6002C43AD /* jgr@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "jgr@2x.gif"; sourceTree = "<group>"; };
+		F99672A719FCEED6002C43AD /* Preloader_10@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Preloader_10@2x.gif"; sourceTree = "<group>"; };
+		F99672A819FCEED6002C43AD /* run@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "run@2x.gif"; sourceTree = "<group>"; };
+		F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "spinner_dropbox@2x.gif"; sourceTree = "<group>"; };
+		F99672B119FCF035002C43AD /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
+		F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +200,7 @@
 		F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				F996729F19FBC0D5002C43AD /* CHQGIFRefreshView */,
 				F955A97F19E9827E006D29FB /* CHQEatBeansRefreshView */,
 				F9272EED19E3BC4A007A5C61 /* CHQArrowRefreshView.h */,
 				F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */,
@@ -232,6 +251,39 @@
 				F955A98A19E985C0006D29FB /* pac-top@2x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		F996729F19FBC0D5002C43AD /* CHQGIFRefreshView */ = {
+			isa = PBXGroup;
+			children = (
+				F99672B019FCF035002C43AD /* AnimatedGIFImageSerialization */,
+				F99672A319FBC850002C43AD /* gifs */,
+				F99672A019FBC107002C43AD /* CHQGIFRefreshView.h */,
+				F99672A119FBC107002C43AD /* CHQGIFRefreshView.m */,
+			);
+			path = CHQGIFRefreshView;
+			sourceTree = "<group>";
+		};
+		F99672A319FBC850002C43AD /* gifs */ = {
+			isa = PBXGroup;
+			children = (
+				F99672A419FCEED6002C43AD /* cat.gif */,
+				F99672A519FCEED6002C43AD /* cupido@2x.gif */,
+				F99672A619FCEED6002C43AD /* jgr@2x.gif */,
+				F99672A719FCEED6002C43AD /* Preloader_10@2x.gif */,
+				F99672A819FCEED6002C43AD /* run@2x.gif */,
+				F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */,
+			);
+			path = gifs;
+			sourceTree = "<group>";
+		};
+		F99672B019FCF035002C43AD /* AnimatedGIFImageSerialization */ = {
+			isa = PBXGroup;
+			children = (
+				F99672B119FCF035002C43AD /* AnimatedGIFImageSerialization.h */,
+				F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */,
+			);
+			path = AnimatedGIFImageSerialization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,10 +366,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99672AC19FCEED6002C43AD /* jgr@2x.gif in Resources */,
 				F955A98C19E985C0006D29FB /* dot@2x.png in Resources */,
+				F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */,
+				F99672AB19FCEED6002C43AD /* cupido@2x.gif in Resources */,
 				F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */,
+				F99672AA19FCEED6002C43AD /* cat.gif in Resources */,
 				F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */,
 				F955A98E19E985C0006D29FB /* pac-top@2x.png in Resources */,
+				F99672AE19FCEED6002C43AD /* run@2x.gif in Resources */,
+				F99672AD19FCEED6002C43AD /* Preloader_10@2x.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F955A98B19E985C0006D29FB /* Pac.m in Sources */,
+				F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */,
 				F996728E19F7E600002C43AD /* ScaleAnimation.m in Sources */,
 				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
@@ -345,6 +404,7 @@
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
 				F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */,
+				F99672A219FBC107002C43AD /* CHQGIFRefreshView.m in Sources */,
 				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
 				F996728B19F7E54E002C43AD /* DetailViewController.m in Sources */,
 				F9272EA219E27E09007A5C61 /* main.m in Sources */,

@@ -42,7 +42,7 @@
             if (self.isObserving) {
                 //If enter this branch, it is the moment just before "CHQPullToRefreshView's dealloc", so remove observer here
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-                [scrollView removeObserver:self forKeyPath:@"contentSize"];
+//                [scrollView removeObserver:self forKeyPath:@"contentSize"];
                 [scrollView removeObserver:self forKeyPath:@"frame"];
                 self.isObserving = NO;
             }
@@ -75,20 +75,21 @@
 
 #pragma mark - Scroll View
 
-- (void)resetScrollViewContentInset {
+- (void)resetScrollViewContentInset:(void (^)(void))actionHandler{
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.top = self.originalTopInset;
-    [self setScrollViewContentInset:currentInsets];
+    [self setScrollViewContentInset:currentInsets Handler:actionHandler];
 }
 
 - (void)setScrollViewContentInsetForLoading {
     CGFloat offset = MAX(self.scrollView.contentOffset.y * -1, 0);
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.top = MIN(offset, self.originalTopInset + self.bounds.size.height);
-    [self setScrollViewContentInset:currentInsets];
+    [self setScrollViewContentInset:currentInsets
+                            Handler:nil];
 }
 
-- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset {
+- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset Handler:(void (^)(void))actionHandler{
     [UIView animateWithDuration:0.3
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
@@ -96,6 +97,10 @@
                          self.scrollView.contentInset = contentInset;
                      }
                      completion:^(BOOL finished){
+                         if(actionHandler)
+                         {
+                             actionHandler();
+                         }
 //                         NSLog(@"%f", self.scrollView.contentInset.top);
                      }];
 }
@@ -124,6 +129,11 @@
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
+    if([self respondsToSelector:@selector(doSomethingWhenScrolling:)])
+    {
+        NSArray *contentOffsetArr = [NSArray arrayWithObjects:[NSNumber numberWithFloat:contentOffset.x], [NSNumber numberWithFloat:contentOffset.y], nil];
+        [self performSelector:@selector(doSomethingWhenScrolling:) withObject:contentOffsetArr];
+    }
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
         NSLog(@"%f", self.frame.origin.y);
@@ -189,7 +199,7 @@
     switch (newState) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
-            [self resetScrollViewContentInset];
+            [self resetScrollViewContentInset:nil];
             break;
             
         case CHQPullToRefreshStateTriggered:
@@ -197,12 +207,12 @@
             
         case CHQPullToRefreshStateLoading:
             [self setScrollViewContentInsetForLoading];
-            if(previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
-                self.pullToRefreshActionHandler();
             if([self respondsToSelector:@selector(doSomethingWhenStartingAnimating)])
             {
                 [self performSelector:@selector(doSomethingWhenStartingAnimating)];
             }
+            if(previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
+                self.pullToRefreshActionHandler();
             break;
     }
 }

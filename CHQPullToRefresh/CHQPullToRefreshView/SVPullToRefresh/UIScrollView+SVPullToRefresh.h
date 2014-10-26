@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
 - (void)triggerPullToRefresh;
 
 @property (nonatomic, strong, readonly) CHQPullToRefreshView *pullToRefreshView;

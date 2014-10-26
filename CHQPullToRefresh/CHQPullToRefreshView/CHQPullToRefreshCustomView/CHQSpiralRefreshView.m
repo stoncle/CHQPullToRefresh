@@ -416,7 +416,7 @@
     
     switch (newState) {
         case CHQPullToRefreshStateStopped:
-            [self resetScrollViewContentInset];
+            [self resetScrollViewContentInset:nil];
             break;
             
         case CHQPullToRefreshStateTriggered:

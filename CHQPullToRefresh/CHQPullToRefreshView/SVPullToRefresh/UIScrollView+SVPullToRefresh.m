@@ -12,6 +12,7 @@
 #import "CHQSpiralRefreshView.h"
 #import "CHQArrowRefreshView.h"
 #import "CHQEatBeansRefreshView.h"
+#import "CHQGIFRefreshView.h"
 
 
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
@@ -72,6 +73,37 @@ static char UIScrollViewPullToRefreshView;
         
     }
 }
+
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName
+{
+    if(!self.pullToRefreshView) {
+        CHQPullToRefreshView *view;
+        CGFloat yOrigin;
+        yOrigin = -CHQPullToRefreshViewHeight;
+            UIImage *progressImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:progressImageName]];
+            UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:refreshingImageName]];
+        view = [[CHQGIFRefreshView alloc] initWithProgressImage:progressImage RefreshingImage:refreshingImage WithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
+            view.pullToRefreshActionHandler = actionHandler;
+            view.scrollView = self;
+        view.backgroundColor = [UIColor whiteColor];
+            
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+                view.originalTopInset = self.contentInset.top;
+            } else {
+                //set to 64 if exists navigation bar, or any you want
+                view.originalTopInset = 64;
+            }
+            //            view.originalBottomInset = self.contentInset.bottom;
+            self.pullToRefreshView = view;
+            self.showsPullToRefresh = YES;
+        
+        [self addSubview:view];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
+        
+    }
+}
+
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme
 {
     if(self.pullToRefreshView)
@@ -140,14 +172,14 @@ static char UIScrollViewPullToRefreshView;
             [self removeObserver:self.pullToRefreshView forKeyPath:@"contentOffset"];
 //            [self removeObserver:self.pullToRefreshView forKeyPath:@"contentSize"];
             [self removeObserver:self.pullToRefreshView forKeyPath:@"frame"];
-            [self.pullToRefreshView resetScrollViewContentInset];
+            [self.pullToRefreshView resetScrollViewContentInset :nil];
             self.pullToRefreshView.isObserving = NO;
         }
     }
     else {
         if (!self.pullToRefreshView.isObserving) {
             [self addObserver:self.pullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-            [self addObserver:self.pullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+//            [self addObserver:self.pullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.pullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
             self.pullToRefreshView.isObserving = YES;
             
