@@ -35,6 +35,7 @@
 		F99672AE19FCEED6002C43AD /* run@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A819FCEED6002C43AD /* run@2x.gif */; };
 		F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */; };
 		F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */; };
+		F9A9AEC319FEA48B001DCA70 /* CHQInfiniteScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "spinner_dropbox@2x.gif"; sourceTree = "<group>"; };
 		F99672B119FCF035002C43AD /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
 		F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
+		F9A9AEC119FEA48B001DCA70 /* CHQInfiniteScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQInfiniteScrollingView.h; sourceTree = "<group>"; };
+		F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQInfiniteScrollingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,10 +192,13 @@
 		F9272EEB19E3BC4A007A5C61 /* CHQPullToRefreshView */ = {
 			isa = PBXGroup;
 			children = (
+				F9A9AEC019FEA458001DCA70 /* CHQInfiniteScrollingCustomView */,
 				F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */,
 				F9272EF119E3BC4B007A5C61 /* CHQPullToRefreshView.h */,
 				F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */,
 				F9272EF319E3BC4B007A5C61 /* SVPullToRefresh */,
+				F9A9AEC119FEA48B001DCA70 /* CHQInfiniteScrollingView.h */,
+				F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */,
 			);
 			path = CHQPullToRefreshView;
 			sourceTree = "<group>";
@@ -284,6 +290,13 @@
 				F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */,
 			);
 			path = AnimatedGIFImageSerialization;
+			sourceTree = "<group>";
+		};
+		F9A9AEC019FEA458001DCA70 /* CHQInfiniteScrollingCustomView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CHQInfiniteScrollingCustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +417,7 @@
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
 				F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */,
+				F9A9AEC319FEA48B001DCA70 /* CHQInfiniteScrollingView.m in Sources */,
 				F99672A219FBC107002C43AD /* CHQGIFRefreshView.m in Sources */,
 				F9272EDA19E27EF0007A5C61 /* CollectionViewCell.m in Sources */,
 				F996728B19F7E54E002C43AD /* DetailViewController.m in Sources */,
