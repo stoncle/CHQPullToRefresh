@@ -133,21 +133,6 @@
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentOffset"]) {
-        
-        CGPoint oldOffset = [[change objectForKey:NSKeyValueChangeOldKey] CGPointValue];
-        
-        [self contentOffsetChanged: oldOffset.y];
-        [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
-    } else {
-        if ([keyPath isEqualToString:@"frame"]) {
-            [self setNeedsLayout];
-            [self layoutIfNeeded];
-        }
-    }
-}
-
 - (void) contentOffsetChanged:(float)contentOffset
 {
     CGFloat offset = self.scrollView.contentOffset.y;

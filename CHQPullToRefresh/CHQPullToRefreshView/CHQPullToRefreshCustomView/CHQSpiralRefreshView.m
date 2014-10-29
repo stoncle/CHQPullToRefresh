@@ -43,7 +43,6 @@
 @end
 
 @implementation CHQSpiralRefreshView
-@synthesize state = _state;
 @synthesize waitingAnimation = _waitingAnimation;
 @synthesize particles = _particles;
 
@@ -117,22 +116,6 @@
                        topLeftView, topCenterView, topRightView];
     }
     return self;
-}
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentOffset"]) {
-        
-        CGPoint oldOffset = [[change objectForKey:NSKeyValueChangeOldKey] CGPointValue];
-        
-        [self contentOffsetChanged: oldOffset.y];
-        [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
-    } else {
-        if ([keyPath isEqualToString:@"frame"]) {
-            [self setNeedsLayout];
-            [self layoutIfNeeded];
-        }
-    }
 }
 
 - (void)layoutSubviews {
@@ -318,58 +301,40 @@
 }
 
 - (void)onAnimationTimer {
-    
     if (isRefreshing) {
-        
         switch (self.waitingAnimation) {
             case SpiralPullToRefreshWaitAnimationRandom: {
                 [self doAnimationStepForRandomWaitingAnimation];
             }
                 break;
-                
             case SpiralPullToRefreshWaitAnimationLinear: {
                 [self doAnimationStepForLinearWaitingAnimation];
             }
                 break;
-                
             case SpiralPullToRefreshWaitAnimationCircular: {
                 [self doAnimationStepForCircularWaitingAnimation];
             }
                 break;
-                
             default:
                 break;
         }
-        
     } else {
         if (lastOffset < 30) {
             [animationTimer invalidate];
             animationTimer = nil;
-            
             self.state = CHQPullToRefreshStateStopped;
-            
             if (!self.wasTriggeredByUser) {
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0) animated:YES];
             }
-            
             return;
         }
-        
         lastOffset -= 2;
-        
         [self contentOffsetChanged:-lastOffset];
     }
 }
-- (void)startAnimating {
-    if (self.scrollView.contentOffset.y == 0) {
-        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -CHQPullToRefreshViewTriggerHeight) animated:YES];
-        self.wasTriggeredByUser = NO;
-    }
-    else
-        self.wasTriggeredByUser = YES;
-    
-    self.state = CHQPullToRefreshStateLoading;
-    
+
+- (void)doSomethingWhenStartingAnimating
+{
     [animationTimer invalidate];
     animationTimer = nil;
     
@@ -377,62 +342,24 @@
     animationStep = 0;
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onAnimationTimer) userInfo:nil repeats:YES];
 }
-- (void)stopAnimating
+
+- (void)doSomethingWhenStopingAnimating
 {
     if (isRefreshing == NO) {
         return;
     }
-    
     isRefreshing = NO;
-    
     NSArray *particles = @[bottomLeftView, bottomCenterView, bottomRightView,
                            middleLeftView, middleCenterView, middleRightView,
                            topLeftView, topCenterView, topRightView];
-    
     for (int i=0; i<particles.count; i++) {
         UIView *particleView = particles [i];
-        
         particleView.backgroundColor = kSpiralFinishColor;
     }
-    
     [self setNeedsDisplay];
-    
     [animationTimer invalidate];
     animationTimer = nil;
-    
-    animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onAnimationTimer) userInfo:nil repeats:YES];
 }
 
-- (void)setState:(CHQPullToRefreshState)newState {
-    
-    if (_state == newState)
-        return;
-    
-    CHQPullToRefreshState previousState = _state;
-    _state = newState;
-    
-    [self setNeedsLayout];
-    
-    
-    switch (newState) {
-        case CHQPullToRefreshStateStopped:
-            [self resetScrollViewContentInset:nil];
-            break;
-            
-        case CHQPullToRefreshStateTriggered:
-            break;
-            
-        case CHQPullToRefreshStateLoading:
-            
-            [self setScrollViewContentInsetForLoading];
-            [self startAnimating];
-            
-            if (previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
-                self.pullToRefreshActionHandler();
-            break;
-            
-        default: break;
-    }
-}
 
 @end

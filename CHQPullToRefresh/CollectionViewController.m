@@ -81,7 +81,7 @@
 //        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 //            [d.pullToRefreshView stopAnimating];
 //        });
-//    } WithCurrentTheme:CHQRefreshThemeEatBeans];
+//    } WithCurrentTheme:CHQRefreshThemeSpiral];
     [_collectionView addPullToRefreshWithActionHandler:^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         if(a.count > 20)
@@ -98,7 +98,7 @@
             [d deleteItemsAtIndexPaths:arr];
         }
         
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC));
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });

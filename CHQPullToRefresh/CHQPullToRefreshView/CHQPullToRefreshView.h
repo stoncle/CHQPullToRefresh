@@ -27,14 +27,15 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property(nonatomic, assign) BOOL isObserving;
-@property (nonatomic, strong) NSMutableArray *viewForState;
 
+- (void)doSomethingWhenStartingAnimating;
+- (void)doSomethingWhenStopingAnimating;
 - (void)startAnimating;
 - (void)stopAnimating;
 - (void)resetScrollViewContentInset:(void (^)(void))actionHandler;
 - (void)setScrollViewContentInsetForLoading;
 - (void)setScrollViewContentInset:(UIEdgeInsets)insets Handler:(void (^)(void))actionHandler;
-- (void)rotateArrow:(float)degrees hide:(BOOL)hide;
+- (void)contentOffsetChanged:(float)contentOffset;
 - (void)scrollViewDidScroll:(CGPoint)contentOffset;
 - (void)didFinishRefresh;
 - (void)addNotifications:(CHQPullToRefreshView *)view;

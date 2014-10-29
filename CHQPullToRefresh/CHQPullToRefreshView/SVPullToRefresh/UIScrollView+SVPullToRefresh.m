@@ -57,6 +57,7 @@ static char UIScrollViewPullToRefreshView;
         {
             view.pullToRefreshActionHandler = actionHandler;
             view.scrollView = self;
+            [view addNotifications:view];
             [self insertSubview:view atIndex:0];
             
             if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {

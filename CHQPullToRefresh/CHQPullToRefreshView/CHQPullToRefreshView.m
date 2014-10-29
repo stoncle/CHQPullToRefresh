@@ -113,14 +113,23 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
+    {
+        if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y > 0)
+        {
+            return;
+        }
+        CGPoint oldOffset = [[change objectForKey:NSKeyValueChangeOldKey] CGPointValue];
+        
+        [self contentOffsetChanged: oldOffset.y];
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
-    else if([keyPath isEqualToString:@"contentSize"]) {
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-        CGFloat yOrigin;
-        yOrigin = -CHQPullToRefreshViewHeight;
-        self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight);
     }
+//    else if([keyPath isEqualToString:@"contentSize"]) {
+//        [self setNeedsLayout];
+//        [self layoutIfNeeded];
+//        CGFloat yOrigin;
+//        yOrigin = -CHQPullToRefreshViewHeight;
+//        self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight);
+//    }
     else if([keyPath isEqualToString:@"frame"])
     {
         [self setNeedsLayout];
@@ -128,12 +137,18 @@
     }
 }
 
+- (void) contentOffsetChanged:(float)contentOffset {
+
+}
+
+- (void)doSomethingWhenScrolling:(NSArray *)contentOffsetArr
+{
+    
+}
+
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
-    if([self respondsToSelector:@selector(doSomethingWhenScrolling:)])
-    {
-        NSArray *contentOffsetArr = [NSArray arrayWithObjects:[NSNumber numberWithFloat:contentOffset.x], [NSNumber numberWithFloat:contentOffset.y], nil];
-        [self performSelector:@selector(doSomethingWhenScrolling:) withObject:contentOffsetArr];
-    }
+    NSArray *contentOffsetArr = [NSArray arrayWithObjects:[NSNumber numberWithFloat:contentOffset.x], [NSNumber numberWithFloat:contentOffset.y], nil];
+    [self doSomethingWhenScrolling:contentOffsetArr];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
         NSLog(@"%f", self.frame.origin.y);
@@ -163,23 +178,33 @@
     [self.scrollView triggerPullToRefresh];
 }
 
+- (void)doSomethingWhenStartingAnimating
+{
+    
+}
+
 - (void)startAnimating{
+    [self doSomethingWhenStartingAnimating];
+    
     if(fequalzero(self.scrollView.contentOffset.y)) {
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.frame.size.height) animated:YES];
         self.wasTriggeredByUser = NO;
     }
     else
         self.wasTriggeredByUser = YES;
-    self.state = CHQPullToRefreshStateLoading;
+    if(self.pullToRefreshActionHandler)
+        self.pullToRefreshActionHandler();
+    
+}
+
+- (void)doSomethingWhenStopingAnimating
+{
     
 }
 
 - (void)stopAnimating {
     self.state = CHQPullToRefreshStateStopped;
-    if([self respondsToSelector:@selector(doSomethingWhenStopingAnimating)])
-    {
-        [self performSelector:@selector(doSomethingWhenStopingAnimating)];
-    }
+    [self doSomethingWhenStopingAnimating];
     
             if(!self.wasTriggeredByUser)
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
@@ -207,12 +232,7 @@
             
         case CHQPullToRefreshStateLoading:
             [self setScrollViewContentInsetForLoading];
-            if([self respondsToSelector:@selector(doSomethingWhenStartingAnimating)])
-            {
-                [self performSelector:@selector(doSomethingWhenStartingAnimating)];
-            }
-            if(previousState == CHQPullToRefreshStateTriggered && self.pullToRefreshActionHandler)
-                self.pullToRefreshActionHandler();
+            [self startAnimating];
             break;
     }
 }

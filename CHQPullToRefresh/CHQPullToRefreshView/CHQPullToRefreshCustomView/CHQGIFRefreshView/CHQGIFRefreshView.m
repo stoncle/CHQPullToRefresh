@@ -50,6 +50,7 @@
     self.imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
     self.imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
     self.imageViewProgress.frame = self.bounds;
+    NSLog(@"%f, %f", self.imageViewProgress.frame.size.width, self.imageViewProgress.frame.size.height);
     self.imageViewProgress.backgroundColor = [UIColor clearColor];
     [self addSubview:self.imageViewProgress];
     
