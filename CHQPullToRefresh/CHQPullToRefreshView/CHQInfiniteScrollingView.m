@@ -5,8 +5,7 @@
 //  Created by 陈鸿强 on 10/28/14.
 //  Copyright (c) 2014 陈鸿强. All rights reserved.
 //
-
-#import "CHQInfiniteScrollingView.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 @implementation CHQInfiniteScrollingView
 
@@ -21,11 +20,10 @@
     if(self = [super initWithFrame:frame]) {
         
         // default styling values
-        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.state = CHQInfiniteScrollingStateStopped;
         self.enabled = YES;
-        
         self.viewForState = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
     }
     
@@ -38,7 +36,7 @@
         if (scrollView.showsInfiniteScrolling) {
             if (self.isObserving) {
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-                //            [scrollView removeObserver:self forKeyPath:@"contentSize"];
+                [scrollView removeObserver:self forKeyPath:@"contentSize"];
                 self.isObserving = NO;
             }
         }
@@ -46,7 +44,6 @@
 }
 
 - (void)layoutSubviews {
-    self.activityIndicatorView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
 }
 
 #pragma mark - Scroll View
@@ -85,6 +82,7 @@
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
+    [self doSomethingWhenScrolling:contentOffset];
     if(self.state != CHQInfiniteScrollingStateLoading && self.enabled) {
         CGFloat scrollViewContentHeight = self.scrollView.contentSize.height;
         CGFloat scrollOffsetThreshold = scrollViewContentHeight-self.scrollView.bounds.size.height;
@@ -98,11 +96,16 @@
     }
 }
 
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset
+{
+    
+}
+
 #pragma mark - Getters
 
 - (UIActivityIndicatorView *)activityIndicatorView {
     if(!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityIndicatorView.hidesWhenStopped = YES;
         [self addSubview:_activityIndicatorView];
     }
@@ -140,12 +143,25 @@
     self.state = CHQInfiniteScrollingStateLoading;
 }
 
+- (void)doSomethingWhenStartingAnimating
+{
+    
+}
+
 - (void)startAnimating{
-    self.state = CHQInfiniteScrollingStateLoading;
+    [self doSomethingWhenStartingAnimating];
+    if(self.infiniteScrollingHandler)
+        self.infiniteScrollingHandler();
+}
+
+- (void)doSomethingWhenStopingAnimating
+{
+    
 }
 
 - (void)stopAnimating {
     self.state = CHQInfiniteScrollingStateStopped;
+    [self doSomethingWhenStopingAnimating];
 }
 
 - (void)setState:(CHQInfiniteScrollingState)newState {
@@ -186,12 +202,10 @@
                 
             case CHQInfiniteScrollingStateLoading:
                 [self.activityIndicatorView startAnimating];
+                [self startAnimating];
                 break;
         }
     }
-    
-    if(previousState == CHQInfiniteScrollingStateTriggered && newState == CHQInfiniteScrollingStateLoading && self.infiniteScrollingHandler && self.enabled)
-        self.infiniteScrollingHandler();
 }
 
 /*

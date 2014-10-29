@@ -135,7 +135,7 @@
     }
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-        NSLog(@"%f", self.frame.origin.y);
+//        NSLog(@"%f", self.frame.origin.y);
         scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;

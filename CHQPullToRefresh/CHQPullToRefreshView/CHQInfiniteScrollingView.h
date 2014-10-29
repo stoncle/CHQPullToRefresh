@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIScrollView+SVInfiniteScrolling.h"
 
 #define CHQInfiniteScrollingViewHeight 60
 typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
@@ -37,6 +36,9 @@ typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
 
 - (void)setCustomView:(UIView *)view forState:(CHQInfiniteScrollingState)state;
 
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
+- (void)doSomethingWhenStartingAnimating;
+- (void)doSomethingWhenStopingAnimating;
 - (void)startAnimating;
 - (void)stopAnimating;
 

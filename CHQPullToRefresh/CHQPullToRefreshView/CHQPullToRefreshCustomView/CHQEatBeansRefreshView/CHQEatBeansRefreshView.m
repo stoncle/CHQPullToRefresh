@@ -152,7 +152,7 @@
 {
     CGFloat offset = self.scrollView.contentOffset.y;
     CGFloat percent = CGFLOAT_MAX;
-    NSLog(@"%f", self.frame.size.height);
+//    NSLog(@"%f", self.frame.size.height);
     if (offset == 0)
         percent = offset;
     else if (offset < 0)

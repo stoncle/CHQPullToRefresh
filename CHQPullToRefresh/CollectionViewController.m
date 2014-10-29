@@ -103,11 +103,37 @@
             [d.pullToRefreshView stopAnimating];
         });
     } WithProgressImageName:@"spinner_dropbox@2x.gif" RefreshingImageName:@"run@2x.gif"];
+//    [_collectionView addInfiniteScrollingWithActionHandler:^{
+//        // append data to data source, insert new cells at the end of table view
+//        // call [tableView.infiniteScrollingView stopAnimating] when done
+//        
+////        NSLog(@"good");
+//        int j = [a count];
+//        NSMutableArray *arr = [[NSMutableArray alloc]init];
+//        
+//        for(int i=0; i<20; i++)
+//        {
+//            [a addObject:@"hhh"];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
+//            [arr addObject:indexPath];
+//        }
+//        
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [d insertItemsAtIndexPaths:arr];
+//            srand((unsigned)time(0));
+//            int i = rand() % 3;
+//            [d changeCurrentRefreshThemeToTheme:i];
+//            [d.infiniteScrollingView stopAnimating];
+//        });
+//    
+//        
+//    }];
     [_collectionView addInfiniteScrollingWithActionHandler:^{
         // append data to data source, insert new cells at the end of table view
         // call [tableView.infiniteScrollingView stopAnimating] when done
         
-//        NSLog(@"good");
+        //        NSLog(@"good");
         int j = [a count];
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         
@@ -126,9 +152,9 @@
             [d changeCurrentRefreshThemeToTheme:i];
             [d.infiniteScrollingView stopAnimating];
         });
-    
         
-    }];
+        
+    } WithLoadingImageName:@"run@2x.gif"];
     [self addConstraints];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -211,7 +237,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect r = [UIScreen mainScreen].applicationFrame;
-    NSLog(@"%f, %f", r.size.width, r.size.height);
+//    NSLog(@"%f, %f", r.size.width, r.size.height);
     if(r.size.width > r.size.height)
         return CGSizeMake((r.size.height+20)/3.09, (r.size.height+20)/3*1.15);
     else

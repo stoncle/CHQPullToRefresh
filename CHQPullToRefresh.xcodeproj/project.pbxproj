@@ -36,6 +36,7 @@
 		F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */; };
 		F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */; };
 		F9A9AEC319FEA48B001DCA70 /* CHQInfiniteScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */; };
+		F9AC08FC1A01379100FF900E /* CHQGIFScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,8 @@
 		F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
 		F9A9AEC119FEA48B001DCA70 /* CHQInfiniteScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQInfiniteScrollingView.h; sourceTree = "<group>"; };
 		F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQInfiniteScrollingView.m; sourceTree = "<group>"; };
+		F9AC08FA1A01379100FF900E /* CHQGIFScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQGIFScrollingView.h; sourceTree = "<group>"; };
+		F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQGIFScrollingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,9 +199,9 @@
 				F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */,
 				F9272EF119E3BC4B007A5C61 /* CHQPullToRefreshView.h */,
 				F9272EF219E3BC4B007A5C61 /* CHQPullToRefreshView.m */,
-				F9272EF319E3BC4B007A5C61 /* SVPullToRefresh */,
 				F9A9AEC119FEA48B001DCA70 /* CHQInfiniteScrollingView.h */,
 				F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */,
+				F9272EF319E3BC4B007A5C61 /* SVPullToRefresh */,
 			);
 			path = CHQPullToRefreshView;
 			sourceTree = "<group>";
@@ -295,8 +298,18 @@
 		F9A9AEC019FEA458001DCA70 /* CHQInfiniteScrollingCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				F9AC08F91A0136B400FF900E /* CHQGIFScrollingView */,
 			);
 			path = CHQInfiniteScrollingCustomView;
+			sourceTree = "<group>";
+		};
+		F9AC08F91A0136B400FF900E /* CHQGIFScrollingView */ = {
+			isa = PBXGroup;
+			children = (
+				F9AC08FA1A01379100FF900E /* CHQGIFScrollingView.h */,
+				F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */,
+			);
+			path = CHQGIFScrollingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +425,7 @@
 				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
 				F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				F9AC08FC1A01379100FF900E /* CHQGIFScrollingView.m in Sources */,
 				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
 				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,

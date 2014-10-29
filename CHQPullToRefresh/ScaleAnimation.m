@@ -58,9 +58,9 @@
         toViewController.view.transform = CGAffineTransformMakeTranslation(from.x - toViewController.view.center.x, from.y - toViewController.view.center.y);
         toViewController.view.transform = CGAffineTransformScale(toViewController.view.transform, 0.3, 0.3);
 //        toViewController.view.transform = CGAffineTransformMakeRotation(M_PI);
-        NSLog(@"%f, %f", from.x - toViewController.view.center.x, from.y - toViewController.view.center.y);
+//        NSLog(@"%f, %f", from.x - toViewController.view.center.x, from.y - toViewController.view.center.y);
         
-        NSLog(@"%f, %f, %f, %f, %f, %f", toViewController.view.transform.a, toViewController.view.transform.b, toViewController.view.transform.c,toViewController.view.transform.d,toViewController.view.transform.tx,toViewController.view.transform.ty);
+//        NSLog(@"%f, %f, %f, %f, %f, %f", toViewController.view.transform.a, toViewController.view.transform.b, toViewController.view.transform.c,toViewController.view.transform.d,toViewController.view.transform.tx,toViewController.view.transform.ty);
 //        [containerView insertSubview:toViewController.view aboveSubview:fromViewController.view];
         [containerView addSubview:toViewController.view];
         //Scale the 'to' view to to its final position
@@ -68,7 +68,7 @@
 //            toViewController.view.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
 //            toViewController.view.transform = CGAffineTransformMakeTranslation(0, 0);
             toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            NSLog(@"%f, %f, %f, %f, %f, %f", toViewController.view.transform.a, toViewController.view.transform.b, toViewController.view.transform.c,toViewController.view.transform.d,toViewController.view.transform.tx,toViewController.view.transform.ty);
+//            NSLog(@"%f, %f, %f, %f, %f, %f", toViewController.view.transform.a, toViewController.view.transform.b, toViewController.view.transform.c,toViewController.view.transform.d,toViewController.view.transform.tx,toViewController.view.transform.ty);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];

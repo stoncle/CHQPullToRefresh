@@ -9,11 +9,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CHQInfiniteScrollingView.h"
+#import "CHQGIFScrollingView.h"
 
 
 @interface UIScrollView (SVInfiniteScrolling)
 
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
 - (void)triggerInfiniteScrolling;
 
 @property (nonatomic, strong, readonly) CHQInfiniteScrollingView *infiniteScrollingView;

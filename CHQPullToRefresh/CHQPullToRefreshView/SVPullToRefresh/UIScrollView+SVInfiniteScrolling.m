@@ -33,6 +33,21 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         self.showsInfiniteScrolling = YES;
     }
 }
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName
+{
+    if(!self.infiniteScrollingView) {
+        UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:loadingImageName]];
+        NSLog(@"%f", self.contentSize.height);
+        CHQGIFScrollingView *view = [[CHQGIFScrollingView alloc] initWithRefreshingImage:refreshingImage WithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
+        view.infiniteScrollingHandler = actionHandler;
+        view.scrollView = self;
+        [self addSubview:view];
+        
+        view.originalBottomInset = self.contentInset.bottom;
+        self.infiniteScrollingView = view;
+        self.showsInfiniteScrolling = YES;
+    }
+}
 
 - (void)triggerInfiniteScrolling {
     self.infiniteScrollingView.state = CHQInfiniteScrollingStateTriggered;
@@ -57,7 +72,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
     if(!showsInfiniteScrolling) {
       if (self.infiniteScrollingView.isObserving) {
         [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentOffset"];
-//        [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentSize"];
+        [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentSize"];
         [self.infiniteScrollingView resetScrollViewContentInset];
         self.infiniteScrollingView.isObserving = NO;
       }
@@ -65,7 +80,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
     else {
       if (!self.infiniteScrollingView.isObserving) {
         [self addObserver:self.infiniteScrollingView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-//        [self addObserver:self.infiniteScrollingView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self.infiniteScrollingView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
         [self.infiniteScrollingView setScrollViewContentInsetForInfiniteScrolling];
         self.infiniteScrollingView.isObserving = YES;
           
