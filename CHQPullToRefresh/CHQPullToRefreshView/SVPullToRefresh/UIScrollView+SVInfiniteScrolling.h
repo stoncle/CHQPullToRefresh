@@ -8,38 +8,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHQInfiniteScrollingView.h"
+#import "CHQGIFScrollingView.h"
 
-@class SVInfiniteScrollingView;
 
 @interface UIScrollView (SVInfiniteScrolling)
 
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
 - (void)triggerInfiniteScrolling;
 
-@property (nonatomic, strong, readonly) SVInfiniteScrollingView *infiniteScrollingView;
+@property (nonatomic, strong, readonly) CHQInfiniteScrollingView *infiniteScrollingView;
 @property (nonatomic, assign) BOOL showsInfiniteScrolling;
 
 @end
 
 
-enum {
-	SVInfiniteScrollingStateStopped = 0,
-    SVInfiniteScrollingStateTriggered,
-    SVInfiniteScrollingStateLoading,
-    SVInfiniteScrollingStateAll = 10
-};
 
-typedef NSUInteger SVInfiniteScrollingState;
-
-@interface SVInfiniteScrollingView : UIView
-
-@property (nonatomic, readwrite) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
-@property (nonatomic, readonly) SVInfiniteScrollingState state;
-@property (nonatomic, readwrite) BOOL enabled;
-
-- (void)setCustomView:(UIView *)view forState:(SVInfiniteScrollingState)state;
-
-- (void)startAnimating;
-- (void)stopAnimating;
-
-@end

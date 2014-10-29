@@ -7,8 +7,7 @@
 //
 
 #import "CHQPullToRefreshView.h"
-#import "UIScrollView+SVPullToRefresh.h"
-
+#import "SVPullToRefresh.h"
 @implementation CHQPullToRefreshView
 
 // public properties
@@ -151,7 +150,7 @@
     [self doSomethingWhenScrolling:contentOffsetArr];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-        NSLog(@"%f", self.frame.origin.y);
+//        NSLog(@"%f", self.frame.origin.y);
         scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
@@ -208,6 +207,7 @@
     
             if(!self.wasTriggeredByUser)
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
+//    self.scrollView.showsInfiniteScrolling = YES;
 }
 
 - (void)setState:(CHQPullToRefreshState)newState {
@@ -236,16 +236,5 @@
             break;
     }
 }
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

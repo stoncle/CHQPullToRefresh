@@ -35,7 +35,6 @@
         self.LoadingFrameRate = 30;
         [self _commonInit];
     }
-    
     return self;
 }
 - (void)_commonInit
@@ -66,7 +65,7 @@
         NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
         self.imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
         self.imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+        self.imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.imageViewLoading.frame = self.bounds;
         self.imageViewLoading.animationImages = self.pImgArrLoading;
         self.imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)self.imageViewLoading.animationImages.count);
@@ -107,7 +106,7 @@
     }
     if (progress >= 0 && progress <=1.0) {
         //Animation
-        NSLog(@"%lu", (unsigned long)self.pImgArrProgress.count);
+//        NSLog(@"%lu", (unsigned long)self.pImgArrProgress.count);
         NSInteger index = (NSInteger)roundf((self.pImgArrProgress.count ) * progress);
         if(index ==0)
         {
@@ -155,7 +154,7 @@
 - (void)setFrameSizeByProgressImage
 {
     UIImage *image1 = self.pImgArrProgress.lastObject;
-    NSLog(@"%@", self.scrollView);
+//    NSLog(@"%@", self.scrollView);
     if(image1)
         self.frame = CGRectMake((self.scrollView.bounds.size.width - image1.size.width)/2, -image1.size.height, image1.size.width, image1.size.height);
 }

@@ -34,7 +34,7 @@
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
         
         self.dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:self.dotsView];
@@ -137,7 +137,7 @@
 {
     CGFloat offset = self.scrollView.contentOffset.y;
     CGFloat percent = CGFLOAT_MAX;
-    NSLog(@"%f", self.frame.size.height);
+//    NSLog(@"%f", self.frame.size.height);
     if (offset == 0)
         percent = offset;
     else if (offset < 0)

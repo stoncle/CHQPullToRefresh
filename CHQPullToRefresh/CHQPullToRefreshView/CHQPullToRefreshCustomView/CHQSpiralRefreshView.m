@@ -17,7 +17,7 @@
 #define kSpiralNormalColor [UIColor darkGrayColor]
 #define kSpiralTransteringColor [UIColor lightGrayColor]
 #define kSpiralTriggeredColor [UIColor redColor]
-#define kBackgroundColor [UIColor blackColor]
+#define kBackgroundColor [UIColor whiteColor]
 #define kSpiralFinishColor [UIColor darkGrayColor]
 
 @interface CHQSpiralRefreshView()

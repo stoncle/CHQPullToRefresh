@@ -100,7 +100,7 @@ static char UIScrollViewPullToRefreshView;
             self.showsPullToRefresh = YES;
         
         [self addSubview:view];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
+//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
         
     }
 }
