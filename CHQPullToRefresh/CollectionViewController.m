@@ -57,7 +57,7 @@
     _displayArray = [[NSMutableArray alloc]init];
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
-    [_collectionView setBackgroundColor:[UIColor blackColor]];
+    [_collectionView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:_collectionView];
     __block UICollectionView *d = _collectionView;
     __block NSMutableArray *a = _data;
