@@ -61,6 +61,8 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/spiral.png)
 ####eatBeans theme
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/eatBeans.png)
+####gif theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gif.png)
 
 ###You can design your own theme
   by subclassing the CHQPullToRefresh  
