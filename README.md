@@ -2,13 +2,15 @@ CHQPullToRefresh
 ================
 base on [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by [@samvermette](https://github.com/samvermette)  
 
-Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing.
+Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing(both PullToRefresh and InfiniteScrolling).
 Being a catagory of UIScrollView, you may find the following methods in it:  
 ```Objective-C
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
 ```
 ##Installation
 * Drag the CHQPullToRefreshView folder into your project.
@@ -37,6 +39,12 @@ Being a catagory of UIScrollView, you may find the following methods in it:
     // append data to data source, insert new cells at the end of table view
     // call [tableView.infiniteScrollingView stopAnimating] when done
     }];
+###Adding Infinite Scrolling with a gif picture
+    [_collectionView addInfiniteScrollingWithActionHandler:^{
+        // append data to data source, insert new cells at the end of table view
+        // call [tableView.infiniteScrollingView stopAnimating] when done
+        });
+    } WithLoadingImageName:@"run@2x.gif"];
 ###Changing refresh theme in runtime
     call [tableView changeCurrentRefreshThemeToTheme:] whenever you want to change the theme, remember that you have to add a pull to refresh view before this.
 ###Trigger Refreshing programmatically
