@@ -13,7 +13,7 @@
 
 @synthesize state = _state;
 @synthesize scrollView = _scrollView;
-@synthesize activityIndicatorView = _activityIndicatorView;
+//@synthesize activityIndicatorView = _activityIndicatorView;
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -193,15 +193,15 @@
         
         switch (newState) {
             case CHQInfiniteScrollingStateStopped:
-                [self.activityIndicatorView stopAnimating];
+//                [self.activityIndicatorView stopAnimating];
                 break;
                 
             case CHQInfiniteScrollingStateTriggered:
-                [self.activityIndicatorView startAnimating];
+//                [self.activityIndicatorView startAnimating];
                 break;
                 
             case CHQInfiniteScrollingStateLoading:
-                [self.activityIndicatorView startAnimating];
+//                [self.activityIndicatorView startAnimating];
                 [self startAnimating];
                 break;
         }

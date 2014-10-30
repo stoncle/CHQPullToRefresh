@@ -306,10 +306,18 @@
 		F9AC08F91A0136B400FF900E /* CHQGIFScrollingView */ = {
 			isa = PBXGroup;
 			children = (
+				F9DCC8701A015D6700460ECF /* gifs */,
 				F9AC08FA1A01379100FF900E /* CHQGIFScrollingView.h */,
 				F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */,
 			);
 			path = CHQGIFScrollingView;
+			sourceTree = "<group>";
+		};
+		F9DCC8701A015D6700460ECF /* gifs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = gifs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
