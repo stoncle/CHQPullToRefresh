@@ -35,6 +35,7 @@
 		F99672AE19FCEED6002C43AD /* run@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A819FCEED6002C43AD /* run@2x.gif */; };
 		F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */; };
 		F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */; };
+		F99B76A81A02412F007F9734 /* CHQPandulumRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F99B76A71A02412F007F9734 /* CHQPandulumRefreshView.m */; };
 		F9A9AEC319FEA48B001DCA70 /* CHQInfiniteScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */; };
 		F9AC08FC1A01379100FF900E /* CHQGIFScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,8 @@
 		F99672A919FCEED6002C43AD /* spinner_dropbox@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "spinner_dropbox@2x.gif"; sourceTree = "<group>"; };
 		F99672B119FCF035002C43AD /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
 		F99672B219FCF035002C43AD /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
+		F99B76A61A02412F007F9734 /* CHQPandulumRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQPandulumRefreshView.h; sourceTree = "<group>"; };
+		F99B76A71A02412F007F9734 /* CHQPandulumRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQPandulumRefreshView.m; sourceTree = "<group>"; };
 		F9A9AEC119FEA48B001DCA70 /* CHQInfiniteScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQInfiniteScrollingView.h; sourceTree = "<group>"; };
 		F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQInfiniteScrollingView.m; sourceTree = "<group>"; };
 		F9AC08FA1A01379100FF900E /* CHQGIFScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQGIFScrollingView.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				F9272EEE19E3BC4A007A5C61 /* CHQArrowRefreshView.m */,
 				F9272EEF19E3BC4A007A5C61 /* CHQSpiralRefreshView.h */,
 				F9272EF019E3BC4B007A5C61 /* CHQSpiralRefreshView.m */,
+				F99B76A61A02412F007F9734 /* CHQPandulumRefreshView.h */,
+				F99B76A71A02412F007F9734 /* CHQPandulumRefreshView.m */,
 			);
 			path = CHQPullToRefreshCustomView;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 				F9272ED919E27EF0007A5C61 /* AppDelegate.m in Sources */,
 				F9272EFC19E3BC4B007A5C61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				F9AC08FC1A01379100FF900E /* CHQGIFScrollingView.m in Sources */,
+				F99B76A81A02412F007F9734 /* CHQPandulumRefreshView.m in Sources */,
 				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
 				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
