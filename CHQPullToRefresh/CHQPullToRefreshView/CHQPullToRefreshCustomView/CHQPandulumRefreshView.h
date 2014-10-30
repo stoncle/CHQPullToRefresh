@@ -9,5 +9,6 @@
 #import "CHQPullToRefreshView.h"
 
 @interface CHQPandulumRefreshView : CHQPullToRefreshView
+@property (nonatomic, assign) BOOL hidesWhenStopped;
 
 @end
