@@ -14,6 +14,10 @@
 #import "CHQEatBeansRefreshView.h"
 #import "CHQGIFRefreshView.h"
 #import "CHQPandulumRefreshView.h"
+<<<<<<< HEAD
+=======
+#import "CHQEllipsisRefreshView.h"
+>>>>>>> newtheme
 
 
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
@@ -52,6 +56,12 @@ static char UIScrollViewPullToRefreshView;
             case CHQRefreshThemePandulum:
                 view = [[CHQPandulumRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
+<<<<<<< HEAD
+=======
+            case CHQRefreshThemeEllipsis:
+                view = [[CHQEllipsisRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
+                break;
+>>>>>>> newtheme
             default:
                 NSLog(@"theme not found!");
                 return;
@@ -131,6 +141,9 @@ static char UIScrollViewPullToRefreshView;
                 break;
             case CHQRefreshThemePandulum:
                 view = [[CHQPandulumRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeEllipsis:
+                view = [[CHQEllipsisRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");

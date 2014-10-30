@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F925F2E91A02935500583DFC /* CHQEllipsisRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F925F2E81A02935500583DFC /* CHQEllipsisRefreshView.m */; };
+		F925F2ED1A0293AA00583DFC /* MONActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F925F2EC1A0293AA00583DFC /* MONActivityIndicatorView.m */; };
 		F9272EA219E27E09007A5C61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EA119E27E09007A5C61 /* main.m */; };
 		F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9272EAC19E27E09007A5C61 /* Images.xcassets */; };
 		F9272EBC19E27E09007A5C61 /* CHQPullToRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EBB19E27E09007A5C61 /* CHQPullToRefreshTests.m */; };
@@ -51,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F925F2E71A02935500583DFC /* CHQEllipsisRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQEllipsisRefreshView.h; sourceTree = "<group>"; };
+		F925F2E81A02935500583DFC /* CHQEllipsisRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQEllipsisRefreshView.m; sourceTree = "<group>"; };
+		F925F2EB1A0293AA00583DFC /* MONActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONActivityIndicatorView.h; sourceTree = "<group>"; };
+		F925F2EC1A0293AA00583DFC /* MONActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONActivityIndicatorView.m; sourceTree = "<group>"; };
 		F9272E9C19E27E09007A5C61 /* CHQPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHQPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9272EA019E27E09007A5C61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9272EA119E27E09007A5C61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,6 +133,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F925F2E61A02933A00583DFC /* CHQEllipsisRefreshVIew */ = {
+			isa = PBXGroup;
+			children = (
+				F925F2EA1A0293AA00583DFC /* MONActivityIndicatorView */,
+				F925F2E71A02935500583DFC /* CHQEllipsisRefreshView.h */,
+				F925F2E81A02935500583DFC /* CHQEllipsisRefreshView.m */,
+			);
+			path = CHQEllipsisRefreshVIew;
+			sourceTree = "<group>";
+		};
+		F925F2EA1A0293AA00583DFC /* MONActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				F925F2EB1A0293AA00583DFC /* MONActivityIndicatorView.h */,
+				F925F2EC1A0293AA00583DFC /* MONActivityIndicatorView.m */,
+			);
+			path = MONActivityIndicatorView;
+			sourceTree = "<group>";
+		};
 		F9272E9319E27E09007A5C61 = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +237,7 @@
 		F9272EEC19E3BC4A007A5C61 /* CHQPullToRefreshCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				F925F2E61A02933A00583DFC /* CHQEllipsisRefreshVIew */,
 				F996729F19FBC0D5002C43AD /* CHQGIFRefreshView */,
 				F955A97F19E9827E006D29FB /* CHQEatBeansRefreshView */,
 				F9272EED19E3BC4A007A5C61 /* CHQArrowRefreshView.h */,
@@ -432,7 +458,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F925F2E91A02935500583DFC /* CHQEllipsisRefreshView.m in Sources */,
 				F955A98B19E985C0006D29FB /* Pac.m in Sources */,
+				F925F2ED1A0293AA00583DFC /* MONActivityIndicatorView.m in Sources */,
 				F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */,
 				F996728E19F7E600002C43AD /* ScaleAnimation.m in Sources */,
 				F9272EFA19E3BC4B007A5C61 /* CHQSpiralRefreshView.m in Sources */,
