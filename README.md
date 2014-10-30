@@ -60,6 +60,10 @@ Being a catagory of UIScrollView, you may find the following methods in it:
   * rectangle spiral from around gathering at middle. 
 * CHQRefreshThemeEatBeans
   * little bite eating beans.
+* CHQRefreshThemePandulum
+  * pandulum tick tock...
+* CHQRefreshThemeEllipsis
+  * wavy ellipsis.
 * New Theme coming soon...
   * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it !  
 
@@ -71,6 +75,12 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/eatBeans.png)
 ####gif theme
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gif.png)
+####pandulum theme
+
+####ellipsis theme
+
+####gif infinite scrolling
+
 
 ###You can design your own theme
   by subclassing the CHQPullToRefresh  
