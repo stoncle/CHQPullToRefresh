@@ -152,8 +152,6 @@
             [d changeCurrentRefreshThemeToTheme:i];
             [d.infiniteScrollingView stopAnimating];
         });
-        
-        
     } WithLoadingImageName:@"run@2x.gif"];
     [self addConstraints];
     [super viewDidLoad];
