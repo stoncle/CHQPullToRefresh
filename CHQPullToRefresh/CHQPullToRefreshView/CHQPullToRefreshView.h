@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property(nonatomic, assign) BOOL isObserving;
 
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
 - (void)doSomethingWhenStartingAnimating;
 - (void)doSomethingWhenStopingAnimating;
 - (void)startAnimating;

@@ -140,14 +140,13 @@
 
 }
 
-- (void)doSomethingWhenScrolling:(NSArray *)contentOffsetArr
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset
 {
     
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
-    NSArray *contentOffsetArr = [NSArray arrayWithObjects:[NSNumber numberWithFloat:contentOffset.x], [NSNumber numberWithFloat:contentOffset.y], nil];
-    [self doSomethingWhenScrolling:contentOffsetArr];
+    [self doSomethingWhenScrolling:contentOffset];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
 //        NSLog(@"%f", self.frame.origin.y);

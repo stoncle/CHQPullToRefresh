@@ -77,11 +77,11 @@
             [d deleteItemsAtIndexPaths:arr];
         }
         
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    } WithCurrentTheme:CHQRefreshThemePandulum];
+    } WithCurrentTheme:CHQRefreshThemeEllipsis];
 //    [_collectionView addPullToRefreshWithActionHandler:^{
 //        NSMutableArray *arr = [[NSMutableArray alloc]init];
 //        if(a.count > 20)
@@ -154,6 +154,7 @@
         });
     } WithLoadingImageName:@"run@2x.gif"];
     [self addConstraints];
+//    [_collectionView triggerInfiniteScrolling];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
