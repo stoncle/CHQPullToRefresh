@@ -147,13 +147,13 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d insertItemsAtIndexPaths:arr];
             srand((unsigned)time(0));
-            int i = rand() % 4;
+            int i = rand() % 6;
             [d changeCurrentRefreshThemeToTheme:i];
             [d.infiniteScrollingView stopAnimating];
         });
     } WithLoadingImageName:@"run@2x.gif"];
     [self addConstraints];
-//    [_collectionView triggerInfiniteScrolling];
+    [_collectionView triggerInfiniteScrolling];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

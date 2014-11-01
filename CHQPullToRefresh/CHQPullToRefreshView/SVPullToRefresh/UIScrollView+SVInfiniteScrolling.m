@@ -50,8 +50,8 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 }
 
 - (void)triggerInfiniteScrolling {
-    self.infiniteScrollingView.state = CHQInfiniteScrollingStateTriggered;
-    [self.infiniteScrollingView startAnimating];
+    self.infiniteScrollingView.state = CHQInfiniteScrollingStateLoading;
+//    [self.infiniteScrollingView startAnimating];
 }
 
 - (void)setInfiniteScrollingView:(CHQInfiniteScrollingView *)infiniteScrollingView {
