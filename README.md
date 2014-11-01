@@ -76,11 +76,11 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ####gif theme
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gif.png)
 ####pandulum theme
-
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pandulum.png)
 ####ellipsis theme
-
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsis.png)
 ####gif infinite scrolling
-
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gifinfinite.png)
 
 ###You can design your own theme
   by subclassing the CHQPullToRefresh  
