@@ -15,6 +15,7 @@
 #import "CHQGIFRefreshView.h"
 #import "CHQPandulumRefreshView.h"
 #import "CHQEllipsisRefreshView.h"
+#import "CHQBalloonRefreshView.h"
 
 
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
@@ -55,6 +56,9 @@ static char UIScrollViewPullToRefreshView;
                 break;
             case CHQRefreshThemeEllipsis:
                 view = [[CHQEllipsisRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeBalloon:
+                view = [[CHQBalloonRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");
@@ -138,6 +142,9 @@ static char UIScrollViewPullToRefreshView;
                 break;
             case CHQRefreshThemeEllipsis:
                 view = [[CHQEllipsisRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
+                break;
+            case CHQRefreshThemeBalloon:
+                view = [[CHQBalloonRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight)];
                 break;
             default:
                 NSLog(@"theme not found!");
