@@ -16,6 +16,7 @@
 		F925F32E1A065A9300583DFC /* circle_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F925F3281A065A9300583DFC /* circle_purple.png */; };
 		F925F32F1A065A9300583DFC /* circle_red.png in Resources */ = {isa = PBXBuildFile; fileRef = F925F3291A065A9300583DFC /* circle_red.png */; };
 		F925F3301A065A9300583DFC /* circle_seagreen.png in Resources */ = {isa = PBXBuildFile; fileRef = F925F32A1A065A9300583DFC /* circle_seagreen.png */; };
+		F925F3391A07AEFE00583DFC /* saya.gif in Resources */ = {isa = PBXBuildFile; fileRef = F925F3381A07AEFE00583DFC /* saya.gif */; };
 		F9272EA219E27E09007A5C61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EA119E27E09007A5C61 /* main.m */; };
 		F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9272EAC19E27E09007A5C61 /* Images.xcassets */; };
 		F9272EBC19E27E09007A5C61 /* CHQPullToRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9272EBB19E27E09007A5C61 /* CHQPullToRefreshTests.m */; };
@@ -72,6 +73,7 @@
 		F925F3281A065A9300583DFC /* circle_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_purple.png; sourceTree = "<group>"; };
 		F925F3291A065A9300583DFC /* circle_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_red.png; sourceTree = "<group>"; };
 		F925F32A1A065A9300583DFC /* circle_seagreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_seagreen.png; sourceTree = "<group>"; };
+		F925F3381A07AEFE00583DFC /* saya.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = saya.gif; sourceTree = "<group>"; };
 		F9272E9C19E27E09007A5C61 /* CHQPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHQPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9272EA019E27E09007A5C61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9272EA119E27E09007A5C61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		F99672A319FBC850002C43AD /* gifs */ = {
 			isa = PBXGroup;
 			children = (
+				F925F3381A07AEFE00583DFC /* saya.gif */,
 				F99672A419FCEED6002C43AD /* cat.gif */,
 				F99672A519FCEED6002C43AD /* cupido@2x.gif */,
 				F99672A619FCEED6002C43AD /* jgr@2x.gif */,
@@ -480,6 +483,7 @@
 				F99672AB19FCEED6002C43AD /* cupido@2x.gif in Resources */,
 				F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */,
 				F925F32F1A065A9300583DFC /* circle_red.png in Resources */,
+				F925F3391A07AEFE00583DFC /* saya.gif in Resources */,
 				F99672AA19FCEED6002C43AD /* cat.gif in Resources */,
 				F9272EAD19E27E09007A5C61 /* Images.xcassets in Resources */,
 				F925F32D1A065A9300583DFC /* circle_orange.png in Resources */,

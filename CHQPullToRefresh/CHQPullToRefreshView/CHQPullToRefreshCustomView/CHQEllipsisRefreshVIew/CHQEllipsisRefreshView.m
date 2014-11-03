@@ -9,7 +9,7 @@
 #import "CHQEllipsisRefreshView.h"
 #import "MONActivityIndicatorView.h"
 #define ThemeColor [UIColor hexStringToColor:@"#FFFFFF"]
-#define EllipsisNumber 3
+#define EllipsisNumber 10
 
 @interface CHQEllipsisRefreshView()<MONActivityIndicatorViewDelegate>
 @property (strong, nonatomic) MONActivityIndicatorView *monActivityView;

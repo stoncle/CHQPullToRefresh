@@ -76,9 +76,9 @@
     self.alpha = 0;
 }
 
-- (void)doSomethingWhenScrolling:(NSArray *)contentOffsetArr
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset
 {
-    CGFloat yOffset = [[contentOffsetArr objectAtIndex:1] floatValue];
+    CGFloat yOffset = contentOffset.y;
     CGFloat scrollOffsetThreshold = 0;
     scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
 //    self.progress = ((yOffset+ self.originalTopInset + 10)/(scrollOffsetThreshold));
