@@ -169,7 +169,6 @@
     if(_state == newState)
         return;
     
-    CHQInfiniteScrollingState previousState = _state;
     _state = newState;
     
     for(id otherView in self.viewForState) {

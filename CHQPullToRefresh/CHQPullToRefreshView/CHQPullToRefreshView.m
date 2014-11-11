@@ -214,7 +214,6 @@
     if(_state == newState)
         return;
     
-    CHQPullToRefreshState previousState = _state;
     _state = newState;
     
     [self setNeedsLayout];
