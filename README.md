@@ -66,6 +66,8 @@ Being a catagory of UIScrollView, you may find the following methods in it:
   * wavy ellipsis.
 * CHQRefreshThemeBalloon
   * spiral colorful balloons.
+* CHQRefreshThemePinterest
+  * pinterest refreshing style.
 * New Theme coming soon...
   * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it !  
 
@@ -83,6 +85,8 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsis.png)
 ####balloon theme
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/balloon.png)
+####pinterest theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pinterest.png)
 ####gif infinite scrolling
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gifinfinite.png)
 
