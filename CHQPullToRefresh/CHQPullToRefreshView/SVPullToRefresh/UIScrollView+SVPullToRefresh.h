@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
     CHQRefreshThemePandulum,
     CHQRefreshThemeEllipsis,
     CHQRefreshThemeBalloon,
+    CHQRefreshThemePinterest,
     
     CHQRefreshThemeDefault = CHQRefreshThemeArrow
 };

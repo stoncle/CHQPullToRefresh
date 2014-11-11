@@ -61,26 +61,6 @@
     [self.view addSubview:_collectionView];
     __block UICollectionView *d = _collectionView;
     __block NSMutableArray *a = _data;
-//    [_collectionView addPullToRefreshWithActionHandler:^{
-//        NSMutableArray *arr = [[NSMutableArray alloc]init];
-//        if(a.count > 20)
-//        {
-//            for(int i=0; i<20; i++)
-//            {
-//                [a removeObjectAtIndex:i];
-//                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                [arr addObject:indexPath];
-//            }
-//        }
-//        if(arr.count > 0)
-//        {
-//            [d deleteItemsAtIndexPaths:arr];
-//        }
-//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC));
-//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            [d.pullToRefreshView stopAnimating];
-//        });
-//    } WithCurrentTheme:CHQRefreshThemePandulum];
     [_collectionView addPullToRefreshWithActionHandler:^{
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         if(a.count > 20)
@@ -96,12 +76,32 @@
         {
             [d deleteItemsAtIndexPaths:arr];
         }
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    } WithProgressImageName:@"spinner_dropbox@2x.gif" RefreshingImageName:@"saya.gif"];
+    } WithCurrentTheme:CHQRefreshThemePinterest];
+//    [_collectionView addPullToRefreshWithActionHandler:^{
+//        NSMutableArray *arr = [[NSMutableArray alloc]init];
+//        if(a.count > 20)
+//        {
+//            for(int i=0; i<20; i++)
+//            {
+//                [a removeObjectAtIndex:i];
+//                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//                [arr addObject:indexPath];
+//            }
+//        }
+//        if(arr.count > 0)
+//        {
+//            [d deleteItemsAtIndexPaths:arr];
+//        }
+//        
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC));
+//		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [d.pullToRefreshView stopAnimating];
+//        });
+//    } WithProgressImageName:@"spinner_dropbox@2x.gif" RefreshingImageName:@"saya.gif"];
 //    [_collectionView addInfiniteScrollingWithActionHandler:^{
 //        // append data to data source, insert new cells at the end of table view
 //        // call [tableView.infiniteScrollingView stopAnimating] when done
@@ -128,30 +128,30 @@
 //    
 //        
 //    }];
-    [_collectionView addInfiniteScrollingWithActionHandler:^{
-        // append data to data source, insert new cells at the end of table view
-        // call [tableView.infiniteScrollingView stopAnimating] when done
-        
-        //        NSLog(@"good");
-        int j = [a count];
-        NSMutableArray *arr = [[NSMutableArray alloc]init];
-        
-        for(int i=0; i<20; i++)
-        {
-            [a addObject:@"hhh"];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
-            [arr addObject:indexPath];
-        }
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [d insertItemsAtIndexPaths:arr];
-            srand((unsigned)time(0));
-            int i = rand() % 6;
-            [d changeCurrentRefreshThemeToTheme:i];
-            [d.infiniteScrollingView stopAnimating];
-        });
-    } WithLoadingImageName:@"run@2x.gif"];
+//    [_collectionView addInfiniteScrollingWithActionHandler:^{
+//        // append data to data source, insert new cells at the end of table view
+//        // call [tableView.infiniteScrollingView stopAnimating] when done
+//        
+//        //        NSLog(@"good");
+//        int j = [a count];
+//        NSMutableArray *arr = [[NSMutableArray alloc]init];
+//        
+//        for(int i=0; i<20; i++)
+//        {
+//            [a addObject:@"hhh"];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
+//            [arr addObject:indexPath];
+//        }
+//        
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [d insertItemsAtIndexPaths:arr];
+//            srand((unsigned)time(0));
+//            int i = rand() % 6;
+//            [d changeCurrentRefreshThemeToTheme:i];
+//            [d.infiniteScrollingView stopAnimating];
+//        });
+//    } WithLoadingImageName:@"run@2x.gif"];
     [self addConstraints];
     [_collectionView triggerInfiniteScrolling];
     [super viewDidLoad];
