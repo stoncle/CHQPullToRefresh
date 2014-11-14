@@ -166,7 +166,9 @@
     }
 }
 
-- (void) contentOffsetChanged:(float)contentOffset {
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffsety
+{
+    float contentOffset = contentOffsety.y;
     contentOffset = -contentOffset / 2;
     
     if (isRefreshing || (!self.scrollView.isDragging && self.state == CHQPullToRefreshStateLoading)) {
@@ -177,11 +179,11 @@
         contentOffset = -10;
     }
     
-    if (contentOffset > CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2) {
-        contentOffset = CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2;
+    if (contentOffset > CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
+        contentOffset = CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2;
     }
     
-    if (contentOffset == CHQPullToRefreshViewHangingHeight / 2 + (self.originalTopInset) / 2) {
+    if (contentOffset == CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
         [UIView animateWithDuration:0.3
                               delay:0.0
                             options: UIViewAnimationOptionCurveEaseOut
@@ -329,7 +331,7 @@
             return;
         }
         lastOffset -= 2;
-        [self contentOffsetChanged:-lastOffset];
+//        [self contentOffsetChanged:-lastOffset];
     }
 }
 

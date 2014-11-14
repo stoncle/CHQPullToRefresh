@@ -121,7 +121,7 @@
         
         lastOffset -= 2;
         
-        [self contentOffsetChanged:-lastOffset];
+//        [self contentOffsetChanged:-lastOffset];
     }
 }
 
@@ -194,7 +194,8 @@
     
 }
 
-- (void) contentOffsetChanged:(float)contentOffset {
+- (void) doSomethingWhenScrolling:(CGPoint)contentOffsety {
+    float contentOffset = contentOffsety.y;
     contentOffset = -contentOffset / 2;
     
     if (isRefreshing) {
@@ -233,6 +234,8 @@
     
     [self setNeedsDisplay];
 }
+
+
 
 -(void)setCornerForView: (UIView*)view {
     view.layer.shouldRasterize = YES;

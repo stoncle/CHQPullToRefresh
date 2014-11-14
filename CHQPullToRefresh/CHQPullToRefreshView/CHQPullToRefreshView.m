@@ -27,7 +27,6 @@
         self.state = CHQPullToRefreshStateStopped;
         
         self.wasTriggeredByUser = YES;
-//        [self addNotifications];
     }
     
     return self;
@@ -81,10 +80,6 @@
         }
     });
     [self doSomethingWhenChangingOrientation];
-//    if([self respondsToSelector:@selector(doSomethingWhenChangingOrientation)])
-//    {
-//        [self performSelector:@selector(doSomethingWhenChangingOrientation) withObject:nil afterDelay:0];
-//    }
 }
 
 - (void)doSomethingWhenChangingOrientation
@@ -138,9 +133,6 @@
         {
             return;
         }
-        CGPoint oldOffset = [[change objectForKey:NSKeyValueChangeOldKey] CGPointValue];
-        
-        [self contentOffsetChanged: oldOffset.y];
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     }
 //    else if([keyPath isEqualToString:@"contentSize"]) {
@@ -170,8 +162,9 @@
     [self doSomethingWhenScrolling:contentOffset];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-//        NSLog(@"%f", self.frame.origin.y);
-        scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
+//        scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
+        scrollOffsetThreshold = -CHQPullToRefreshViewTriggerHeight - self.originalTopInset;
+        NSLog(@"%f", self.frame.origin.y);
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
         else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == SVPullToRefreshStateStopped)
@@ -227,7 +220,6 @@
     
             if(!self.wasTriggeredByUser)
                 [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
-//    self.scrollView.showsInfiniteScrolling = YES;
 }
 
 - (void)setState:(CHQPullToRefreshState)newState {

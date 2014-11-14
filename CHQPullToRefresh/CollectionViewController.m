@@ -80,7 +80,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    } WithCurrentTheme:CHQRefreshThemePinterest];
+    } WithCurrentTheme:CHQRefreshThemeSpiral];
 //    [_collectionView addPullToRefreshWithActionHandler:^{
 //        NSMutableArray *arr = [[NSMutableArray alloc]init];
 //        if(a.count > 20)
@@ -128,6 +128,8 @@
 //    
 //        
 //    }];
+    
+    
     [_collectionView addInfiniteScrollingWithActionHandler:^{
         // append data to data source, insert new cells at the end of table view
         // call [tableView.infiniteScrollingView stopAnimating] when done
