@@ -17,6 +17,9 @@
 #import "CHQEllipsisRefreshView.h"
 #import "CHQBalloonRefreshView.h"
 #import "CHQPinterestRefreshView.h"
+#import <objc/runtime.h>
+
+
 
 
 //fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
@@ -75,14 +78,37 @@ static char UIScrollViewPullToRefreshView;
             view.scrollView = self;
             [view addNotifications:view];
             [self insertSubview:view atIndex:0];
-            
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-                view.originalTopInset = self.contentInset.top;
-            } else {
-                //set to 64 if exists navigation bar, or any you want
-                view.originalTopInset = 64;
+            view.originalTopInset = self.contentInset.top;
+            if([self parentViewController].navigationController.navigationBar)
+            {
+                view.originalTopInset = 64.0;
+                view.portraitTopInset = 64.0;
+                view.landscapeTopInset = 64.0;
             }
-//            view.originalBottomInset = self.contentInset.bottom;
+            
+//            if(IS_IOS7)
+//            {
+//                if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//                {
+//                    view.portraitTopInset = 64.0;
+//                    view.landscapeTopInset = 52.0;
+//                }
+//            }
+//            else if(IS_IOS8)
+//            {
+//                if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//                {
+//                    view.portraitTopInset = 64.0;
+//                    view.originalTopInset = 64.0;
+//                    
+//                    if(IS_IPHONE6PLUS)
+//                        view.landscapeTopInset = 44.0;
+//                    else
+//                        view.landscapeTopInset = 32.0;
+//                    
+//                }
+//            }
+            view.originalBottomInset = self.contentInset.bottom;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
@@ -103,14 +129,44 @@ static char UIScrollViewPullToRefreshView;
             view.pullToRefreshActionHandler = actionHandler;
             view.scrollView = self;
         view.backgroundColor = [UIColor whiteColor];
-            
-            
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-                view.originalTopInset = self.contentInset.top;
-            } else {
-                //set to 64 if exists navigation bar, or any you want
-                view.originalTopInset = 64;
-            }
+        view.originalTopInset = self.contentInset.top;
+        
+        if([self parentViewController].navigationController.navigationBar)
+        {
+            view.originalTopInset = 64.0;
+            view.portraitTopInset = 64.0;
+            view.landscapeTopInset = 64.0;
+        }
+//        if(IS_IOS7)
+//        {
+//            if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//            {
+//                view.portraitTopInset = 64.0;
+//                view.landscapeTopInset = 52.0;
+//            }
+//        }
+//        else if(IS_IOS8)
+//        {
+//            if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//            {
+//                view.portraitTopInset = 64.0;
+//                view.originalTopInset = 64.0;
+//                
+//                if(IS_IPHONE6PLUS)
+//                    view.landscapeTopInset = 44.0;
+//                else
+//                    view.landscapeTopInset = 32.0;
+//                
+//            }
+//        }
+  
+        
+//            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+//                view.originalTopInset = self.contentInset.top;
+//            } else {
+//                //set to 64 if exists navigation bar, or any you want
+//                view.originalTopInset = 64;
+//            }
             //            view.originalBottomInset = self.contentInset.bottom;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
@@ -166,6 +222,36 @@ static char UIScrollViewPullToRefreshView;
             [self addSubview:view];
             
             view.originalTopInset = self.contentInset.top;
+            if([self parentViewController].navigationController.navigationBar)
+            {
+                view.originalTopInset = 64.0;
+                view.portraitTopInset = 64.0;
+                view.landscapeTopInset = 64.0;
+            }
+//            if(IS_IOS7)
+//            {
+//                if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//                {
+//                    view.portraitTopInset = 64.0;
+//                    view.landscapeTopInset = 52.0;
+//                }
+//            }
+//            else if(IS_IOS8)
+//            {
+//                if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+//                {
+//                    view.portraitTopInset = 64.0;
+//                    view.originalTopInset = 64.0;
+//                    
+//                    if(IS_IPHONE6PLUS)
+//                        view.landscapeTopInset = 44.0;
+//                    else
+//                        view.landscapeTopInset = 32.0;
+//                    
+//                }
+//            }
+
+//            view.originalTopInset = self.contentInset.top;
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
@@ -222,6 +308,17 @@ static char UIScrollViewPullToRefreshView;
 
 - (BOOL)showsPullToRefresh {
     return !self.pullToRefreshView.hidden;
+}
+
+- (UIViewController *)parentViewController
+{
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end

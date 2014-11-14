@@ -59,8 +59,8 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_dotsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_dotsView)]];
     return self;
 }
-#pragma mark notificatios
-- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+
+- (void)doSomethingWhenChangingOrientation
 {
     
 }

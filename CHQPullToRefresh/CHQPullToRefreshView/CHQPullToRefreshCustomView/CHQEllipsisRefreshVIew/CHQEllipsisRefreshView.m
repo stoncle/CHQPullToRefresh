@@ -104,6 +104,11 @@
     [_monActivityView addCirCle:3];
 }
 
+- (void)doSomethingWhenChangingOrientation
+{
+    
+}
+
 - (UIColor *)activityIndicatorView:(MONActivityIndicatorView *)activityIndicatorView
       circleBackgroundColorAtIndex:(NSUInteger)index
 {

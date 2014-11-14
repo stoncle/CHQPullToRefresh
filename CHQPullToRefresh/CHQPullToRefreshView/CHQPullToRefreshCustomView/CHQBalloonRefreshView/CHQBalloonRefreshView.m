@@ -189,6 +189,11 @@
     animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onAnimationTimer) userInfo:nil repeats:YES];
 }
 
+- (void)doSomethingWhenChangingOrientation
+{
+    
+}
+
 - (void) contentOffsetChanged:(float)contentOffset {
     contentOffset = -contentOffset / 2;
     

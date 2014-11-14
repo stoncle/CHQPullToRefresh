@@ -135,26 +135,26 @@
     }
 }
 
-#pragma mark notifications
-- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+- (void)doSomethingWhenChangingOrientation
 {
-        [UIView animateWithDuration:0.3
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             bottomLeftView.center = CGPointMake((ScreenWidth / 2) - bottomLeftView.frame.size.width - 1, self.frame.size.height - 30 + bottomLeftView.frame.size.height + 1);
-                             bottomRightView.center = CGPointMake((ScreenWidth / 2) - bottomRightView.frame.size.width - 1, self.frame.size.height - 30 - bottomRightView.frame.size.height - 1);
-                             topRightView.center = CGPointMake((ScreenWidth / 2) + topRightView.frame.size.width + 1, self.frame.size.height - 30 - topRightView.frame.size.height - 1);
-                             topLeftView.center = CGPointMake((ScreenWidth / 2) + topLeftView.frame.size.width + 1, self.frame.size.height - 30 + topLeftView.frame.size.height + 1);
-                             
-                             middleLeftView.center = CGPointMake((ScreenWidth / 2) - middleLeftView.frame.size.width - 1, self.frame.size.height - 30);
-                             middleRightView.center = CGPointMake((ScreenWidth / 2) + middleRightView.frame.size.width + 1, self.frame.size.height - 30);
-                             middleCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30);
-                             topCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 - topCenterView.frame.size.height - 1);
-                             bottomCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 + bottomCenterView.frame.size.height + 1);
-                         }
-                         completion:^(BOOL finished){
-                         }];
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         bottomLeftView.center = CGPointMake((ScreenWidth / 2) - bottomLeftView.frame.size.width - 1, self.frame.size.height - 30 + bottomLeftView.frame.size.height + 1);
+                         bottomRightView.center = CGPointMake((ScreenWidth / 2) - bottomRightView.frame.size.width - 1, self.frame.size.height - 30 - bottomRightView.frame.size.height - 1);
+                         topRightView.center = CGPointMake((ScreenWidth / 2) + topRightView.frame.size.width + 1, self.frame.size.height - 30 - topRightView.frame.size.height - 1);
+                         topLeftView.center = CGPointMake((ScreenWidth / 2) + topLeftView.frame.size.width + 1, self.frame.size.height - 30 + topLeftView.frame.size.height + 1);
+                         
+                         middleLeftView.center = CGPointMake((ScreenWidth / 2) - middleLeftView.frame.size.width - 1, self.frame.size.height - 30);
+                         middleRightView.center = CGPointMake((ScreenWidth / 2) + middleRightView.frame.size.width + 1, self.frame.size.height - 30);
+                         middleCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30);
+                         topCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 - topCenterView.frame.size.height - 1);
+                         bottomCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 + bottomCenterView.frame.size.height + 1);
+                     }
+                     completion:^(BOOL finished){
+                     }];
+
 }
 
 - (void)changeSpiralColor:(UIColor *)aimColor

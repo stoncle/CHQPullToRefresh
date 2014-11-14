@@ -234,7 +234,7 @@ static const float ballPendulateAngle = M_PI_2 / 1;
     return _animating;
 }
 
-- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+- (void)doSomethingWhenChangingOrientation
 {
     CGFloat width = [[UIScreen mainScreen] bounds].size.width;
     CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
@@ -248,7 +248,7 @@ static const float ballPendulateAngle = M_PI_2 / 1;
         
         xPos += self.ballDiameter;
     }
-
+    
     
     CGFloat rwidth = [[UIScreen mainScreen] bounds].size.width;
     CGFloat rxPos = rwidth / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
@@ -258,7 +258,7 @@ static const float ballPendulateAngle = M_PI_2 / 1;
     {
         UIView *reflectionBall = [self.reflectionBalls objectAtIndex:i];
         reflectionBall.frame = CGRectMake(rxPos, ryPos, self.ballDiameter, self.ballDiameter);
-//        reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
+        //        reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
         
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = reflectionBall.bounds;

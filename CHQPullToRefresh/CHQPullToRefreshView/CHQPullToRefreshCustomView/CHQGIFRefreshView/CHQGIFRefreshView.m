@@ -229,6 +229,10 @@
         
     }];
 }
+- (void)doSomethingWhenChangingOrientation
+{
+    
+}
 
 
 /*

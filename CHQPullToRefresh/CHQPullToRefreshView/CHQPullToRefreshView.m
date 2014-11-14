@@ -68,6 +68,27 @@
 #pragma mark notificatios
 - (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        {
+            if(cNotEqualFloats( self.landscapeTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
+                self.originalTopInset = self.landscapeTopInset;
+        }
+        else
+        {
+            if(cNotEqualFloats( self.portraitTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
+                self.originalTopInset = self.portraitTopInset;
+        }
+    });
+    [self doSomethingWhenChangingOrientation];
+//    if([self respondsToSelector:@selector(doSomethingWhenChangingOrientation)])
+//    {
+//        [self performSelector:@selector(doSomethingWhenChangingOrientation) withObject:nil afterDelay:0];
+//    }
+}
+
+- (void)doSomethingWhenChangingOrientation
+{
     
 }
 

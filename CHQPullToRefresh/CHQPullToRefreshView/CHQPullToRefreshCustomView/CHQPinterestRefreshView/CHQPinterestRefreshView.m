@@ -73,8 +73,8 @@
     self.backgroundColor = [UIColor whiteColor];
 }
 
-#pragma mark notifications
-- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+
+- (void)doSomethingWhenChangingOrientation
 {
     [UIView animateWithDuration:0.3
                           delay:0.0

@@ -146,8 +146,7 @@
     }
 }
 
-#pragma mark notificatios
-- (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification
+- (void)doSomethingWhenChangingOrientation
 {
     [self setView];
 }

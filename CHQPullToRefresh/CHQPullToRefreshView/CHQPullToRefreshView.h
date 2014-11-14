@@ -23,14 +23,17 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, readwrite) CHQPullToRefreshState state;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, readwrite) CGFloat originalTopInset;
+@property (nonatomic, assign) CGFloat landscapeTopInset;
+@property (nonatomic, assign) CGFloat portraitTopInset;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
-@property(nonatomic, assign) BOOL isObserving;
+@property (nonatomic, assign) BOOL isObserving;
 
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
 - (void)doSomethingWhenStartingAnimating;
 - (void)doSomethingWhenStopingAnimating;
+- (void)doSomethingWhenChangingOrientation;
 - (void)startAnimating;
 - (void)stopAnimating;
 - (void)resetScrollViewContentInset:(void (^)(void))actionHandler;
