@@ -43,8 +43,6 @@
     }
 }
 
-- (void)layoutSubviews {
-}
 
 #pragma mark - Scroll View
 
