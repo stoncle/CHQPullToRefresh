@@ -10,6 +10,9 @@
 #define CHQPullToRefreshViewHeight 60
 #define CHQPullToRefreshViewTriggerHeight 65
 #define CHQPullToRefreshViewHangingHeight 60
+#define PullToRefreshViewWidth  self.bounds.size.width
+#define PullToRefreshViewHeight self.bounds.size.height
+
 typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
     CHQPullToRefreshStateStopped = 0,
     CHQPullToRefreshStateTriggered,
@@ -26,14 +29,18 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) CGFloat landscapeTopInset;
 @property (nonatomic, assign) CGFloat portraitTopInset;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
+@property (nonatomic, assign) CGFloat PrevWidth;
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;
 
+- (void)configureView;
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
 - (void)doSomethingWhenStartingAnimating;
 - (void)doSomethingWhenStopingAnimating;
 - (void)doSomethingWhenChangingOrientation;
+- (void)doSomethingWhenStateChanges;
+- (void)doSomethingWhenLayoutSubviews;
 - (void)startAnimating;
 - (void)stopAnimating;
 - (void)resetScrollViewContentInset:(void (^)(void))actionHandler;

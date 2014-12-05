@@ -20,59 +20,30 @@
 @end
 
 @implementation CHQGIFRefreshView
+@synthesize imageViewProgress = _imageViewProgress;
+@synthesize imageViewLoading = _imageViewLoading;
+@synthesize activityIndicatorView = _activityIndicatorView;
 
 - (id)initWithProgressImage:(UIImage *)progressImage RefreshingImage:(UIImage *)refreshingImage WithFrame:(CGRect)frame
 {
     NSArray *progressImages = progressImage.images;
     NSArray *refreshingImages = refreshingImage.images;
-    UIImage *image1 = progressImages.firstObject;
-//    self = [super initWithFrame:CGRectMake(0, -image1.size.height, frame.size.width, image1.size.height)];
     self = [super initWithFrame:frame];
     if(self) {
         self.pImgArrProgress = progressImages;
         self.pImgArrLoading = refreshingImages;
+        self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
+        self.contentMode = UIViewContentModeRedraw;
         //number of frame per second
         self.LoadingFrameRate = 30;
-        [self _commonInit];
+//        [self _commonInit];
     }
     return self;
 }
-- (void)_commonInit
+
+- (void)configureView
 {
-    self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
-    self.contentMode = UIViewContentModeRedraw;
-    self.state = CHQPullToRefreshStateStopped;
     self.backgroundColor = [UIColor clearColor];
-    
-    NSAssert([self.pImgArrProgress.lastObject isKindOfClass:[UIImage class]], @"pImgArrProgress Array has object that is not image");
-    self.imageViewProgress = [[UIImageView alloc] initWithImage:[self.pImgArrProgress lastObject]];
-    self.imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
-    self.imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-    self.imageViewProgress.frame = self.bounds;
-    NSLog(@"%f, %f", self.imageViewProgress.frame.size.width, self.imageViewProgress.frame.size.height);
-    self.imageViewProgress.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.imageViewProgress];
-    
-    if(self.pImgArrLoading==nil)
-    {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
-        _activityIndicatorView.hidesWhenStopped = YES;
-        _activityIndicatorView.frame = self.bounds;
-        [self addSubview:_activityIndicatorView];
-    }
-    else
-    {
-        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
-        self.imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
-        self.imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.imageViewLoading.frame = self.bounds;
-        self.imageViewLoading.animationImages = self.pImgArrLoading;
-        self.imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)self.imageViewLoading.animationImages.count);
-        self.imageViewLoading.alpha = 0;
-        self.imageViewLoading.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.imageViewLoading];
-    }
     self.alpha = 0;
 }
 
@@ -81,7 +52,6 @@
     CGFloat yOffset = contentOffset.y;
     CGFloat scrollOffsetThreshold = 0;
     scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
-//    self.progress = ((yOffset+ self.originalTopInset + 10)/(scrollOffsetThreshold));
     self.progress = -yOffset / (self.originalTopInset + CHQPullToRefreshViewTriggerHeight);
 }
 
@@ -232,6 +202,50 @@
 - (void)doSomethingWhenChangingOrientation
 {
     
+}
+#pragma mark getters
+- (UIImageView *)imageViewLoading
+{
+    if(!_imageViewLoading)
+    {
+        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
+        _imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
+        _imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
+        _imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _imageViewLoading.frame = self.bounds;
+        _imageViewLoading.animationImages = self.pImgArrLoading;
+        _imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)_imageViewLoading.animationImages.count);
+        _imageViewLoading.alpha = 0;
+        _imageViewLoading.backgroundColor = [UIColor clearColor];
+        [self addSubview:_imageViewLoading];
+    }
+    return _imageViewLoading;
+}
+- (UIImageView *)imageViewProgress
+{
+    if(!_imageViewProgress)
+    {
+        NSAssert([_pImgArrProgress.lastObject isKindOfClass:[UIImage class]], @"pImgArrProgress Array has object that is not image");
+        _imageViewProgress = [[UIImageView alloc] initWithImage:[self.pImgArrProgress lastObject]];
+        _imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
+        _imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+        _imageViewProgress.frame = self.bounds;
+//        NSLog(@"%f, %f", _imageViewProgress.frame.size.width, _imageViewProgress.frame.size.height);
+        _imageViewProgress.backgroundColor = [UIColor clearColor];
+        [self addSubview:_imageViewProgress];
+    }
+    return _imageViewProgress;
+}
+- (UIActivityIndicatorView *)activityIndicatorView
+{
+    if(!_activityIndicatorView)
+    {
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
+        _activityIndicatorView.hidesWhenStopped = YES;
+        _activityIndicatorView.frame = self.bounds;
+        [self addSubview:_activityIndicatorView];
+    }
+    return _activityIndicatorView;
 }
 
 

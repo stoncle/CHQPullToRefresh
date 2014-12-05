@@ -10,7 +10,7 @@
 #import "Pac.h"
 #define kCHQEatBeansRefreshViewHeight 100
 #define kPixelsPerSecond 150
-#define kStartingNumberOfDots 5
+#define kStartingNumberOfDots 10
 #define kMinNumberOfDots 3
 @interface CHQEatBeansRefreshView()
 @property (nonatomic, assign) NSTimeInterval lastTime;
@@ -24,6 +24,9 @@
 @end
 
 @implementation CHQEatBeansRefreshView
+@synthesize pac = _pac;
+@synthesize dotsView = _dotsView;
+@synthesize dots = _dots;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -33,31 +36,14 @@
         self.displayLink.paused = YES;
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
-    if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        
-        self.dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [self addSubview:self.dotsView];
-        
-        self.pac = [[Pac alloc] init];
-        self.pac.center = CGPointMake(-(self.pac.frame.size.width / 2), frame.size.height / 2);
-        [self addSubview:self.pac];
-//        NSLog(@"%@", NSStringFromCGRect(self.pac.frame));
-        
-        self.dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];
-        for (int i = 0; i < kStartingNumberOfDots; ++i)
-        {
-            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
-            [self.dots addObject:iv];
-            iv.center = CGPointMake(frame.size.width / 2, frame.size.height / 2);
-            [self.dotsView addSubview:iv];
-        }
-        
-        self.dotSpacing = frame.size.width / kStartingNumberOfDots;
-        [self reset];
-    }
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_dotsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_dotsView)]];
     return self;
+}
+
+- (void)configureView
+{
+    self.backgroundColor = [UIColor blueColor];
+    self.dotSpacing = PullToRefreshViewWidth / kStartingNumberOfDots;
+    [self reset];
 }
 
 - (void)doSomethingWhenChangingOrientation
@@ -67,18 +53,12 @@
 
 - (void)refresh
 {
-//    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
     if (self.state == CHQPullToRefreshStateLoading)
     {
         CGFloat diff = self.lastTime == 0 ? 0 : self.displayLink.timestamp - self.lastTime;
         [self refreshingWithDelta:diff];
         self.lastTime = self.displayLink.timestamp;
     }
-}
-
-- (void)layoutSubviews
-{
-    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
 }
 
 - (void)reset
@@ -93,7 +73,7 @@
         dot.transform = CGAffineTransformMakeScale(1, 1);
     }];
     self.dotsView.transform = CGAffineTransformMakeRotation(0);
-    self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
+    self.dotSpacing = PullToRefreshViewWidth / kStartingNumberOfDots;
 }
 
 - (void)refreshingWithDelta:(CGFloat)delta
@@ -133,16 +113,14 @@
     }
 }
 
-- (void) contentOffsetChanged:(float)contentOffset
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset
 {
-    CGFloat offset = self.scrollView.contentOffset.y;
+    CGFloat offset = contentOffset.y;
     CGFloat percent = CGFLOAT_MAX;
-//    NSLog(@"%f", self.frame.size.height);
     if (offset == 0)
         percent = offset;
     else if (offset < 0)
         percent = MIN(ABS(offset) / (self.frame.size.height+self.originalTopInset), 1);
-    
     if (percent < CGFLOAT_MAX)
     {
         [self.dots enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -152,7 +130,6 @@
             dot.transform = CGAffineTransformMakeScale(percent, percent);
         }];
         self.dotsView.transform = CGAffineTransformMakeScale(percent, percent);
-
     }
 }
 
@@ -176,6 +153,43 @@
         self.processingEnd = NO;
         self.displayLink.paused = YES;
     }
+}
+
+#pragma mark getters
+- (Pac *)pac
+{
+    if(!_pac)
+    {
+        _pac = [[Pac alloc] init];
+        _pac.center = CGPointMake(-(_pac.frame.size.width / 2), PullToRefreshViewHeight / 2);
+        [self addSubview:_pac];
+    }
+    return _pac;
+}
+- (UIView *)dotsView
+{
+    if(!_dotsView)
+    {
+        _dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PullToRefreshViewWidth, PullToRefreshViewHeight)];
+        _dotsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self addSubview:_dotsView];
+    }
+    return _dotsView;
+}
+- (NSMutableArray *)dots
+{
+    if(!_dots)
+    {
+        _dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];
+        for (int i = 0; i < kStartingNumberOfDots; ++i)
+        {
+            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+            [_dots addObject:iv];
+            iv.center = CGPointMake(PullToRefreshViewWidth / 2, PullToRefreshViewHeight / 2);
+            [self.dotsView addSubview:iv];
+        }
+    }
+    return _dots;
 }
 
 

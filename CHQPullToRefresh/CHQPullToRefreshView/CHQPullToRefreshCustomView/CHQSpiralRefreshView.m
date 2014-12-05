@@ -7,8 +7,6 @@
 //
 
 #import "CHQSpiralRefreshView.h"
-#define ScreenWidth  [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 
 #define SpiralPullToRefreshViewHeight 180
 #define SpiralPullToRefreshViewParticleSize 7
@@ -22,103 +20,85 @@
 
 @interface CHQSpiralRefreshView()
 {
-    UIView *bottomLeftView;
-    UIView *bottomRightView;
-    UIView *bottomCenterView;
-    
-    UIView *middleLeftView;
-    UIView *middleRightView;
-    UIView *middleCenterView;
-    
-    UIView *topLeftView;
-    UIView *topRightView;
-    UIView *topCenterView;
-    
     BOOL isRefreshing;
     NSTimer *animationTimer;
     float lastOffset;
     int animationStep;
 }
 
+@property (nonatomic, strong) UIView *bottomLeftView;
+@property (nonatomic, strong) UIView *bottomRightView;
+@property (nonatomic, strong) UIView *bottomCenterView;
+@property (nonatomic, strong) UIView *middleLeftView;
+@property (nonatomic, strong) UIView *middleRightView;
+@property (nonatomic, strong) UIView *middleCenterView;
+@property (nonatomic, strong) UIView *topLeftView;
+@property (nonatomic, strong) UIView *topRightView;
+@property (nonatomic, strong) UIView *topCenterView;
+
+
 @end
 
 @implementation CHQSpiralRefreshView
 @synthesize waitingAnimation = _waitingAnimation;
 @synthesize particles = _particles;
+@synthesize bottomLeftView = _bottomLeftView;
+@synthesize bottomRightView = _bottomRightView;
+@synthesize bottomCenterView = _bottomCenterView;
+@synthesize middleCenterView = _middleCenterView;
+@synthesize middleLeftView = _middleLeftView;
+@synthesize middleRightView = _middleRightView;
+@synthesize topCenterView = _topCenterView;
+@synthesize topRightView = _topRightView;
+@synthesize topLeftView = _topLeftView;
 
 //init your customize view
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
         // default styling values
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.state = CHQPullToRefreshStateStopped;
-        
         self.backgroundColor = kBackgroundColor;
         self.clipsToBounds = YES;
-        
-        bottomLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        bottomLeftView.backgroundColor = kSpiralNormalColor;
-        bottomLeftView.center = CGPointMake(10, self.frame.size.height - bottomLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
-        
-        [self addSubview: bottomLeftView];
-        
-        bottomRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        bottomRightView.backgroundColor = kSpiralNormalColor;
-        bottomRightView.center = CGPointMake(ScreenWidth - 10, self.frame.size.height - bottomRightView.frame.size.height - SpiralPullToRefreshViewParticleSize);
-        
-        [self addSubview: bottomRightView];
-        
-        bottomCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        bottomCenterView.backgroundColor = kSpiralNormalColor;
-        bottomCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - bottomCenterView.frame.size.height);
-        
-        [self addSubview: bottomCenterView];
-        
-        middleLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        middleLeftView.backgroundColor = kSpiralNormalColor;
-        middleLeftView.center = CGPointMake(ScreenWidth - 10, self.frame.size.height - middleLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
-        
-        [self addSubview: middleLeftView];
-        
-        middleRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        middleRightView.backgroundColor = kSpiralNormalColor;
-        middleRightView.center = CGPointMake(ScreenWidth - 10, self.frame.size.height - middleRightView.frame.size.height - SpiralPullToRefreshViewParticleSize);
-        
-        [self addSubview: middleRightView];
-        
-        middleCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        middleCenterView.backgroundColor = kSpiralNormalColor;
-        middleCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - middleCenterView.frame.size.height);
-        
-        [self addSubview: middleCenterView];
-        
-        topLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        topLeftView.backgroundColor = kSpiralNormalColor;
-        topLeftView.center = CGPointMake(ScreenWidth - 10, self.frame.size.height - topLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
-        
-        [self addSubview: topLeftView];
-        
-        topRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        topRightView.backgroundColor = kSpiralNormalColor;
-        topRightView.center = CGPointMake(ScreenWidth - 10, self.frame.size.height - topRightView.frame.size.height - 5);
-        
-        [self addSubview: topRightView];
-        
-        topCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
-        topCenterView.backgroundColor = kSpiralNormalColor;
-        topCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - topCenterView.frame.size.height);
-        
-        [self addSubview: topCenterView];
-        
-        _particles = @[bottomLeftView, bottomCenterView, bottomRightView,
-                       middleLeftView, middleCenterView, middleRightView,
-                       topLeftView, topCenterView, topRightView];
+        _particles = @[_bottomLeftView, _bottomCenterView, _bottomRightView,
+                       _middleLeftView, _middleCenterView, _middleRightView,
+                       _topLeftView, _topCenterView, _topRightView];
     }
     return self;
 }
 
-- (void)layoutSubviews {
+- (void)configureView
+{
+    [self resetViewForCurrentOrientation];
+}
+
+- (void)doSomethingWhenLayoutSubviews
+{
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [self resetViewForCurrentOrientation];
+                     }
+                     completion:^(BOOL finished){
+                     }];
+}
+
+- (void)resetViewForCurrentOrientation
+{
+    self.bottomLeftView.center = CGPointMake((PullToRefreshViewWidth / 2) - self.bottomLeftView.frame.size.width - 1, self.frame.size.height - 30 + self.bottomLeftView.frame.size.height + 1);
+    self.bottomRightView.center = CGPointMake((PullToRefreshViewWidth / 2) - self.bottomRightView.frame.size.width - 1, self.frame.size.height - 30 - self.bottomRightView.frame.size.height - 1);
+    self.topRightView.center = CGPointMake((PullToRefreshViewWidth / 2) + self.topRightView.frame.size.width + 1, self.frame.size.height - 30 - self.topRightView.frame.size.height - 1);
+    self.topLeftView.center = CGPointMake((PullToRefreshViewWidth / 2) + self.topLeftView.frame.size.width + 1, self.frame.size.height - 30 + self.topLeftView.frame.size.height + 1);
+    
+    self.middleLeftView.center = CGPointMake((PullToRefreshViewWidth / 2) - self.middleLeftView.frame.size.width - 1, self.frame.size.height - 30);
+    self.middleRightView.center = CGPointMake((PullToRefreshViewWidth / 2) + self.middleRightView.frame.size.width + 1, self.frame.size.height - 30);
+    self.middleCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - 30);
+    self.topCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - 30 - self.topCenterView.frame.size.height - 1);
+    self.bottomCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - 30 + self.bottomCenterView.frame.size.height + 1);
+}
+
+- (void)doSomethingWhenStateChanges
+{
     switch (self.state) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
@@ -137,24 +117,7 @@
 
 - (void)doSomethingWhenChangingOrientation
 {
-    [UIView animateWithDuration:0.3
-                          delay:0.0
-                        options: UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         bottomLeftView.center = CGPointMake((ScreenWidth / 2) - bottomLeftView.frame.size.width - 1, self.frame.size.height - 30 + bottomLeftView.frame.size.height + 1);
-                         bottomRightView.center = CGPointMake((ScreenWidth / 2) - bottomRightView.frame.size.width - 1, self.frame.size.height - 30 - bottomRightView.frame.size.height - 1);
-                         topRightView.center = CGPointMake((ScreenWidth / 2) + topRightView.frame.size.width + 1, self.frame.size.height - 30 - topRightView.frame.size.height - 1);
-                         topLeftView.center = CGPointMake((ScreenWidth / 2) + topLeftView.frame.size.width + 1, self.frame.size.height - 30 + topLeftView.frame.size.height + 1);
-                         
-                         middleLeftView.center = CGPointMake((ScreenWidth / 2) - middleLeftView.frame.size.width - 1, self.frame.size.height - 30);
-                         middleRightView.center = CGPointMake((ScreenWidth / 2) + middleRightView.frame.size.width + 1, self.frame.size.height - 30);
-                         middleCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30);
-                         topCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 - topCenterView.frame.size.height - 1);
-                         bottomCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 + bottomCenterView.frame.size.height + 1);
-                     }
-                     completion:^(BOOL finished){
-                     }];
-
+    
 }
 
 - (void)changeSpiralColor:(UIColor *)aimColor
@@ -188,16 +151,7 @@
                               delay:0.0
                             options: UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             bottomLeftView.center = CGPointMake((ScreenWidth / 2) - bottomLeftView.frame.size.width - 1, self.frame.size.height - 30 + bottomLeftView.frame.size.height + 1);
-                             bottomRightView.center = CGPointMake((ScreenWidth / 2) - bottomRightView.frame.size.width - 1, self.frame.size.height - 30 - bottomRightView.frame.size.height - 1);
-                             topRightView.center = CGPointMake((ScreenWidth / 2) + topRightView.frame.size.width + 1, self.frame.size.height - 30 - topRightView.frame.size.height - 1);
-                             topLeftView.center = CGPointMake((ScreenWidth / 2) + topLeftView.frame.size.width + 1, self.frame.size.height - 30 + topLeftView.frame.size.height + 1);
-                             
-                             middleLeftView.center = CGPointMake((ScreenWidth / 2) - middleLeftView.frame.size.width - 1, self.frame.size.height - 30);
-                             middleRightView.center = CGPointMake((ScreenWidth / 2) + middleRightView.frame.size.width + 1, self.frame.size.height - 30);
-                             middleCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30);
-                             topCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 - topCenterView.frame.size.height - 1);
-                             bottomCenterView.center = CGPointMake((ScreenWidth / 2), self.frame.size.height - 30 + bottomCenterView.frame.size.height + 1);
+                             [self resetViewForCurrentOrientation];
                          }
                          completion:^(BOOL finished){
                          }];
@@ -210,7 +164,7 @@
             
             UIView *particleView = self.particles [i];
             
-            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewHangingHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewHangingHeight / 2) + radius * sin(angle)));
         }
         lastOffset = (contentOffset + (-self.originalTopInset) / 2)* 2;
     }
@@ -224,9 +178,9 @@
     switch (waitingAnimation) {
         case SpiralPullToRefreshWaitAnimationCircular:
         case SpiralPullToRefreshWaitAnimationLinear: {
-            _particles = @[bottomRightView, topCenterView, topRightView,
-                           middleLeftView, middleCenterView, middleRightView,
-                           bottomLeftView, bottomCenterView, topLeftView];
+            _particles = @[_bottomRightView, _topCenterView, _topRightView,
+                           _middleLeftView, _middleCenterView, _middleRightView,
+                           _bottomLeftView, _bottomCenterView, _topLeftView];
         }
             break;
             
@@ -331,7 +285,6 @@
             return;
         }
         lastOffset -= 2;
-//        [self contentOffsetChanged:-lastOffset];
     }
 }
 
@@ -351,9 +304,9 @@
         return;
     }
     isRefreshing = NO;
-    NSArray *particles = @[bottomLeftView, bottomCenterView, bottomRightView,
-                           middleLeftView, middleCenterView, middleRightView,
-                           topLeftView, topCenterView, topRightView];
+    NSArray *particles = @[_bottomLeftView, _bottomCenterView, _bottomRightView,
+                           _middleLeftView, _middleCenterView, _middleRightView,
+                           _topLeftView, _topCenterView, _topRightView];
     for (int i=0; i<particles.count; i++) {
         UIView *particleView = particles [i];
         particleView.backgroundColor = kSpiralFinishColor;
@@ -363,5 +316,114 @@
     animationTimer = nil;
 }
 
+#pragma mark getters
+- (UIView *)bottomLeftView
+{
+    if(!_bottomLeftView)
+    {
+        _bottomLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _bottomLeftView.backgroundColor = kSpiralNormalColor;
+        _bottomLeftView.center = CGPointMake(10, self.frame.size.height - _bottomLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
+        
+        [self addSubview: _bottomLeftView];
+    }
+    return _bottomLeftView;
+}
+- (UIView *)bottomRightView
+{
+    if(!_bottomRightView)
+    {
+        _bottomRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _bottomRightView.backgroundColor = kSpiralNormalColor;
+        _bottomRightView.center = CGPointMake(PullToRefreshViewWidth - 10, self.frame.size.height - _bottomRightView.frame.size.height - SpiralPullToRefreshViewParticleSize);
+        
+        [self addSubview: _bottomRightView];
+    }
+    return _bottomRightView;
+}
+- (UIView *)bottomCenterView
+{
+    if(!_bottomCenterView)
+    {
+        _bottomCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _bottomCenterView.backgroundColor = kSpiralNormalColor;
+        _bottomCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - _bottomCenterView.frame.size.height);
+        
+        [self addSubview: _bottomCenterView];
+    }
+    return _bottomCenterView;
+}
+- (UIView *)middleLeftView
+{
+    if(!_middleLeftView)
+    {
+        _middleLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _middleLeftView.backgroundColor = kSpiralNormalColor;
+        _middleLeftView.center = CGPointMake(PullToRefreshViewWidth - 10, self.frame.size.height - _middleLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
+        
+        [self addSubview: _middleLeftView];
+    }
+    return _middleLeftView;
+}
+- (UIView *)middleRightView
+{
+    if(!_middleRightView)
+    {
+        _middleRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _middleRightView.backgroundColor = kSpiralNormalColor;
+        _middleRightView.center = CGPointMake(PullToRefreshViewWidth - 10, self.frame.size.height - _middleRightView.frame.size.height - SpiralPullToRefreshViewParticleSize);
+        
+        [self addSubview: _middleRightView];
+    }
+    return _middleRightView;
+}
+- (UIView *)middleCenterView
+{
+    if(!_middleCenterView)
+    {
+        _middleCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _middleCenterView.backgroundColor = kSpiralNormalColor;
+        _middleCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - _middleCenterView.frame.size.height);
+        
+        [self addSubview: _middleCenterView];
+    }
+    return _middleCenterView;
+}
+- (UIView *)topLeftView
+{
+    if(!_topLeftView)
+    {
+        _topLeftView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _topLeftView.backgroundColor = kSpiralNormalColor;
+        _topLeftView.center = CGPointMake(PullToRefreshViewWidth - 10, self.frame.size.height - _topLeftView.frame.size.height - SpiralPullToRefreshViewParticleSize);
+        
+        [self addSubview: _topLeftView];
+    }
+    return _topLeftView;
+}
+- (UIView *)topRightView
+{
+    if(!_topRightView)
+    {
+        _topRightView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _topRightView.backgroundColor = kSpiralNormalColor;
+        _topRightView.center = CGPointMake(PullToRefreshViewWidth - 10, self.frame.size.height - _topRightView.frame.size.height - 5);
+        
+        [self addSubview: _topRightView];
+    }
+    return _topRightView;
+}
+- (UIView *)topCenterView
+{
+    if(!_topCenterView)
+    {
+        _topCenterView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, SpiralPullToRefreshViewParticleSize, SpiralPullToRefreshViewParticleSize)];
+        _topCenterView.backgroundColor = kSpiralNormalColor;
+        _topCenterView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - _topCenterView.frame.size.height);
+        
+        [self addSubview: _topCenterView];
+    }
+    return _topCenterView;
+}
 
 @end

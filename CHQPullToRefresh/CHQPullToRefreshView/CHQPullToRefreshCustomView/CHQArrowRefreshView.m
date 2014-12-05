@@ -8,8 +8,7 @@
 
 #import "CHQArrowRefreshView.h"
 #import "UIScrollView+SVPullToRefresh.h"
-#define ScreenWidth  [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+
 
 
 @interface CHQPullToRefreshArrow : UIView
@@ -52,8 +51,6 @@
         // default styling values
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         self.textColor = [UIColor darkGrayColor];
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.state = CHQPullToRefreshStateStopped;
         self.showsDateLabel = NO;
         
         self.titles = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Pull to refresh...",),
@@ -62,20 +59,18 @@
                        nil];
         
         self.subtitles = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
-        self.wasTriggeredByUser = YES;
-        [self setView];
     }
     return self;
 }
 
-- (void)setView
+- (void)configureView
 {
-    NSLog(@"%f", ScreenWidth);
+    NSLog(@"%f", PullToRefreshViewWidth);
     CGFloat leftViewWidth = MAX(self.arrow.bounds.size.width,self.activityIndicatorView.bounds.size.width);
     
     CGFloat margin = 10;
     CGFloat marginY = 2;
-    CGFloat labelMaxWidth = ScreenWidth - margin - leftViewWidth;
+    CGFloat labelMaxWidth = PullToRefreshViewWidth - margin - leftViewWidth;
     
     
     CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font
@@ -96,25 +91,25 @@
         totalMaxWidth = leftViewWidth + maxLabelWidth;
     }
     
-    CGFloat labelX = (ScreenWidth / 2) - (totalMaxWidth / 2) + leftViewWidth + margin;
+    CGFloat labelX = (PullToRefreshViewWidth / 2) - (totalMaxWidth / 2) + leftViewWidth + margin;
     
     if(subtitleSize.height > 0){
         CGFloat totalHeight = titleSize.height + subtitleSize.height + marginY;
         CGFloat minY = (self.bounds.size.height / 2)  - (totalHeight / 2);
         
         CGFloat titleY = minY;
-        self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, ScreenWidth-labelX, titleSize.height));
-        self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, ScreenWidth-labelX, subtitleSize.height));
+        self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, PullToRefreshViewWidth-labelX, titleSize.height));
+        self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, PullToRefreshViewWidth-labelX, subtitleSize.height));
     }else{
         CGFloat totalHeight = titleSize.height;
         CGFloat minY = (self.bounds.size.height / 2)  - (totalHeight / 2);
         
         CGFloat titleY = minY;
-        self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, ScreenWidth-labelX, titleSize.height));
-        self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, ScreenWidth-labelX, subtitleSize.height));
+        self.titleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY, PullToRefreshViewWidth-labelX, titleSize.height));
+        self.subtitleLabel.frame = CGRectIntegral(CGRectMake(labelX, titleY + titleSize.height + marginY, PullToRefreshViewWidth-labelX, subtitleSize.height));
     }
     
-    CGFloat arrowX = (ScreenWidth / 2) - (totalMaxWidth / 2) + (leftViewWidth - self.arrow.bounds.size.width) / 2;
+    CGFloat arrowX = (PullToRefreshViewWidth / 2) - (totalMaxWidth / 2) + (leftViewWidth - self.arrow.bounds.size.width) / 2;
     self.arrow.frame = CGRectMake(arrowX,
                                   (self.bounds.size.height / 2) - (self.arrow.bounds.size.height / 2),
                                   self.arrow.bounds.size.width,
@@ -122,7 +117,8 @@
     self.activityIndicatorView.center = self.arrow.center;
 }
 
-- (void)layoutSubviews {
+- (void)setLabelContent
+{
     self.titleLabel.text = [self.titles objectAtIndex:self.state];
     
     NSString *subtitle = [self.subtitles objectAtIndex:self.state];
@@ -146,9 +142,19 @@
     }
 }
 
+- (void)doSomethingWhenLayoutSubviews
+{
+    
+}
+
 - (void)doSomethingWhenChangingOrientation
 {
-    [self setView];
+    [self configureView];
+}
+
+- (void)doSomethingWhenStateChanges
+{
+    [self setLabelContent];
 }
 
 #pragma mark - Getters

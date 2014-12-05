@@ -15,7 +15,7 @@ static const float ballPendulateAngle = M_PI_2 / 1;
 @interface CHQPandulumRefreshView()
 @property (nonatomic, strong) NSMutableArray *balls;
 @property (nonatomic, strong) UIView *leftBall;
-@property (nonatomic, strong) UIView *rigthBall;
+@property (nonatomic, strong) UIView *rightBall;
 
 @property (nonatomic, strong) NSMutableArray *reflectionBalls;
 @property (nonatomic, strong) UIView *leftReflectionBall;
@@ -31,14 +31,20 @@ static const float ballPendulateAngle = M_PI_2 / 1;
 @end
 
 @implementation CHQPandulumRefreshView
+@synthesize balls = _balls;
+@synthesize leftBall = _leftBall;
+@synthesize rightBall = _rightBall;
+@synthesize reflectionBalls = _reflectionBalls;
+@synthesize leftReflectionBall = _leftReflectionBall;
+@synthesize rightReflectionBall = _rightReflectionBall;
+@synthesize ballColor = _ballColor;
+@synthesize ballDiameter = _ballDiameter;
 
 - (id)initWithFrame:(CGRect)frame
 {
-    UIColor *defaultBallColor = [UIColor colorWithRed:0.47 green:0.60 blue:0.89 alpha:1];
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.ballColor = defaultBallColor;
 //        
 //        if (ballDiameter < 0)
 //        {
@@ -49,54 +55,34 @@ static const float ballPendulateAngle = M_PI_2 / 1;
 //        {
 //            ballDiameter = CGRectGetWidth(frame) / ballCount;
 //        }
-//        
-        self.ballDiameter = defaultBallDiameter;
-        
+//
         self.offset = sin(ballPendulateAngle) * (ballPendulateRadiusFactor + 0.5) * self.ballDiameter;
-        
-        [self createBalls];
-        [self createReflection];
-        
         self.shouldAnimate = YES;
     }
     return self;
 }
 
-- (void)createBalls
+- (void)configureView
 {
-    self.balls = [NSMutableArray array];
-    
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat width = PullToRefreshViewWidth;
     CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
-    CGFloat yPos = self.frame.size.height / 1.5 - self.ballDiameter / 2;
-    
+    CGFloat yPos = PullToRefreshViewHeight / 1.5 - self.ballDiameter / 2;
     for (int i = 0; i < ballCount; i++)
     {
-        UIView *ball = [self ball];
+        UIView *ball = (UIView *)[self.balls objectAtIndex:i];
         ball.frame = CGRectMake(xPos, yPos, self.ballDiameter, self.ballDiameter);
-        [self addSubview:ball];
-        [self.balls addObject:ball];
         
         xPos += self.ballDiameter;
     }
     
-    self.leftBall = self.balls[0];
-    self.rigthBall = self.balls[ballCount - 1];
-}
-
-- (void)createReflection
-{
-    self.reflectionBalls = [NSMutableArray array];
-    
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
-    CGFloat yPos = self.frame.size.height / 1.5 + self.ballDiameter / 2 + 5;
-    
+    CGFloat rwidth = PullToRefreshViewWidth;
+    CGFloat rxPos = rwidth / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
+    CGFloat ryPos = PullToRefreshViewHeight / 1.5 + self.ballDiameter / 2 + 5;
     for (int i = 0; i < ballCount; i++)
     {
-        UIView *reflectionBall = [self ball];
-        reflectionBall.frame = CGRectMake(xPos, yPos, self.ballDiameter, self.ballDiameter);
-        reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
+        UIView *reflectionBall = [self.reflectionBalls objectAtIndex:i];
+        reflectionBall.frame = CGRectMake(rxPos, ryPos, self.ballDiameter, self.ballDiameter);
+        //        reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
         
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = reflectionBall.bounds;
@@ -104,18 +90,9 @@ static const float ballPendulateAngle = M_PI_2 / 1;
         gradient.endPoint = CGPointMake(0.5, 0);
         gradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.2].CGColor, (id)[UIColor clearColor].CGColor, (id)[UIColor clearColor].CGColor];
         gradient.locations = @[@(0), @(0.35), @(1)];
-        
         reflectionBall.layer.mask = gradient;
-        
-        [self addSubview:reflectionBall];
-        
-        [self.reflectionBalls addObject:reflectionBall];
-        
-        xPos += self.ballDiameter;
+        rxPos += self.ballDiameter;
     }
-    
-    self.leftReflectionBall = self.reflectionBalls[0];
-    self.rightReflectionBall = self.reflectionBalls[ballCount - 1];
 }
 
 - (UIView *)ball
@@ -158,13 +135,13 @@ static const float ballPendulateAngle = M_PI_2 / 1;
 
 - (void)rightBallPendulate
 {
-    [self setAnchorPoint:CGPointMake(0.5, -ballPendulateRadiusFactor) forView:self.rigthBall];
+    [self setAnchorPoint:CGPointMake(0.5, -ballPendulateRadiusFactor) forView:self.rightBall];
     
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         self.rigthBall.transform = CGAffineTransformMakeRotation(-ballPendulateAngle);
+                         self.rightBall.transform = CGAffineTransformMakeRotation(-ballPendulateAngle);
                          self.rightReflectionBall.frame = CGRectMake(self.rightReflectionBall.frame.origin.x + self.offset, self.rightReflectionBall.frame.origin.y, self.rightReflectionBall.frame.size.width, self.rightReflectionBall.frame.size.height);
                          self.rightReflectionBall.alpha = 0.2f;
                      }
@@ -173,7 +150,7 @@ static const float ballPendulateAngle = M_PI_2 / 1;
                                                delay:0
                                              options:UIViewAnimationOptionCurveEaseIn
                                           animations:^{
-                                              self.rigthBall.transform = CGAffineTransformMakeRotation(0);
+                                              self.rightBall.transform = CGAffineTransformMakeRotation(0);
                                               self.rightReflectionBall.frame = CGRectMake(self.rightReflectionBall.frame.origin.x - self.offset, self.rightReflectionBall.frame.origin.y, self.rightReflectionBall.frame.size.width, self.rightReflectionBall.frame.size.height);
                                               self.rightReflectionBall.alpha = 1.0f;
                                           } completion:^(BOOL finished) {
@@ -234,41 +211,14 @@ static const float ballPendulateAngle = M_PI_2 / 1;
     return _animating;
 }
 
+- (void)doSomethingWhenLayoutSubviews
+{
+    
+}
+
 - (void)doSomethingWhenChangingOrientation
 {
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
-    CGFloat yPos = self.frame.size.height / 1.5 - self.ballDiameter / 2;
     
-    for (int i = 0; i < ballCount; i++)
-    {
-        UIView *ball = (UIView *)[self.balls objectAtIndex:i];
-        ball.frame = CGRectMake(xPos, yPos, self.ballDiameter, self.ballDiameter);
-        [self.balls addObject:ball];
-        
-        xPos += self.ballDiameter;
-    }
-    
-    
-    CGFloat rwidth = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat rxPos = rwidth / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
-    CGFloat ryPos = self.frame.size.height / 1.5 + self.ballDiameter / 2 + 5;
-    
-    for (int i = 0; i < ballCount; i++)
-    {
-        UIView *reflectionBall = [self.reflectionBalls objectAtIndex:i];
-        reflectionBall.frame = CGRectMake(rxPos, ryPos, self.ballDiameter, self.ballDiameter);
-        //        reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
-        
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = reflectionBall.bounds;
-        gradient.startPoint = CGPointMake(0.5, 1);
-        gradient.endPoint = CGPointMake(0.5, 0);
-        gradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.2].CGColor, (id)[UIColor clearColor].CGColor, (id)[UIColor clearColor].CGColor];
-        gradient.locations = @[@(0), @(0.35), @(1)];
-        reflectionBall.layer.mask = gradient;
-        rxPos += self.ballDiameter;
-    }
 }
 
 - (void)doSomethingWhenStartingAnimating
@@ -281,6 +231,114 @@ static const float ballPendulateAngle = M_PI_2 / 1;
     [self finishAnimating];
 }
 
+#pragma mark getters
+- (NSMutableArray *)balls
+{
+    if(!_balls || [_balls count] == 0)
+    {
+        _balls = [NSMutableArray array];
+        
+        CGFloat width = [[UIScreen mainScreen] bounds].size.width;
+        CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
+        CGFloat yPos = self.frame.size.height / 1.5 - self.ballDiameter / 2;
+        
+        for (int i = 0; i < ballCount; i++)
+        {
+            UIView *ball = [self ball];
+            ball.frame = CGRectMake(xPos, yPos, self.ballDiameter, self.ballDiameter);
+            [self addSubview:ball];
+            [_balls addObject:ball];
+            
+            xPos += self.ballDiameter;
+        }
+        
+        self.leftBall = self.balls[0];
+        self.rightBall = self.balls[ballCount - 1];
+    }
+    return _balls;
+}
+
+- (UIView *)leftBall
+{
+    if(!_leftBall)
+    {
+        _leftBall = self.balls[0];
+    }
+    return _leftBall;
+}
+
+- (UIView *)rightBall
+{
+    if(!_rightBall)
+    {
+        _rightBall = self.balls[ballCount - 1];
+    }
+    return _rightBall;
+}
+
+- (NSMutableArray *)reflectionBalls
+{
+    if(!_reflectionBalls)
+    {
+        _reflectionBalls = [NSMutableArray array];
+        
+        CGFloat width = [[UIScreen mainScreen] bounds].size.width;
+        CGFloat xPos = width / 2 - (ballCount / 2 + 0.5) * self.ballDiameter;
+        CGFloat yPos = self.frame.size.height / 1.5 + self.ballDiameter / 2 + 5;
+        
+        for (int i = 0; i < ballCount; i++)
+        {
+            UIView *reflectionBall = [self ball];
+            reflectionBall.frame = CGRectMake(xPos, yPos, self.ballDiameter, self.ballDiameter);
+            reflectionBall.transform = CGAffineTransformMakeRotation(M_PI);
+            
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = reflectionBall.bounds;
+            gradient.startPoint = CGPointMake(0.5, 1);
+            gradient.endPoint = CGPointMake(0.5, 0);
+            gradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.2].CGColor, (id)[UIColor clearColor].CGColor, (id)[UIColor clearColor].CGColor];
+            gradient.locations = @[@(0), @(0.35), @(1)];
+            
+            reflectionBall.layer.mask = gradient;
+            
+            [self addSubview:reflectionBall];
+            
+            [_reflectionBalls addObject:reflectionBall];
+            
+            xPos += self.ballDiameter;
+        }
+    }
+    return _reflectionBalls;
+}
+
+- (UIView *)leftReflectionBall
+{
+    if(!_leftReflectionBall)
+    {
+        _leftReflectionBall = self.reflectionBalls[0];
+    }
+    return _leftReflectionBall;
+}
+
+- (UIView *)rightReflectionBall
+{
+    if(!_rightReflectionBall)
+    {
+        _rightReflectionBall = self.reflectionBalls[ballCount - 1];
+    }
+    return _rightReflectionBall;
+}
+
+- (UIColor *)ballColor
+{
+    UIColor *defaultBallColor = [UIColor colorWithRed:0.47 green:0.60 blue:0.89 alpha:1];
+    return defaultBallColor;
+}
+
+- (CGFloat)ballDiameter
+{
+    return defaultBallDiameter;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

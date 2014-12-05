@@ -27,6 +27,7 @@
         self.state = CHQPullToRefreshStateStopped;
         
         self.wasTriggeredByUser = YES;
+        [self configureView];
     }
     
     return self;
@@ -46,6 +47,11 @@
             }
         }
     }
+}
+
+- (void)configureView
+{
+    
 }
 
 #pragma mark private methods
@@ -120,8 +126,18 @@
                      }];
 }
 
-- (void)layoutSubviews {
+- (void)doSomethingWhenLayoutSubviews
+{
     
+}
+
+- (void)layoutSubviews {
+    if(self.PrevWidth != PullToRefreshViewWidth)
+    {
+        [self configureView];
+    }
+    self.PrevWidth = PullToRefreshViewWidth;
+    [self doSomethingWhenLayoutSubviews];
 }
 
 #pragma mark - Observing
@@ -147,10 +163,6 @@
         [self setNeedsLayout];
         [self layoutIfNeeded];
     }
-}
-
-- (void) contentOffsetChanged:(float)contentOffset {
-
 }
 
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset
@@ -232,6 +244,8 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
     
+    [self doSomethingWhenStateChanges];
+    
     switch (newState) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
@@ -246,6 +260,11 @@
             [self startAnimating];
             break;
     }
+}
+
+- (void)doSomethingWhenStateChanges
+{
+    
 }
 
 @end

@@ -8,8 +8,6 @@
 
 #import "CHQBalloonRefreshView.h"
 
-#define ScreenWidth  [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 
 #define BalloonPullToRefreshViewTriggerAreaHeight 101
 #define BalloonPullToRefreshViewParticleSize 0.5
@@ -34,8 +32,6 @@
     if (self = [super initWithFrame:frame]) {
         
         // default styling values
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.state = CHQPullToRefreshStateStopped;
         
         self.backgroundColor = [UIColor colorWithRed:0.65f green:0.83f blue:0.93f alpha:1.00f];
         self.clipsToBounds = YES;
@@ -43,6 +39,10 @@
     }
     
     return self;
+}
+- (void)configureView
+{
+    
 }
 
 - (void) setParticlesCount:(int)particlesCount {
@@ -83,7 +83,7 @@
         
         UIView *particleView = self.particles [i];
         
-        particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+        particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
     }
 }
 
@@ -118,10 +118,7 @@
             
             return;
         }
-        
         lastOffset -= 2;
-        
-//        [self contentOffsetChanged:-lastOffset];
     }
 }
 
@@ -154,7 +151,7 @@
                              
                              UIView *particleView = self.particles [i];
                              
-                             particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+                             particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
                          }
                      }
                      completion:^(BOOL finished){
@@ -217,7 +214,7 @@
     if (contentOffset == BalloonPullToRefreshViewTriggerAreaHeight / 2) {
         for (int i=0; i<self.particles.count; i++) {
             UIView *particleView = self.particles [i];
-            particleView.center = CGPointMake(ScreenWidth / 2, self.frame.size.height - contentOffset);
+            particleView.center = CGPointMake(PullToRefreshViewWidth / 2, self.frame.size.height - contentOffset);
         }
     } else {
         for (int i=0; i<self.particles.count; i++) {
@@ -228,7 +225,7 @@
             UIView *particleView = self.particles [i];
             
             particleView.frame = CGRectMake(0, 0, BalloonPullToRefreshViewParticleSize + ratio, BalloonPullToRefreshViewParticleSize + ratio);
-            particleView.center = CGPointMake((ScreenWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
         }
     }
     
@@ -252,26 +249,3 @@
 */
 
 @end
-
-
-//
-// UIScrollView+BalloonPullToRefresh.m
-// Balloon Pull Demo
-//
-//  Created by Dmitry Klimkin on 5/5/13.
-//  Copyright (c) 2013 Dmitry Klimkin. All rights reserved.
-//
-
-
-
-#pragma mark - UIScrollView (BalloonPullToRefresh)
-#import <objc/runtime.h>
-
-static char UIScrollViewPullToRefreshView;
-
-@implementation UIScrollView (BalloonPullToRefresh)
-
-
-
-@end
-
