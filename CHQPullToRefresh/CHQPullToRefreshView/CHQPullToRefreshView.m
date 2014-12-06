@@ -132,6 +132,7 @@
 }
 
 - (void)layoutSubviews {
+    [super layoutSubviews];
     if(self.PrevWidth != PullToRefreshViewWidth)
     {
         [self configureView];

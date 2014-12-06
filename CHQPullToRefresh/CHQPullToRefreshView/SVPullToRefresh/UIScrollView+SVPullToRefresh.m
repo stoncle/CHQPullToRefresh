@@ -79,7 +79,7 @@ static char UIScrollViewPullToRefreshView;
             [view addNotifications:view];
             [self insertSubview:view atIndex:0];
             view.originalTopInset = self.contentInset.top;
-            if([self parentViewController].navigationController.navigationBar)
+            if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
             {
                 view.originalTopInset = 64.0;
                 view.portraitTopInset = 64.0;
