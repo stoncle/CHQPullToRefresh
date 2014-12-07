@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #define CHQInfiniteScrollingViewHeight 60
+#define InfiniteScrollingViewWidth self.bounds.size.width
 typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
     CHQInfiniteScrollingStateStopped = 0,
     CHQInfiniteScrollingStateTriggered,
@@ -30,6 +31,7 @@ typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL isObserving;
 
+- (void)configureView;
 - (void)resetScrollViewContentInset;
 - (void)setScrollViewContentInsetForInfiniteScrolling;
 - (void)setScrollViewContentInset:(UIEdgeInsets)insets;

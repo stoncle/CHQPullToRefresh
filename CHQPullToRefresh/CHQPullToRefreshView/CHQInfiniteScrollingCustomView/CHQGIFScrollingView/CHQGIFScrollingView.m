@@ -15,6 +15,9 @@
 @end
 
 @implementation CHQGIFScrollingView
+@synthesize imageViewLoading = _imageViewLoading;
+@synthesize labelLoading = _labelLoading;
+@synthesize activityIndicatorView = _activityIndicatorView;
 
 - (id)initWithRefreshingImage:(UIImage *)refreshingImage WithFrame:(CGRect)frame
 {
@@ -24,51 +27,23 @@
         self.pImgArrLoading = refreshingImages;
         //number of frame per second
         self.LoadingFrameRate = 30;
-        [self _commonInit];
+        self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
+        self.contentMode = UIViewContentModeRedraw;
+        self.backgroundColor = [UIColor clearColor];
+        [self setViewConstraints];
     }
     return self;
 }
 
-- (void)_commonInit
+- (void)configureView
 {
-    self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
-    self.contentMode = UIViewContentModeRedraw;
-    self.state = CHQInfiniteScrollingStateStopped;
-    self.backgroundColor = [UIColor clearColor];
-    self.labelLoading = [[UILabel alloc]initWithFrame:CGRectZero];
-    [self addSubview:self.labelLoading];
     
-    
-    if(self.pImgArrLoading==nil)
-    {
-        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
-        self.activityIndicatorView.hidesWhenStopped = YES;
-        self.activityIndicatorView.frame = self.bounds;
-        NSLog(@"%f,%f",self.bounds.origin.x, self.bounds.origin.y);
-        [self addSubview:self.activityIndicatorView];
-    }
-    else
-    {
-        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
-        self.imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
-        self.imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageViewLoading.animationImages = self.pImgArrLoading;
-        self.imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)self.imageViewLoading.animationImages.count);
-        self.imageViewLoading.alpha = 0;
-        self.imageViewLoading.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.imageViewLoading];
-        NSLog(@"%f, %f, %f, %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    }
-    [self setViewConstraints];
-    self.labelLoading.text = @"loading...";
-//    NSLog(@"%f, %f, %f, %f", self.imageViewLoading.frame.origin.x, self.imageViewLoading.frame.origin.y, self.imageViewLoading.frame.size.width, self.imageViewLoading.frame.size.height);
-//    self.alpha = 0;
 }
 
 - (void)setViewConstraints
 {
-    _imageViewLoading.translatesAutoresizingMaskIntoConstraints = NO;
-    _labelLoading.translatesAutoresizingMaskIntoConstraints = NO;
+    self.imageViewLoading.translatesAutoresizingMaskIntoConstraints = NO;
+    self.labelLoading.translatesAutoresizingMaskIntoConstraints = NO;
 
     NSLayoutConstraint *imageViewLoadingWidth = [NSLayoutConstraint constraintWithItem:self.imageViewLoading attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:self.bounds.size.height];
     NSLayoutConstraint *imageViewLoadingHeight = [NSLayoutConstraint constraintWithItem:self.imageViewLoading attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.imageViewLoading attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0];
@@ -111,6 +86,44 @@
 {
     self.imageViewLoading.alpha = 0;
     self.labelLoading.alpha = 0;
+}
+
+#pragma mark getters
+- (UIImageView *)imageViewLoading
+{
+    if(!_imageViewLoading)
+    {
+        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
+        _imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
+        _imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
+        _imageViewLoading.animationImages = self.pImgArrLoading;
+        _imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)_imageViewLoading.animationImages.count);
+        _imageViewLoading.alpha = 0;
+        _imageViewLoading.backgroundColor = [UIColor clearColor];
+        [self addSubview:_imageViewLoading];
+    }
+    return _imageViewLoading;
+}
+- (UILabel *)labelLoading
+{
+    if(!_labelLoading)
+    {
+        _labelLoading = [[UILabel alloc]initWithFrame:CGRectZero];
+        _labelLoading.text = @"loading...";
+        [self addSubview:_labelLoading];
+    }
+    return _labelLoading;
+}
+- (UIActivityIndicatorView *)activityIndicatorView
+{
+    if(!_activityIndicatorView)
+    {
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
+        _activityIndicatorView.hidesWhenStopped = YES;
+        _activityIndicatorView.frame = self.bounds;
+        [self addSubview:_activityIndicatorView];
+    }
+    return _activityIndicatorView;
 }
 
 

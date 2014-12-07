@@ -52,6 +52,8 @@
 		F99B76A81A02412F007F9734 /* CHQPandulumRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F99B76A71A02412F007F9734 /* CHQPandulumRefreshView.m */; };
 		F9A9AEC319FEA48B001DCA70 /* CHQInfiniteScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */; };
 		F9AC08FC1A01379100FF900E /* CHQGIFScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */; };
+		F9F0CA481A34488F00CD491F /* CHQEllipsisScrollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F0CA471A34488F00CD491F /* CHQEllipsisScrollingView.m */; };
+		F9F0CA4C1A34507800CD491F /* MONActivityIndicatorView1.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F0CA4B1A34507800CD491F /* MONActivityIndicatorView1.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +142,10 @@
 		F9A9AEC219FEA48B001DCA70 /* CHQInfiniteScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQInfiniteScrollingView.m; sourceTree = "<group>"; };
 		F9AC08FA1A01379100FF900E /* CHQGIFScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQGIFScrollingView.h; sourceTree = "<group>"; };
 		F9AC08FB1A01379100FF900E /* CHQGIFScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQGIFScrollingView.m; sourceTree = "<group>"; };
+		F9F0CA461A34488F00CD491F /* CHQEllipsisScrollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQEllipsisScrollingView.h; sourceTree = "<group>"; };
+		F9F0CA471A34488F00CD491F /* CHQEllipsisScrollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQEllipsisScrollingView.m; sourceTree = "<group>"; };
+		F9F0CA4A1A34507800CD491F /* MONActivityIndicatorView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONActivityIndicatorView1.h; sourceTree = "<group>"; };
+		F9F0CA4B1A34507800CD491F /* MONActivityIndicatorView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONActivityIndicatorView1.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +417,7 @@
 		F9A9AEC019FEA458001DCA70 /* CHQInfiniteScrollingCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				F9F0CA451A34486C00CD491F /* CHQEllipsisScrollingView */,
 				F9AC08F91A0136B400FF900E /* CHQGIFScrollingView */,
 			);
 			path = CHQInfiniteScrollingCustomView;
@@ -431,6 +438,25 @@
 			children = (
 			);
 			path = gifs;
+			sourceTree = "<group>";
+		};
+		F9F0CA451A34486C00CD491F /* CHQEllipsisScrollingView */ = {
+			isa = PBXGroup;
+			children = (
+				F9F0CA491A34507800CD491F /* MONActivityIndicatorView */,
+				F9F0CA461A34488F00CD491F /* CHQEllipsisScrollingView.h */,
+				F9F0CA471A34488F00CD491F /* CHQEllipsisScrollingView.m */,
+			);
+			path = CHQEllipsisScrollingView;
+			sourceTree = "<group>";
+		};
+		F9F0CA491A34507800CD491F /* MONActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				F9F0CA4A1A34507800CD491F /* MONActivityIndicatorView1.h */,
+				F9F0CA4B1A34507800CD491F /* MONActivityIndicatorView1.m */,
+			);
+			path = MONActivityIndicatorView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,6 +578,7 @@
 				F925F34B1A0923A900583DFC /* CHQPinterestRefreshView.m in Sources */,
 				F925F2E91A02935500583DFC /* CHQEllipsisRefreshView.m in Sources */,
 				F955A98B19E985C0006D29FB /* Pac.m in Sources */,
+				F9F0CA4C1A34507800CD491F /* MONActivityIndicatorView1.m in Sources */,
 				F925F2ED1A0293AA00583DFC /* MONActivityIndicatorView.m in Sources */,
 				F925F35C1A092DF800583DFC /* RHAnimator.m in Sources */,
 				F99672B319FCF035002C43AD /* AnimatedGIFImageSerialization.m in Sources */,
@@ -563,6 +590,7 @@
 				F99B76A81A02412F007F9734 /* CHQPandulumRefreshView.m in Sources */,
 				F9272EDC19E27EF0007A5C61 /* CollectionViewHeader.m in Sources */,
 				F9272EFD19E3BC4B007A5C61 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				F9F0CA481A34488F00CD491F /* CHQEllipsisScrollingView.m in Sources */,
 				F955A98219E982F2006D29FB /* CHQEatBeansRefreshView.m in Sources */,
 				F9272EDB19E27EF0007A5C61 /* CollectionViewController.m in Sources */,
 				F996729119F7EA9B002C43AD /* BaseAnimation.m in Sources */,
@@ -630,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -666,7 +694,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

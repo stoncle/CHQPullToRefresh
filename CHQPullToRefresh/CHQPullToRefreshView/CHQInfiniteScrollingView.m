@@ -7,6 +7,10 @@
 //
 #import "UIScrollView+SVInfiniteScrolling.h"
 
+@interface CHQInfiniteScrollingView()
+@property (nonatomic, assign) CGFloat PrevWidth;
+@end
+
 @implementation CHQInfiniteScrollingView
 
 @synthesize infiniteScrollingHandler, activityIndicatorViewStyle;
@@ -25,6 +29,7 @@
         self.state = CHQInfiniteScrollingStateStopped;
         self.enabled = YES;
         self.viewForState = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
+        [self configureView];
     }
     
     return self;
@@ -42,6 +47,27 @@
         }
     }
 }
+
+- (void)configureView
+{
+    
+}
+
+- (void)doSomethingWhenLayoutSubviews
+{
+    
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if(self.PrevWidth != InfiniteScrollingViewWidth)
+    {
+        [self configureView];
+    }
+    self.PrevWidth = InfiniteScrollingViewWidth;
+    [self doSomethingWhenLayoutSubviews];
+}
+
 
 
 #pragma mark - Scroll View

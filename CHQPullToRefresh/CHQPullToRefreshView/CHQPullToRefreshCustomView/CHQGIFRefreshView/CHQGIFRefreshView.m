@@ -43,6 +43,7 @@
 
 - (void)configureView
 {
+    
     self.backgroundColor = [UIColor clearColor];
     self.alpha = 0;
 }

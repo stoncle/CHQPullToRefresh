@@ -11,11 +11,18 @@
 #import "CHQInfiniteScrollingView.h"
 #import "CHQGIFScrollingView.h"
 
-
+typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingTheme)
+{
+    CHQInfiniteScrollingThemeEllipsis = 0,
+    
+    CHQInfiniteScrollingThemeDefault = CHQInfiniteScrollingThemeEllipsis
+};
 @interface UIScrollView (SVInfiniteScrolling)
 
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
+- (void)changeCurrentThemeToTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)triggerInfiniteScrolling;
 
 @property (nonatomic, strong, readonly) CHQInfiniteScrollingView *infiniteScrollingView;

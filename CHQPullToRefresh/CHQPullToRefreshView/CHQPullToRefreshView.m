@@ -8,6 +8,10 @@
 
 #import "CHQPullToRefreshView.h"
 #import "SVPullToRefresh.h"
+@interface CHQPullToRefreshView()
+@property (nonatomic, assign) CGFloat PrevWidth;
+@end
+
 @implementation CHQPullToRefreshView
 
 // public properties
@@ -177,7 +181,7 @@
         CGFloat scrollOffsetThreshold = 0;
 //        scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
         scrollOffsetThreshold = -CHQPullToRefreshViewTriggerHeight - self.originalTopInset;
-        NSLog(@"%f", self.frame.origin.y);
+//        NSLog(@"%f", self.frame.origin.y);
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
         else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == SVPullToRefreshStateStopped)
@@ -191,6 +195,7 @@
         offset = MIN(offset, self.originalTopInset + self.bounds.size.height);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
+        NSLog(@"%f", self.scrollView.contentInset.top);
     }
 }
 

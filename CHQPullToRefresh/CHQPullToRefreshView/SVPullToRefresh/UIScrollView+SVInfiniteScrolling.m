@@ -9,6 +9,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "CHQEllipsisScrollingView.h"
 
 
 #import <objc/runtime.h>
@@ -21,18 +22,36 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 @dynamic infiniteScrollingView;
 
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler {
-    
+    [self addInfiniteScrollingWithActionHandler:actionHandler WithCurrentTheme:CHQInfiniteScrollingThemeDefault];
+}
+
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme
+{
     if(!self.infiniteScrollingView) {
-        CHQInfiniteScrollingView *view = [[CHQInfiniteScrollingView alloc] initWithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
-        view.infiniteScrollingHandler = actionHandler;
-        view.scrollView = self;
-        [self addSubview:view];
-        
-        view.originalBottomInset = self.contentInset.bottom;
+        CHQInfiniteScrollingView *view;
+        switch(theme)
+        {
+            case CHQInfiniteScrollingThemeEllipsis:
+                view = [[CHQEllipsisScrollingView alloc] initWithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
+                break;
+            default:
+                NSLog(@"theme not found!");
+                return;
+        }
+        if(view)
+        {
+            view.infiniteScrollingHandler = actionHandler;
+            view.scrollView = self;
+            [self addSubview:view];
+            view.originalBottomInset = self.contentInset.bottom;
+//            view.originalBottomInset = CHQInfiniteScrollingViewHeight;
+        }
+//        self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.infiniteScrollingView = view;
         self.showsInfiniteScrolling = YES;
     }
 }
+
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName
 {
     if(!self.infiniteScrollingView) {
@@ -46,6 +65,37 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         view.originalBottomInset = self.contentInset.bottom;
         self.infiniteScrollingView = view;
         self.showsInfiniteScrolling = YES;
+    }
+}
+
+- (void)changeCurrentThemeToTheme:(CHQInfiniteScrollingTheme)theme
+{
+    if(!self.infiniteScrollingView) {
+        CHQInfiniteScrollingView *prevView = self.infiniteScrollingView;
+        [prevView removeFromSuperview];
+        CHQInfiniteScrollingView *view;
+        switch(theme)
+        {
+            case CHQInfiniteScrollingThemeEllipsis:
+                view = [[CHQEllipsisScrollingView alloc] initWithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
+                break;
+            default:
+                NSLog(@"theme not found!");
+                return;
+        }
+        if(view)
+        {
+            view.infiniteScrollingHandler = prevView.infiniteScrollingHandler;
+            view.scrollView = self;
+            [self addSubview:view];
+            view.originalBottomInset = self.contentInset.bottom;
+        }
+        self.infiniteScrollingView = view;
+        self.showsInfiniteScrolling = YES;
+    }
+    else
+    {
+        NSLog(@"You may need to call [aScrollView addPullToRefreshWithActionHandler:WithCurrentTheme:] first to add a refresh view before changing its theme.");
     }
 }
 

@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) CGFloat landscapeTopInset;
 @property (nonatomic, assign) CGFloat portraitTopInset;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
-@property (nonatomic, assign) CGFloat PrevWidth;
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;

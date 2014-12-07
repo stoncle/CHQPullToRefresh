@@ -70,7 +70,6 @@ static char UIScrollViewPullToRefreshView;
             default:
                 NSLog(@"theme not found!");
                 return;
-                break;
         }
         if(view)
         {
@@ -79,41 +78,48 @@ static char UIScrollViewPullToRefreshView;
             [view addNotifications:view];
             [self insertSubview:view atIndex:0];
             view.originalTopInset = self.contentInset.top;
+            
             if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
             {
-                view.originalTopInset = 64.0;
-                view.portraitTopInset = 64.0;
-                view.landscapeTopInset = 64.0;
+                view.originalTopInset = 64;
+                if(IS_IOS7)
+                {
+                    if(IS_IPHONE)
+                    {
+                        view.portraitTopInset = 64.0;
+                        view.landscapeTopInset = 52.0;
+                    }
+                    else if(IS_IPAD)
+                    {
+                        view.portraitTopInset = 64.0;
+                        view.landscapeTopInset = 64.0;
+                    }
+                }
+                else if(IS_IOS8)
+                {
+                    view.portraitTopInset = 64.0;
+                    view.originalTopInset = 64.0;
+                    if(IS_IPHONE)
+                    {
+                        if(IS_IPHONE6PLUS)
+                            view.landscapeTopInset = 44.0;
+                        else
+                        {
+                            view.landscapeTopInset = 32.0;
+                        }
+                    }
+                    else if(IS_IPAD)
+                    {
+                        view.landscapeTopInset = 64.0;
+                    }
+                }
             }
-            
-//            if(IS_IOS7)
-//            {
-//                if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//                {
-//                    view.portraitTopInset = 64.0;
-//                    view.landscapeTopInset = 52.0;
-//                }
-//            }
-//            else if(IS_IOS8)
-//            {
-//                if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//                {
-//                    view.portraitTopInset = 64.0;
-//                    view.originalTopInset = 64.0;
-//                    
-//                    if(IS_IPHONE6PLUS)
-//                        view.landscapeTopInset = 44.0;
-//                    else
-//                        view.landscapeTopInset = 32.0;
-//                    
-//                }
-//            }
             view.originalBottomInset = self.contentInset.bottom;
+            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
 //        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
-        
     }
 }
 
@@ -131,36 +137,46 @@ static char UIScrollViewPullToRefreshView;
         view.backgroundColor = [UIColor whiteColor];
         view.originalTopInset = self.contentInset.top;
         
-        if([self parentViewController].navigationController.navigationBar)
+//        if([self parentViewController].navigationController.navigationBar)
+//        {
+//            view.originalTopInset = 64.0;
+//            view.portraitTopInset = 64.0;
+//            view.landscapeTopInset = 64.0;
+//        }
+        if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
         {
-            view.originalTopInset = 64.0;
-            view.portraitTopInset = 64.0;
-            view.landscapeTopInset = 64.0;
+            if(IS_IOS7)
+            {
+                if(IS_IPHONE)
+                {
+                    view.portraitTopInset = 64.0;
+                    view.landscapeTopInset = 52.0;
+                }
+                else if(IS_IPAD)
+                {
+                    view.portraitTopInset = 64.0;
+                    view.landscapeTopInset = 64.0;
+                }
+            }
+            else if(IS_IOS8)
+            {
+                view.portraitTopInset = 64.0;
+                view.originalTopInset = 64.0;
+                if(IS_IPHONE)
+                {
+                    if(IS_IPHONE6PLUS)
+                        view.landscapeTopInset = 44.0;
+                    else
+                    {
+                        view.landscapeTopInset = 32.0;
+                    }
+                }
+                else if(IS_IPAD)
+                {
+                    view.landscapeTopInset = 64.0;
+                }
+            }
         }
-//        if(IS_IOS7)
-//        {
-//            if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//            {
-//                view.portraitTopInset = 64.0;
-//                view.landscapeTopInset = 52.0;
-//            }
-//        }
-//        else if(IS_IOS8)
-//        {
-//            if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//            {
-//                view.portraitTopInset = 64.0;
-//                view.originalTopInset = 64.0;
-//                
-//                if(IS_IPHONE6PLUS)
-//                    view.landscapeTopInset = 44.0;
-//                else
-//                    view.landscapeTopInset = 32.0;
-//                
-//            }
-//        }
-  
-        
 //            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
 //                view.originalTopInset = self.contentInset.top;
 //            } else {
@@ -168,9 +184,9 @@ static char UIScrollViewPullToRefreshView;
 //                view.originalTopInset = 64;
 //            }
             //            view.originalBottomInset = self.contentInset.bottom;
-            self.pullToRefreshView = view;
-            self.showsPullToRefresh = YES;
-        
+        self.pullToRefreshView = view;
+        self.showsPullToRefresh = YES;
+        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
         [self addSubview:view];
 //        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
         
@@ -222,37 +238,50 @@ static char UIScrollViewPullToRefreshView;
             [self addSubview:view];
             
             view.originalTopInset = self.contentInset.top;
-            if([self parentViewController].navigationController.navigationBar)
+//            if([self parentViewController].navigationController.navigationBar)
+//            {
+//                view.originalTopInset = 64.0;
+//                view.portraitTopInset = 64.0;
+//                view.landscapeTopInset = 64.0;
+//            }
+            if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
             {
-                view.originalTopInset = 64.0;
-                view.portraitTopInset = 64.0;
-                view.landscapeTopInset = 64.0;
+                if(IS_IOS7)
+                {
+                    if(IS_IPHONE)
+                    {
+                        view.portraitTopInset = 64.0;
+                        view.landscapeTopInset = 52.0;
+                    }
+                    else if(IS_IPAD)
+                    {
+                        view.portraitTopInset = 64.0;
+                        view.landscapeTopInset = 64.0;
+                    }
+                }
+                else if(IS_IOS8)
+                {
+                    view.portraitTopInset = 64.0;
+                    view.originalTopInset = 64.0;
+                    if(IS_IPHONE)
+                    {
+                        if(IS_IPHONE6PLUS)
+                            view.landscapeTopInset = 44.0;
+                        else
+                        {
+                            view.landscapeTopInset = 32.0;
+                        }
+                    }
+                    else if(IS_IPAD)
+                    {
+                        view.landscapeTopInset = 64.0;
+                    }
+                }
             }
-//            if(IS_IOS7)
-//            {
-//                if(cEqualFloats(self.contentInset.top, 64.00, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//                {
-//                    view.portraitTopInset = 64.0;
-//                    view.landscapeTopInset = 52.0;
-//                }
-//            }
-//            else if(IS_IOS8)
-//            {
-//                if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
-//                {
-//                    view.portraitTopInset = 64.0;
-//                    view.originalTopInset = 64.0;
-//                    
-//                    if(IS_IPHONE6PLUS)
-//                        view.landscapeTopInset = 44.0;
-//                    else
-//                        view.landscapeTopInset = 32.0;
-//                    
-//                }
-//            }
 
 //            view.originalTopInset = self.contentInset.top;
             self.pullToRefreshView = view;
+            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.showsPullToRefresh = YES;
         }
     }
