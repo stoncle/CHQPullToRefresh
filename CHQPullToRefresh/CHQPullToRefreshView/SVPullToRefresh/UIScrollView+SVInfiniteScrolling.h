@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingTheme)
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
-- (void)changeCurrentThemeToTheme:(CHQInfiniteScrollingTheme)theme;
+- (void)changeCurrentInfiniteScrollingThemeToTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)triggerInfiniteScrolling;
 
 @property (nonatomic, strong, readonly) CHQInfiniteScrollingView *infiniteScrollingView;

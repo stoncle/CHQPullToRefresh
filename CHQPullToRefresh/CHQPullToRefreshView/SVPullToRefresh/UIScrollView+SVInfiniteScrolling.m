@@ -68,7 +68,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
     }
 }
 
-- (void)changeCurrentThemeToTheme:(CHQInfiniteScrollingTheme)theme
+- (void)changeCurrentInfiniteScrollingThemeToTheme:(CHQInfiniteScrollingTheme)theme
 {
     if(!self.infiniteScrollingView) {
         CHQInfiniteScrollingView *prevView = self.infiniteScrollingView;
