@@ -8,8 +8,10 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
+- (void)changeCurrentInfiniteScrollingThemeToTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
+- (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
 ```
 ##Installation
@@ -39,6 +41,11 @@ Being a catagory of UIScrollView, you may find the following methods in it:
     // append data to data source, insert new cells at the end of table view
     // call [tableView.infiniteScrollingView stopAnimating] when done
     }];
+###Adding infinite scrolling with a Theme
+    [collectionView addInfiniteScrollingWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        // call [collectionView.infiniteScrollingView stopAnimating] when done
+    } WithCurrentTheme:CHQInfiniteScrollingThemeDefault];
 ###Adding Infinite Scrolling with a gif picture
     [_collectionView addInfiniteScrollingWithActionHandler:^{
         // append data to data source, insert new cells at the end of table view
@@ -47,13 +54,15 @@ Being a catagory of UIScrollView, you may find the following methods in it:
     } WithLoadingImageName:@"run@2x.gif"];
 ###Changing refresh theme in runtime
     call [tableView changeCurrentRefreshThemeToTheme:] whenever you want to change the theme, remember that you have to add a pull to refresh view before this.
+###Changing infinite scrolling theme in runtime
+    call [tableView changeCurrentInfiniteScrollingThemeToTheme:] whenever you want to change the theme, remember that you have to add a pull to infinite scrolling view before this.
 ###Trigger Refreshing programmatically
     [tableView triggerPullToRefresh];
     [tableView triggerInfiniteScrolling];
 ###Hide Refresh view
     tableView.showsPullToRefresh = NO;
     tableView.showsInfiniteScrolling = NO;
-##Supporting Theme so far
+##Supporting Refresh Theme so far
 * CHQRefreshThemeArrow(Default)
   * normal refresh view with an arrow pointing directions.  
 * CHQRefreshThemeSpiral
@@ -69,7 +78,12 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 * CHQRefreshThemePinterest
   * pinterest refreshing style.
 * New Theme coming soon...
-  * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it !  
+  * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it ! 
+##Supporting Infinite scrolling Theme so far
+* CHQInfiniteScrollingThemeEllipsis
+  * wavy ellipsis.
+* New Theme coming soon...
+  * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it !
 
 ####arrow theme
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/arrow.png)
@@ -89,6 +103,8 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pinterest.png)
 ####gif infinite scrolling
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gifinfinite.png)
+####ellipsis infinite scrolling
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsisScrolling.png)
 
 ###You can design your own theme
   by subclassing the CHQPullToRefresh  
