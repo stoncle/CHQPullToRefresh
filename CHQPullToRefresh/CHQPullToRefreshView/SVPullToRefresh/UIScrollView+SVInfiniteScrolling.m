@@ -63,6 +63,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         [self addSubview:view];
         
         view.originalBottomInset = self.contentInset.bottom;
+        self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.infiniteScrollingView = view;
         self.showsInfiniteScrolling = YES;
     }
@@ -91,6 +92,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
             view.originalBottomInset = self.contentInset.bottom;
         }
         self.infiniteScrollingView = view;
+//        self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.showsInfiniteScrolling = YES;
     }
     else

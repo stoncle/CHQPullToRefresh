@@ -80,7 +80,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
         });
-    } WithCurrentTheme:CHQRefreshThemeEatBeans];
+    } WithCurrentTheme:CHQRefreshThemePandulum];
 //    [_collectionView addPullToRefreshWithActionHandler:^{
 //        NSMutableArray *arr = [[NSMutableArray alloc]init];
 //        if(a.count > 20)
@@ -179,7 +179,7 @@
         });
     }];
     [self addConstraints];
-    [_collectionView triggerInfiniteScrolling];
+//    [_collectionView triggerPullToRefresh];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
