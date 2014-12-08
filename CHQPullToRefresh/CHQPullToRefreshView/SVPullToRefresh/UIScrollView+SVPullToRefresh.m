@@ -36,10 +36,11 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
 {
-    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeEatBeans];
+    CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:self];
+    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeEatBeans WithConfigurator:configurator];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme {
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator{
     
     if(!self.pullToRefreshView) {
         CHQPullToRefreshView *view;
@@ -73,45 +74,14 @@ static char UIScrollViewPullToRefreshView;
         }
         if(view)
         {
+            view.configurator = configurator;
             view.pullToRefreshActionHandler = actionHandler;
             view.scrollView = self;
             [view addNotifications:view];
             [self insertSubview:view atIndex:0];
-            view.originalTopInset = self.contentInset.top;
-            
-            if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
-            {
-                view.originalTopInset = 64;
-                if(IS_IOS7)
-                {
-                    if(IS_IPHONE)
-                    {
-                        view.portraitTopInset = 64.0;
-                        view.landscapeTopInset = 52.0;
-                    }
-                    else if(IS_IPAD)
-                    {
-                        view.portraitTopInset = 64.0;
-                        view.landscapeTopInset = 64.0;
-                    }
-                }
-                else if(IS_IOS8)
-                {
-                    view.portraitTopInset = 64.0;                    if(IS_IPHONE)
-                    {
-                        if(IS_IPHONE6PLUS)
-                            view.landscapeTopInset = 44.0;
-                        else
-                        {
-                            view.landscapeTopInset = 32.0;
-                        }
-                    }
-                    else if(IS_IPAD)
-                    {
-                        view.landscapeTopInset = 64.0;
-                    }
-                }
-            }
+            view.originalTopInset = configurator.originalTopInset;
+            view.portraitTopInset = configurator.portraitTopInset;
+            view.landscapeTopInset = configurator.landscapeTopInset;
             view.originalBottomInset = self.contentInset.bottom;
             //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
 //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
@@ -122,7 +92,7 @@ static char UIScrollViewPullToRefreshView;
     }
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator
 {
     if(!self.pullToRefreshView) {
         CHQPullToRefreshView *view;
@@ -134,55 +104,10 @@ static char UIScrollViewPullToRefreshView;
             view.pullToRefreshActionHandler = actionHandler;
             view.scrollView = self;
         view.backgroundColor = [UIColor whiteColor];
-        view.originalTopInset = self.contentInset.top;
-        
-//        if([self parentViewController].navigationController.navigationBar)
-//        {
-//            view.originalTopInset = 64.0;
-//            view.portraitTopInset = 64.0;
-//            view.landscapeTopInset = 64.0;
-//        }
-        if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
-        {
-            view.originalTopInset = 64.0;
-            if(IS_IOS7)
-            {
-                if(IS_IPHONE)
-                {
-                    view.portraitTopInset = 64.0;
-                    view.landscapeTopInset = 52.0;
-                }
-                else if(IS_IPAD)
-                {
-                    view.portraitTopInset = 64.0;
-                    view.landscapeTopInset = 64.0;
-                }
-            }
-            else if(IS_IOS8)
-            {
-                view.portraitTopInset = 64.0;
-                if(IS_IPHONE)
-                {
-                    if(IS_IPHONE6PLUS)
-                        view.landscapeTopInset = 44.0;
-                    else
-                    {
-                        view.landscapeTopInset = 32.0;
-                    }
-                }
-                else if(IS_IPAD)
-                {
-                    view.landscapeTopInset = 64.0;
-                }
-            }
-        }
-//            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-//                view.originalTopInset = self.contentInset.top;
-//            } else {
-//                //set to 64 if exists navigation bar, or any you want
-//                view.originalTopInset = 64;
-//            }
-            //            view.originalBottomInset = self.contentInset.bottom;
+        view.configurator = configurator;
+        view.originalTopInset = configurator.originalTopInset;
+        view.portraitTopInset = configurator.portraitTopInset;
+        view.landscapeTopInset = configurator.landscapeTopInset;
         self.pullToRefreshView = view;
         self.showsPullToRefresh = YES;
 //        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
@@ -231,55 +156,15 @@ static char UIScrollViewPullToRefreshView;
         }
         if(view)
         {
+            view.configurator = previousView.configurator;
             view.pullToRefreshActionHandler = previousView.pullToRefreshActionHandler;
             view.scrollView = self;
             [view addNotifications:view];
             [self addSubview:view];
-            
-            view.originalTopInset = self.contentInset.top;
-//            if([self parentViewController].navigationController.navigationBar)
-//            {
-//                view.originalTopInset = 64.0;
-//                view.portraitTopInset = 64.0;
-//                view.landscapeTopInset = 64.0;
-//            }
-            if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
-            {
-                view.originalTopInset = 64.0;
-                if(IS_IOS7)
-                {
-                    if(IS_IPHONE)
-                    {
-                        view.portraitTopInset = 64.0;
-                        view.landscapeTopInset = 52.0;
-                    }
-                    else if(IS_IPAD)
-                    {
-                        view.portraitTopInset = 64.0;
-                        view.landscapeTopInset = 64.0;
-                    }
-                }
-                else if(IS_IOS8)
-                {
-                    view.portraitTopInset = 64.0;
-                    if(IS_IPHONE)
-                    {
-                        if(IS_IPHONE6PLUS)
-                            view.landscapeTopInset = 44.0;
-                        else
-                        {
-                            view.landscapeTopInset = 32.0;
-                        }
-                    }
-                    else if(IS_IPAD)
-                    {
-                        view.landscapeTopInset = 64.0;
-                    }
-                }
-            }
-
-//            view.originalTopInset = self.contentInset.top;
             self.pullToRefreshView = view;
+            view.originalTopInset = view.configurator.originalTopInset;
+            view.portraitTopInset = view.configurator.portraitTopInset;
+            view.landscapeTopInset = view.configurator.landscapeTopInset;
 //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.showsPullToRefresh = YES;
         }
@@ -291,7 +176,7 @@ static char UIScrollViewPullToRefreshView;
 }
 
 - (void)triggerPullToRefresh {
-    self.pullToRefreshView.state = SVPullToRefreshStateTriggered;
+    self.pullToRefreshView.state = CHQPullToRefreshStateTriggered;
     self.contentOffset = CGPointMake(self.contentOffset.x, -self.contentInset.top - 60);
     [self.pullToRefreshView startAnimating];
 }
@@ -338,17 +223,6 @@ static char UIScrollViewPullToRefreshView;
 - (BOOL)showsPullToRefresh {
     return !self.pullToRefreshView.hidden;
 }
-
-//- (UIViewController *)parentViewController
-//{
-//    for (UIView* next = [self superview]; next; next = next.superview) {
-//        UIResponder *nextResponder = [next nextResponder];
-//        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-//            return (UIViewController *)nextResponder;
-//        }
-//    }
-//    return nil;
-//}
 
 - (UIViewController *)findViewController:(UIView *)sourceView
 {

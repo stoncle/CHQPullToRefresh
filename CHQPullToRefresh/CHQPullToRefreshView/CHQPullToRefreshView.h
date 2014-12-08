@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHQPullToRefreshConfigurator.h"
 #define CHQPullToRefreshViewHeight 60
 #define CHQPullToRefreshViewTriggerHeight 65
 #define CHQPullToRefreshViewHangingHeight 60
@@ -32,6 +33,8 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;
+
+@property (nonatomic, strong) CHQPullToRefreshConfigurator *configurator;
 
 - (void)configureView;
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset;

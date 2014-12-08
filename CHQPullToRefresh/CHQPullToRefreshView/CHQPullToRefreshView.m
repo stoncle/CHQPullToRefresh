@@ -184,7 +184,7 @@
 //        NSLog(@"%f", self.frame.origin.y);
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
-        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == SVPullToRefreshStateStopped)
+        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateTriggered;
         else if(contentOffset.y >= scrollOffsetThreshold && self.state != CHQPullToRefreshStateStopped)
             self.state = CHQPullToRefreshStateStopped;
