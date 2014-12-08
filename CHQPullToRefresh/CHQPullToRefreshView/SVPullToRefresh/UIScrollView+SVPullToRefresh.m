@@ -79,7 +79,7 @@ static char UIScrollViewPullToRefreshView;
             [self insertSubview:view atIndex:0];
             view.originalTopInset = self.contentInset.top;
             
-            if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
+            if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
             {
                 view.originalTopInset = 64;
                 if(IS_IOS7)
@@ -115,7 +115,7 @@ static char UIScrollViewPullToRefreshView;
                 }
             }
             view.originalBottomInset = self.contentInset.bottom;
-            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
+//            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
         }
@@ -143,7 +143,7 @@ static char UIScrollViewPullToRefreshView;
 //            view.portraitTopInset = 64.0;
 //            view.landscapeTopInset = 64.0;
 //        }
-        if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
+        if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
         {
             if(IS_IOS7)
             {
@@ -186,7 +186,7 @@ static char UIScrollViewPullToRefreshView;
             //            view.originalBottomInset = self.contentInset.bottom;
         self.pullToRefreshView = view;
         self.showsPullToRefresh = YES;
-        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
+//        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
         [self addSubview:view];
 //        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
         
@@ -244,7 +244,7 @@ static char UIScrollViewPullToRefreshView;
 //                view.portraitTopInset = 64.0;
 //                view.landscapeTopInset = 64.0;
 //            }
-            if([self parentViewController].navigationController.navigationBar && self.frame.origin.y == 0)
+            if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
             {
                 if(IS_IOS7)
                 {
@@ -281,7 +281,7 @@ static char UIScrollViewPullToRefreshView;
 
 //            view.originalTopInset = self.contentInset.top;
             self.pullToRefreshView = view;
-            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
+//            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.showsPullToRefresh = YES;
         }
     }
@@ -340,15 +340,27 @@ static char UIScrollViewPullToRefreshView;
     return !self.pullToRefreshView.hidden;
 }
 
-- (UIViewController *)parentViewController
+//- (UIViewController *)parentViewController
+//{
+//    for (UIView* next = [self superview]; next; next = next.superview) {
+//        UIResponder *nextResponder = [next nextResponder];
+//        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+//            return (UIViewController *)nextResponder;
+//        }
+//    }
+//    return nil;
+//}
+
+- (UIViewController *)findViewController:(UIView *)sourceView
 {
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
+    id target=sourceView;
+    while (target) {
+        target = ((UIResponder *)target).nextResponder;
+        if ([target isKindOfClass:[UIViewController class]]) {
+            break;
         }
     }
-    return nil;
+    return target;
 }
 
 @end
