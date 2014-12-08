@@ -97,9 +97,7 @@ static char UIScrollViewPullToRefreshView;
                 }
                 else if(IS_IOS8)
                 {
-                    view.portraitTopInset = 64.0;
-                    view.originalTopInset = 64.0;
-                    if(IS_IPHONE)
+                    view.portraitTopInset = 64.0;                    if(IS_IPHONE)
                     {
                         if(IS_IPHONE6PLUS)
                             view.landscapeTopInset = 44.0;
@@ -115,6 +113,7 @@ static char UIScrollViewPullToRefreshView;
                 }
             }
             view.originalBottomInset = self.contentInset.bottom;
+            //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
 //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.pullToRefreshView = view;
             self.showsPullToRefresh = YES;
@@ -145,6 +144,7 @@ static char UIScrollViewPullToRefreshView;
 //        }
         if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
         {
+            view.originalTopInset = 64.0;
             if(IS_IOS7)
             {
                 if(IS_IPHONE)
@@ -161,7 +161,6 @@ static char UIScrollViewPullToRefreshView;
             else if(IS_IOS8)
             {
                 view.portraitTopInset = 64.0;
-                view.originalTopInset = 64.0;
                 if(IS_IPHONE)
                 {
                     if(IS_IPHONE6PLUS)
@@ -246,6 +245,7 @@ static char UIScrollViewPullToRefreshView;
 //            }
             if([self findViewController:self].navigationController.navigationBar && self.frame.origin.y == 0)
             {
+                view.originalTopInset = 64.0;
                 if(IS_IOS7)
                 {
                     if(IS_IPHONE)
@@ -262,7 +262,6 @@ static char UIScrollViewPullToRefreshView;
                 else if(IS_IOS8)
                 {
                     view.portraitTopInset = 64.0;
-                    view.originalTopInset = 64.0;
                     if(IS_IPHONE)
                     {
                         if(IS_IPHONE6PLUS)
