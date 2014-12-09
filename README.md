@@ -7,9 +7,11 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ```Objective-C
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentInfiniteScrollingThemeToTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
@@ -30,12 +32,23 @@ Being a catagory of UIScrollView, you may find the following methods in it:
         // prepend data to dataSource, insert cells at top of table view
         // call [collectionView.pullToRefreshView stopAnimating] when done
     } WithCurrentTheme:CHQRefreshThemeDefault];
+###Adding Pull to Refresh with a Theme and a configurator
+    [collectionView addPullToRefreshWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        // call [collectionView.pullToRefreshView stopAnimating] when done
+    } WithCurrentTheme:CHQRefreshThemeDefault WithConfigurator:[[CHQPullToRefreshConfigurator alloc]init]];
 ###Adding Pull to Refresh with gif picture
     [_collectionView addPullToRefreshWithActionHandler:^{
         // prepend data to dataSource, insert cells at top of table view
         // call [collectionView.pullToRefreshView stopAnimating] when done
         });
     } WithProgressImageName:@"cat.gif" RefreshingImageName:@"run@2x.gif"];
+###Adding Pull to Refresh with gif picture and a configurator
+    [_collectionView addPullToRefreshWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        // call [collectionView.pullToRefreshView stopAnimating] when done
+        });
+    } WithProgressImageName:@"cat.gif" RefreshingImageName:@"run@2x.gif"                        WithConfigurator:[[CHQPullToRefreshConfigurator alloc]init]];
 ###Adding Infinite Scrolling
     [tableView addInfiniteScrollingWithActionHandler:^{
     // append data to data source, insert new cells at the end of table view
@@ -62,6 +75,10 @@ Being a catagory of UIScrollView, you may find the following methods in it:
 ###Hide Refresh view
     tableView.showsPullToRefresh = NO;
     tableView.showsInfiniteScrolling = NO;
+    
+#Configurator
+a configurator is offered as a customise class, you can create your own configurator to design your refresh view, including portrait and landscape top content inset of your scrollview and etc.
+use [[CHQPullToRefreshConfigurator alloc]init] to create a configurator, and set the properties freely for yourself!If you don't set them, they will remain in default way, like 60 for refreshview height and 0 for originalcontentinset.
 ##Supporting Refresh Theme so far
 * CHQRefreshThemeArrow(Default)
   * normal refresh view with an arrow pointing directions.  
