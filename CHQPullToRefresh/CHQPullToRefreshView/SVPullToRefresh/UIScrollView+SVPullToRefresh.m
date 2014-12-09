@@ -36,8 +36,13 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
 {
+    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeDefault];
+}
+
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme
+{
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:self];
-    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeEatBeans WithConfigurator:configurator];
+    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:theme WithConfigurator:configurator];
 }
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator{
@@ -90,6 +95,12 @@ static char UIScrollViewPullToRefreshView;
         }
 //        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
     }
+}
+
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName
+{
+    CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:self];
+    [self addPullToRefreshWithActionHandler:actionHandler WithProgressImageName:progressImageName RefreshingImageName:refreshingImageName WithConfigurator:configurator];
 }
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator
