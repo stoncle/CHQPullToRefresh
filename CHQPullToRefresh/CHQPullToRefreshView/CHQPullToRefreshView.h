@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CHQPullToRefreshConfigurator.h"
-#define CHQPullToRefreshViewHeight 60
-#define CHQPullToRefreshViewTriggerHeight 65
-#define CHQPullToRefreshViewHangingHeight 60
+@class CHQPullToRefreshConfigurator;
+//#define CHQPullToRefreshViewHeight 60
+//#define CHQPullToRefreshViewTriggerHeight 65
+//#define CHQPullToRefreshViewHangingHeight 60
 #define PullToRefreshViewWidth  self.bounds.size.width
 #define PullToRefreshViewHeight self.bounds.size.height
 
@@ -22,6 +22,10 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 };
 
 @interface CHQPullToRefreshView : UIView
+
+@property (nonatomic, assign) CGFloat pullToRefreshViewHeight;
+@property (nonatomic, assign) CGFloat pullToRefreshViewTriggerHeight;
+@property (nonatomic, assign) CGFloat pullToRefreshViewHangingHeight;
 
 @property (nonatomic, copy) void (^pullToRefreshActionHandler)(void);
 @property (nonatomic, readwrite) CHQPullToRefreshState state;

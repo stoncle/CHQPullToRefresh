@@ -5,9 +5,10 @@
 //  Created by stoncle on 14-10-4.
 //  Copyright (c) 2014年 stoncle. All rights reserved.
 //
-
+#import "UIScrollView+SVPullToRefresh.h"
 #import "CHQPullToRefreshView.h"
-#import "SVPullToRefresh.h"
+#import "CHQPullToRefreshConfigurator.h"
+
 @interface CHQPullToRefreshView()
 @property (nonatomic, assign) CGFloat PrevWidth;
 @end
@@ -40,8 +41,8 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.superview && newSuperview == nil) {
         //use self.superview, not self.scrollView. Why self.scrollView == nil here?
-        UIScrollView *scrollView = (UIScrollView *)self.superview;
-        if (scrollView.showsPullToRefresh) {
+        UIScrollView *scrollView = self.scrollView;
+//        if (scrollView.showsPullToRefresh) {
             if (self.isObserving) {
                 //If enter this branch, it is the moment just before "CHQPullToRefreshView's dealloc", so remove observer here
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];
@@ -49,7 +50,7 @@
                 [scrollView removeObserver:self forKeyPath:@"frame"];
                 self.isObserving = NO;
             }
-        }
+//        }
     }
 }
 
@@ -115,9 +116,9 @@
 }
 
 - (void)setScrollViewContentInset:(UIEdgeInsets)contentInset Handler:(void (^)(void))actionHandler{
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.2
                           delay:0
-                        options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          self.scrollView.contentInset = contentInset;
                      }
@@ -128,6 +129,7 @@
                          }
 //                         NSLog(@"%f", self.scrollView.contentInset.top);
                      }];
+//    self.scrollView.contentInset = contentInset;
 }
 
 - (void)doSomethingWhenLayoutSubviews
@@ -150,10 +152,13 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
     {
+        [self changeFrameWithContentOffsetNew:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue] Old:[[change valueForKey:NSKeyValueChangeOldKey]CGPointValue]];
         if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y > 0)
         {
             return;
         }
+        
+
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     }
 //    else if([keyPath isEqualToString:@"contentSize"]) {
@@ -175,12 +180,18 @@
     
 }
 
+- (void)changeFrameWithContentOffsetNew:(CGPoint)contentOffsetNew Old:(CGPoint)contentOffsetOld
+{
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y - (contentOffsetNew.y-contentOffsetOld.y), self.frame.size.width, self.frame.size.height);
+    NSLog(@"%f", self.frame.origin.y);
+}
+
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
     [self doSomethingWhenScrolling:contentOffset];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
 //        scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
-        scrollOffsetThreshold = -CHQPullToRefreshViewTriggerHeight - self.originalTopInset;
+        scrollOffsetThreshold = -self.pullToRefreshViewTriggerHeight - self.originalTopInset;
 //        NSLog(@"%f", self.frame.origin.y);
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
@@ -244,7 +255,7 @@
     
     if(_state == newState)
         return;
-    
+    CHQPullToRefreshState prevState = _state;
     _state = newState;
     
     [self setNeedsLayout];
@@ -255,7 +266,8 @@
     switch (newState) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
-            [self resetScrollViewContentInset:nil];
+            if(prevState == CHQPullToRefreshStateLoading)
+                [self resetScrollViewContentInset:nil];
             break;
             
         case CHQPullToRefreshStateTriggered:

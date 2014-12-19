@@ -9,8 +9,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AvailabilityMacros.h>
-#import "CHQPullToRefreshView.h"
 #import "CHQPullToRefreshConfigurator.h"
+#import "CHQPullToRefreshView.h"
 
 #define fequal(a,b) (fabs((a) - (b)) < FLT_EPSILON)
 #define fequalzero(a) (fabs(a) < FLT_EPSILON)
@@ -24,8 +24,6 @@
 #define cNotEqualFloats(f1, f2, epsilon)    ( !cEqualFloats(f1, f2, epsilon) )
 
 
-
-@class SVPullToRefreshView;
 typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
 {
     CHQRefreshThemeArrow = 0,

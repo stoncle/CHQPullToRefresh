@@ -16,12 +16,19 @@
 @synthesize originalTopInset = _originalTopInset;
 @synthesize portraitTopInset = _portraitTopInset;
 @synthesize landscapeTopInset = _landscapeTopInset;
+@synthesize frame = _frame;
+@synthesize backgroundColor =_backgroundColor;
+@synthesize pullToRefreshViewHeight = _pullToRefreshViewHeight;
+@synthesize pullToRefreshViewTriggerHeight = _pullToRefreshViewTriggerHeight;
+@synthesize pullToRefreshViewHangingHeight = _pullToRefreshViewHangingHeight;
+@synthesize theme = _theme;
 
 - (CHQPullToRefreshConfigurator *)initWithScrollView:(UIScrollView *)scrollView
 {
-    _originalTopInset = 60;
+    self.scrollView = scrollView;
     if([self findViewController:scrollView].navigationController.navigationBar)
     {
+        _originalTopInset = 64;
         if(IS_IOS7)
         {
             if(IS_IPHONE)
@@ -78,6 +85,50 @@
 {
     return _landscapeTopInset;
 }
+- (CGRect)frame
+{
+    if(CGRectEqualToRect(_frame, CGRectZero))
+    {
+        _frame = CGRectMake(0, -self.pullToRefreshViewHeight, self.scrollView.bounds.size.width, self.pullToRefreshViewHeight);
+    }
+    return _frame;
+}
+- (UIColor *)backgroundColor
+{
+    if(!_backgroundColor)
+    {
+        _backgroundColor = [UIColor clearColor];
+    }
+    return _backgroundColor;
+}
+- (float)pullToRefreshViewHeight
+{
+    if(_pullToRefreshViewHeight <= 0)
+    {
+        _pullToRefreshViewHeight = 60;
+    }
+    return _pullToRefreshViewHeight;
+}
+- (float)pullToRefreshViewTriggerHeight
+{
+    if(_pullToRefreshViewTriggerHeight <= 0)
+    {
+        _pullToRefreshViewTriggerHeight = 65;
+    }
+    return _pullToRefreshViewTriggerHeight;
+}
+- (float)pullToRefreshViewHangingHeight
+{
+    if(_pullToRefreshViewHangingHeight <= 0)
+    {
+        _pullToRefreshViewHangingHeight = 60;
+    }
+    return _pullToRefreshViewHangingHeight;
+}
+- (int)theme
+{
+    return _theme;
+}
 
 #pragma mark setters
 - (void)setOriginalTopInset:(float)originalTopInset
@@ -99,6 +150,30 @@
     {
         _originalTopInset = _landscapeTopInset;
     }
+}
+- (void)setFrame:(CGRect)frame
+{
+    _frame = frame;
+}
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    _backgroundColor = backgroundColor;
+}
+- (void)setPullToRefreshViewHeight:(float)pullToRefreshViewHeight
+{
+    _pullToRefreshViewHeight = pullToRefreshViewHeight;
+}
+- (void)setPullToRefreshViewTriggerHeight:(float)pullToRefreshViewTriggerHeight
+{
+    _pullToRefreshViewTriggerHeight = pullToRefreshViewTriggerHeight;
+}
+- (void)setPullToRefreshViewHangingHeight:(float)pullToRefreshViewHangingHeight
+{
+    _pullToRefreshViewHangingHeight = pullToRefreshViewHangingHeight;
+}
+- (void)setTheme:(int)theme
+{
+    _theme = theme;
 }
 
 #pragma private methods

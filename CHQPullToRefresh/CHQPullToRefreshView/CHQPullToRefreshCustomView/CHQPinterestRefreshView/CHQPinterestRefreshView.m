@@ -54,7 +54,7 @@
 
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset
 {
-    CGFloat progress = -contentOffset.y / (self.originalTopInset + CHQPullToRefreshViewTriggerHeight);
+    CGFloat progress = -contentOffset.y / (self.originalTopInset + self.pullToRefreshViewTriggerHeight);
     CGFloat deltaRotate = progress * 180;
     CGFloat angelDegree = (180.0 - deltaRotate);
     

@@ -124,18 +124,18 @@
     NSString *subtitle = [self.subtitles objectAtIndex:self.state];
     self.subtitleLabel.text = subtitle.length > 0 ? subtitle : nil;
     switch (self.state) {
-        case SVPullToRefreshStateAll:
-        case SVPullToRefreshStateStopped:
+        case CHQPullToRefreshStateAll:
+        case CHQPullToRefreshStateStopped:
             self.arrow.alpha = 1;
             [self.activityIndicatorView stopAnimating];
             [self rotateArrow:0 hide:NO];
             break;
             
-        case SVPullToRefreshStateTriggered:
+        case CHQPullToRefreshStateTriggered:
             [self rotateArrow:(float)M_PI hide:NO];
             break;
             
-        case SVPullToRefreshStateLoading:
+        case CHQPullToRefreshStateLoading:
             [self.activityIndicatorView startAnimating];
             [self rotateArrow:0 hide:YES];
             break;
@@ -241,7 +241,7 @@
     if(!title)
         title = @"";
     
-    if(state == SVPullToRefreshStateAll)
+    if(state == CHQPullToRefreshStateAll)
         [self.titles replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[title, title, title]];
     else
         [self.titles replaceObjectAtIndex:state withObject:title];
@@ -253,7 +253,7 @@
     if(!subtitle)
         subtitle = @"";
     
-    if(state == SVPullToRefreshStateAll)
+    if(state == CHQPullToRefreshStateAll)
         [self.subtitles replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[subtitle, subtitle, subtitle]];
     else
         [self.subtitles replaceObjectAtIndex:state withObject:subtitle];

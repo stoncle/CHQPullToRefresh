@@ -142,11 +142,11 @@
         contentOffset = -10;
     }
     
-    if (contentOffset > CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
-        contentOffset = CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2;
+    if (contentOffset > self.pullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
+        contentOffset = self.pullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2;
     }
     
-    if (contentOffset == CHQPullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
+    if (contentOffset == self.pullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
         [UIView animateWithDuration:0.3
                               delay:0.0
                             options: UIViewAnimationOptionCurveEaseOut
@@ -164,7 +164,7 @@
             
             UIView *particleView = self.particles [i];
             
-            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((CHQPullToRefreshViewHangingHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((self.pullToRefreshViewHangingHeight / 2) + radius * sin(angle)));
         }
         lastOffset = (contentOffset + (-self.originalTopInset) / 2)* 2;
     }

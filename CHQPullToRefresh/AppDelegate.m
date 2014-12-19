@@ -15,8 +15,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     CollectionViewController *con = [[CollectionViewController alloc]init];
-    UINavigationController *rootCon = [[UINavigationController alloc]initWithRootViewController:con];
-    self.window.rootViewController = rootCon;
+//    UINavigationController *rootCon = [[UINavigationController alloc]initWithRootViewController:con];
+    self.window.rootViewController = con;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

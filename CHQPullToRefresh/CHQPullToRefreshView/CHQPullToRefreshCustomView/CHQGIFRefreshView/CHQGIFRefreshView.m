@@ -53,7 +53,7 @@
     CGFloat yOffset = contentOffset.y;
     CGFloat scrollOffsetThreshold = 0;
     scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
-    self.progress = -yOffset / (self.originalTopInset + CHQPullToRefreshViewTriggerHeight);
+    self.progress = -yOffset / (self.originalTopInset + self.pullToRefreshViewTriggerHeight);
 }
 
 #pragma mark - property

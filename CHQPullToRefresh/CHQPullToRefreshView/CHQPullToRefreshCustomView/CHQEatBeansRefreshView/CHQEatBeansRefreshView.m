@@ -30,7 +30,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectMake(0, -frame.size.height, frame.size.width, frame.size.height)];
+    self = [super initWithFrame:frame];
     if (self) {
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refresh)];
         self.displayLink.paused = YES;
