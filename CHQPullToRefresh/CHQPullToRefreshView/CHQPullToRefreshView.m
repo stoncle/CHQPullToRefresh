@@ -110,7 +110,8 @@
 - (void)setScrollViewContentInsetForLoading {
     CGFloat offset = MAX(self.scrollView.contentOffset.y * -1, 0);
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
-    currentInsets.top = MIN(offset, self.originalTopInset + self.bounds.size.height);
+    NSLog(@"%f", self.pullToRefreshViewHangingHeight);
+    currentInsets.top = MIN(offset, self.originalTopInset + self.pullToRefreshViewHangingHeight);
     [self setScrollViewContentInset:currentInsets
                             Handler:nil];
 }
@@ -203,7 +204,7 @@
         CGFloat offset;
         UIEdgeInsets contentInset;
         offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, self.originalTopInset + self.bounds.size.height);
+        offset = MIN(offset, self.originalTopInset + self.pullToRefreshViewHangingHeight);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
 //        NSLog(@"%f", self.scrollView.contentInset.top);
@@ -229,7 +230,7 @@
     [self doSomethingWhenStartingAnimating];
     
     if(fequalzero(self.scrollView.contentOffset.y)) {
-        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.frame.size.height) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.pullToRefreshViewHangingHeight) animated:YES];
         self.wasTriggeredByUser = NO;
     }
     else

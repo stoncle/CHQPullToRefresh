@@ -46,29 +46,33 @@
 {
     contentOffset.y += self.originalTopInset;
     float ratio = 0.0f;
+    float r1 = -self.pullToRefreshViewTriggerHeight/3;
+    float r2 = -(2*self.pullToRefreshViewTriggerHeight)/3;
+    float r3 = -self.pullToRefreshViewTriggerHeight;
+    float delta = self.pullToRefreshViewTriggerHeight/3;
         if(contentOffset.y >= 0.0f)
         {
             [_monActivityView changeCirCle:0 withZoomRatio:0];
             [_monActivityView changeCirCle:1 withZoomRatio:0];
             [_monActivityView changeCirCle:2 withZoomRatio:0];
         }
-        else if(contentOffset.y >= -20 && contentOffset.y < 0.0f)
+        else if(contentOffset.y >= r1 && contentOffset.y < 0.0f)
         {
-            ratio = (0.0f-contentOffset.y)/20.0f;
+            ratio = (0.0f-contentOffset.y)/delta;
             [_monActivityView changeCirCle:0 withZoomRatio:ratio];
             [_monActivityView changeCirCle:1 withZoomRatio:0];
             [_monActivityView changeCirCle:2 withZoomRatio:0];
         }
-        else if(contentOffset.y >= -40 && contentOffset.y < -20.0f)
+        else if(contentOffset.y >= r2 && contentOffset.y < r1)
         {
-            ratio = (-20.0f-contentOffset.y)/20.0f;
+            ratio = (r1-contentOffset.y)/delta;
             [_monActivityView changeCirCle:0 withZoomRatio:1.0f];
             [_monActivityView changeCirCle:1 withZoomRatio:ratio];
             [_monActivityView changeCirCle:2 withZoomRatio:0];
         }
-        else if(contentOffset.y >= -60 && contentOffset.y < -40.0f)
+        else if(contentOffset.y >= r3 && contentOffset.y < r2)
         {
-            ratio = (-40.0f-contentOffset.y)/20.0f;
+            ratio = (r2-contentOffset.y)/delta;
             [_monActivityView changeCirCle:0 withZoomRatio:1.0f];
             [_monActivityView changeCirCle:1 withZoomRatio:1.0f];
             [_monActivityView changeCirCle:2 withZoomRatio:ratio];
