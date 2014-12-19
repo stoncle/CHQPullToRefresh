@@ -54,7 +54,6 @@
     {
         [self.monActivityView stopAnimating];
     }
-    
 }
 
 - (void)doSomethingWhenStartingAnimating

@@ -98,10 +98,21 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
+    {
+//        NSLog(@"%f,%f", [[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y, [[change valueForKey:NSKeyValueChangeOldKey] CGPointValue].y);
+        if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y < self.scrollView.contentSize.height - self.scrollView.frame.size.height)
+        {
+            return;
+        }
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
+    }
     else if([keyPath isEqualToString:@"contentSize"]) {
-        [self layoutSubviews];
-        self.frame = CGRectMake(0, self.scrollView.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight);
+        if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y != [[change valueForKey:NSKeyValueChangeOldKey] CGPointValue].y)
+        {
+            [self layoutSubviews];
+            self.frame = CGRectMake(0, self.scrollView.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight);
+        }
+//        NSLog(@"%f,%f", [[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y, [[change valueForKey:NSKeyValueChangeOldKey] CGPointValue].y);
     }
 }
 
