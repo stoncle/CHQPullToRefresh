@@ -2,19 +2,18 @@ CHQPullToRefresh
 ================
 base on [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by [@samvermette](https://github.com/samvermette)  
 
-Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing(both PullToRefresh and InfiniteScrolling).
+Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing(both PullToRefresh and InfiniteScrolling).You can also customize it.
 Being a catagory of UIScrollView, you may find the following methods in it:  
 ```Objective-C
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
 - (void)changeCurrentInfiniteScrollingThemeToTheme:(CHQInfiniteScrollingTheme)theme;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQInfiniteScrollingTheme)theme;
 - (void)addInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler WithLoadingImageName:(NSString *)loadingImageName;
+- (void)triggerPullToRefresh;
+- (void)triggerInfiniteScrolling;
 ```
 ##Installation
 * Drag the CHQPullToRefreshView folder into your project.
@@ -27,28 +26,6 @@ Being a catagory of UIScrollView, you may find the following methods in it:
         // prepend data to dataSource, insert cells at top of table view
         // call [collectionView.pullToRefreshView stopAnimating] when done
     }];
-###Adding Pull to Refresh with a Theme
-    [collectionView addPullToRefreshWithActionHandler:^{
-        // prepend data to dataSource, insert cells at top of table view
-        // call [collectionView.pullToRefreshView stopAnimating] when done
-    } WithCurrentTheme:CHQRefreshThemeDefault];
-###Adding Pull to Refresh with a Theme and a configurator
-    [collectionView addPullToRefreshWithActionHandler:^{
-        // prepend data to dataSource, insert cells at top of table view
-        // call [collectionView.pullToRefreshView stopAnimating] when done
-    } WithCurrentTheme:CHQRefreshThemeDefault WithConfigurator:[[CHQPullToRefreshConfigurator alloc]init]];
-###Adding Pull to Refresh with gif picture
-    [_collectionView addPullToRefreshWithActionHandler:^{
-        // prepend data to dataSource, insert cells at top of table view
-        // call [collectionView.pullToRefreshView stopAnimating] when done
-        });
-    } WithProgressImageName:@"cat.gif" RefreshingImageName:@"run@2x.gif"];
-###Adding Pull to Refresh with gif picture and a configurator
-    [_collectionView addPullToRefreshWithActionHandler:^{
-        // prepend data to dataSource, insert cells at top of table view
-        // call [collectionView.pullToRefreshView stopAnimating] when done
-        });
-    } WithProgressImageName:@"cat.gif" RefreshingImageName:@"run@2x.gif"                        WithConfigurator:[[CHQPullToRefreshConfigurator alloc]init]];
 ###Adding Infinite Scrolling
     [tableView addInfiniteScrollingWithActionHandler:^{
     // append data to data source, insert new cells at the end of table view
@@ -78,7 +55,54 @@ Being a catagory of UIScrollView, you may find the following methods in it:
     
 #Configurator
 a configurator is offered as a customise class, you can create your own configurator to design your refresh view, including portrait and landscape top content inset of your scrollview and etc.
-use [[CHQPullToRefreshConfigurator alloc]init] to create a configurator, and set the properties freely for yourself!If you don't set them, they will remain in default way, like 60 for refreshview height and 0 for originalcontentinset.
+use [[CHQPullToRefreshConfigurator alloc]initWithScrollView:] to create a configurator, and set the properties freely for yourself!If you don't set them, they will remain in default way, like 60 for refreshview height and 0 for originalcontentinset.You can custom your configurator in the following way:
+####portraitTopInset
+    the content inset of the scrollview when in portrait mode, set this when the default inset of the pulltorefreshview doesn't meet your demand.
+####landscapeTopInset
+    the content inset of the scrollview when in landscape mode.
+####frame
+    the frame you want to add your pulltorefreshview to.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview.
+####pullToRefreshViewHeight
+    the height of the refresh view.
+####pullToRefreshViewTriggerHeight
+    the triggering height of the refresh view.
+####pullToRefreshViewHangingHeight
+    the hanging height of the refresh view.
+####backgroundColor
+    the background color of the refresh view.
+####theme
+    the theme of the refresh theme.Supporting themes for now are as follows.
+####progressImageName
+    display image when dragging the scrollview, when theme being set to CHQRefreshThemeGif, you can set this to the name of your favorite gif image.
+####refreshingImageName
+    display image when refreshing, hen theme being set to CHQRefreshThemeGif, you can set this to the name of your favorite gif image.
+feel free to customize your configurator, just don't forget to attach it to the refresh view.
+```Objective-C
+    configurator.frame = CGRectMake(0, 200, 768, 60);
+    configurator.theme = CHQRefreshThemeDefault;
+    configurator.progressImageName = @"run@2x.gif";
+    configurator.refreshingImageName = @"run@2x.gif";
+    [_collectionView addPullToRefreshWithActionHandler:^{
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        if(a.count > 20)
+        {
+            for(int i=0; i<20; i++)
+            {
+                [a removeObjectAtIndex:i];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [arr addObject:indexPath];
+            }
+        }
+        if(arr.count > 0)
+        {
+            [d deleteItemsAtIndexPaths:arr];
+        }
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [d.pullToRefreshView stopAnimating];
+        });
+    } WithConfigurator:configurator];
+```
 ##Supporting Refresh Theme so far
 * CHQRefreshThemeArrow(Default)
   * normal refresh view with an arrow pointing directions.  
