@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9193E191A44005A00D031CF /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = F9193E181A44005A00D031CF /* test.png */; };
 		F925F2E91A02935500583DFC /* CHQEllipsisRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F925F2E81A02935500583DFC /* CHQEllipsisRefreshView.m */; };
 		F925F2ED1A0293AA00583DFC /* MONActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F925F2EC1A0293AA00583DFC /* MONActivityIndicatorView.m */; };
 		F925F3231A0656B700583DFC /* CHQBalloonRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = F925F3221A0656B700583DFC /* CHQBalloonRefreshView.m */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F9193E181A44005A00D031CF /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		F925F2E71A02935500583DFC /* CHQEllipsisRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQEllipsisRefreshView.h; sourceTree = "<group>"; };
 		F925F2E81A02935500583DFC /* CHQEllipsisRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHQEllipsisRefreshView.m; sourceTree = "<group>"; };
 		F925F2EB1A0293AA00583DFC /* MONActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		F9272E9F19E27E09007A5C61 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F9193E181A44005A00D031CF /* test.png */,
 				F9272EA019E27E09007A5C61 /* Info.plist */,
 				F9272EA119E27E09007A5C61 /* main.m */,
 			);
@@ -583,6 +586,7 @@
 				F99672AF19FCEED6002C43AD /* spinner_dropbox@2x.gif in Resources */,
 				F99672AB19FCEED6002C43AD /* cupido@2x.gif in Resources */,
 				F955A98D19E985C0006D29FB /* pac-bottom@2x.png in Resources */,
+				F9193E191A44005A00D031CF /* test.png in Resources */,
 				F925F32F1A065A9300583DFC /* circle_red.png in Resources */,
 				F925F3391A07AEFE00583DFC /* saya.gif in Resources */,
 				F99672AA19FCEED6002C43AD /* cat.gif in Resources */,

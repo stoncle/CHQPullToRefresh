@@ -7,6 +7,7 @@
 //
 
 #import "StickyHeaderLayout.h"
+#import "SVPullToRefresh.h"
 
 @implementation StickyHeaderLayout
 
@@ -19,9 +20,9 @@
     for (UICollectionViewLayoutAttributes *itemAttributes in attributes) {
         if (itemAttributes.representedElementKind==UICollectionElementKindSectionHeader) {
             CGRect frame = itemAttributes.frame;
-            if(self.collectionView.contentOffset.y < 0)
+            if(self.collectionView.contentOffset.y < -self.collectionView.pullToRefreshView.originalTopInset)
             {
-                frame.origin.y = self.collectionView.contentOffset.y;
+                frame.origin.y = self.collectionView.contentOffset.y + self.collectionView.pullToRefreshView.originalTopInset;
             }
             itemAttributes.frame = frame;
             itemAttributes.zIndex = 1024;

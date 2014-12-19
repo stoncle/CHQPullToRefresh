@@ -36,7 +36,6 @@
         self.contentMode = UIViewContentModeRedraw;
         //number of frame per second
         self.LoadingFrameRate = 30;
-//        [self _commonInit];
     }
     return self;
 }
@@ -90,27 +89,6 @@
     }
     _progress = progress;
     prevProgress = progress;
-}
-
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([keyPath isEqualToString:@"contentOffset"])
-    {
-        [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
-    }
-//    else if([keyPath isEqualToString:@"contentSize"])
-//    {
-//        [self setNeedsLayout];
-//        [self setNeedsDisplay];
-//    }
-    else if([keyPath isEqualToString:@"frame"])
-    {
-        [self setFrameSizeByProgressImage];
-        
-        [self setNeedsLayout];
-        [self setNeedsDisplay];
-    }
 }
 
 - (void)setIsVariableSize:(BOOL)isVariableSize
@@ -209,7 +187,11 @@
 {
     if(!_imageViewLoading)
     {
-        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
+        if(![self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]])
+        {
+            NSLog(@"loading image not a gif image.");
+        }
+//        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
         _imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
         _imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
         _imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -226,7 +208,11 @@
 {
     if(!_imageViewProgress)
     {
-        NSAssert([_pImgArrProgress.lastObject isKindOfClass:[UIImage class]], @"pImgArrProgress Array has object that is not image");
+        if(![_pImgArrProgress.lastObject isKindOfClass:[UIImage class]])
+        {
+            NSLog(@"progress image not an gif image.");
+        }
+//        NSAssert([_pImgArrProgress.lastObject isKindOfClass:[UIImage class]], @"pImgArrProgress Array has object that is not image");
         _imageViewProgress = [[UIImageView alloc] initWithImage:[self.pImgArrProgress lastObject]];
         _imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
         _imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;

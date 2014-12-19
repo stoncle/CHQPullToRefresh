@@ -36,88 +36,72 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
 {
-    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:CHQRefreshThemeDefault];
-}
-
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme
-{
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:self];
-    [self addPullToRefreshWithActionHandler:actionHandler WithCurrentTheme:theme WithConfigurator:configurator];
+    [self addPullToRefreshWithActionHandler:actionHandler WithConfigurator:configurator];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator{
-    
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithConfigurator:(CHQPullToRefreshConfigurator *)configurator
+{
+    CHQPullToRefreshView *view;
+    CHQPullToRefreshView *previousView;
+    CGRect frame;
+    UIImage *progressImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:configurator.progressImageName]];
+    UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:configurator.refreshingImageName]];
     if(!self.pullToRefreshView) {
-        CHQPullToRefreshView *view;
-        NSLog(@"%f,%f,%f,%f", configurator.frame.origin.x, configurator.frame.origin.y,configurator.frame.size.width, configurator.frame.size.height);
-        switch (theme) {
-            case CHQRefreshThemeArrow:
-                view = [[CHQArrowRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemeSpiral:
-                view = [[CHQSpiralRefreshView alloc]initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemeEatBeans:
-                view = [[CHQEatBeansRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemePandulum:
-                view = [[CHQPandulumRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemeEllipsis:
-                view = [[CHQEllipsisRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemeBalloon:
-                view = [[CHQBalloonRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            case CHQRefreshThemePinterest:
-                view = [[CHQPinterestRefreshView alloc] initWithFrame:configurator.frame];
-                break;
-            default:
-                NSLog(@"theme not found!");
-                return;
-        }
-        if(view)
-        {
-            view.configurator = configurator;
-            view.pullToRefreshActionHandler = actionHandler;
-            view.scrollView = self;
-            
-            [view addNotifications:view];
-            [self.superview insertSubview:view belowSubview:self];
-            view.originalTopInset = configurator.originalTopInset;
-            view.portraitTopInset = configurator.portraitTopInset;
-            view.landscapeTopInset = configurator.landscapeTopInset;
-            view.pullToRefreshViewHeight = configurator.pullToRefreshViewHeight;
-            view.pullToRefreshViewTriggerHeight = configurator.pullToRefreshViewTriggerHeight;
-            view.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
-            view.backgroundColor = configurator.backgroundColor;
-            view.originalBottomInset = self.contentInset.bottom;
-            //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
-//            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
-            self.pullToRefreshView = view;
-            self.showsPullToRefresh = YES;
-        }
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
+        frame = configurator.frame;
     }
-}
-
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName
-{
-    CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:self];
-    [self addPullToRefreshWithActionHandler:actionHandler WithProgressImageName:progressImageName RefreshingImageName:refreshingImageName WithConfigurator:configurator];
-}
-
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator
-{
-    if(!self.pullToRefreshView) {
-        CHQPullToRefreshView *view;
-            UIImage *progressImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:progressImageName]];
-            UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:refreshingImageName]];
-        view = [[CHQGIFRefreshView alloc] initWithProgressImage:progressImage RefreshingImage:refreshingImage WithFrame:configurator.frame];
-            view.pullToRefreshActionHandler = actionHandler;
-            view.scrollView = self;
-        view.backgroundColor = [UIColor whiteColor];
+    else
+    {
+        previousView = self.pullToRefreshView;
+        [previousView removeNotifications:previousView];
+        frame = previousView.frame;
+        [previousView removeFromSuperview];
+    }
+    
+    switch (configurator.theme) {
+        case CHQRefreshThemeArrow:
+            view = [[CHQArrowRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemeSpiral:
+            view = [[CHQSpiralRefreshView alloc]initWithFrame:frame];
+            break;
+        case CHQRefreshThemeEatBeans:
+            view = [[CHQEatBeansRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemePandulum:
+            view = [[CHQPandulumRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemeEllipsis:
+            view = [[CHQEllipsisRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemeBalloon:
+            view = [[CHQBalloonRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemePinterest:
+            view = [[CHQPinterestRefreshView alloc] initWithFrame:frame];
+            break;
+        case CHQRefreshThemeGif:
+            if(progressImage && refreshingImage)
+            {
+                view = [[CHQGIFRefreshView alloc] initWithProgressImage:progressImage RefreshingImage:refreshingImage WithFrame:frame];
+            }
+            else
+            {
+                NSLog(@"incorrect gif image");
+                return;
+            }
+            break;
+        default:
+            NSLog(@"theme not found!");
+            return;
+    }
+    if(view)
+    {
+        view.scrollView = self;
         view.configurator = configurator;
+        view.pullToRefreshActionHandler = actionHandler;
+        [view addNotifications:view];
+        [self.superview insertSubview:view belowSubview:self];
         view.originalTopInset = configurator.originalTopInset;
         view.portraitTopInset = configurator.portraitTopInset;
         view.landscapeTopInset = configurator.landscapeTopInset;
@@ -125,14 +109,11 @@ static char UIScrollViewPullToRefreshView;
         view.pullToRefreshViewTriggerHeight = configurator.pullToRefreshViewTriggerHeight;
         view.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
         view.backgroundColor = configurator.backgroundColor;
+        view.originalBottomInset = self.contentInset.bottom;
+        //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
+        //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
         self.pullToRefreshView = view;
         self.showsPullToRefresh = YES;
-//        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
-//        [self addSubview:view];
-        [self.superview insertSubview:view belowSubview:self];
-
-//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)]];
-        
     }
 }
 
@@ -143,7 +124,7 @@ static char UIScrollViewPullToRefreshView;
         CHQPullToRefreshView *previousView = self.pullToRefreshView;
         [previousView removeNotifications:previousView];
         CGRect frame = previousView.frame;
-        NSLog(@"%@", previousView.superview);
+//        NSLog(@"%@", previousView.superview);
         [previousView removeFromSuperview];
         
         CHQPullToRefreshView *view;
@@ -237,11 +218,6 @@ static char UIScrollViewPullToRefreshView;
 //            [self addObserver:self.pullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.pullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
             self.pullToRefreshView.isObserving = YES;
-            
-//            CGFloat yOrigin = 0;
-//            yOrigin = -SVPullToRefreshViewHeight;
-//            
-//            self.pullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, SVPullToRefreshViewHeight);
         }
     }
 }

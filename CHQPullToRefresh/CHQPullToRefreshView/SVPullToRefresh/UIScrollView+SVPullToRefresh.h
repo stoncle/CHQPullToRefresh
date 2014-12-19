@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
     CHQRefreshThemeEllipsis,
     CHQRefreshThemeBalloon,
     CHQRefreshThemePinterest,
+    CHQRefreshThemeGif,
     
     CHQRefreshThemeDefault = CHQRefreshThemeArrow
 };
@@ -40,11 +41,8 @@ typedef NS_ENUM(NSUInteger, CHQRefreshTheme)
 @interface UIScrollView (SVPullToRefresh)
 
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithCurrentTheme:(CHQRefreshTheme)theme WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
+- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)changeCurrentRefreshThemeToTheme:(CHQRefreshTheme)theme;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler WithProgressImageName:(NSString *)progressImageName RefreshingImageName:(NSString *)refreshingImageName WithConfigurator:(CHQPullToRefreshConfigurator *)configurator;
 - (void)triggerPullToRefresh;
 
 @property (nonatomic, strong, readonly) CHQPullToRefreshView *pullToRefreshView;

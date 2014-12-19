@@ -56,7 +56,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 {
     if(!self.infiniteScrollingView) {
         UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:loadingImageName]];
-        NSLog(@"%f", self.contentSize.height);
+//        NSLog(@"%f", self.contentSize.height);
         CHQGIFScrollingView *view = [[CHQGIFScrollingView alloc] initWithRefreshingImage:refreshingImage WithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
         view.infiniteScrollingHandler = actionHandler;
         view.scrollView = self;

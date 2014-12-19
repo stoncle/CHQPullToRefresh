@@ -183,7 +183,7 @@
 - (void)changeFrameWithContentOffsetNew:(CGPoint)contentOffsetNew Old:(CGPoint)contentOffsetOld
 {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y - (contentOffsetNew.y-contentOffsetOld.y), self.frame.size.width, self.frame.size.height);
-    NSLog(@"%f", self.frame.origin.y);
+//    NSLog(@"%f", self.frame.origin.y);
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
@@ -206,7 +206,7 @@
         offset = MIN(offset, self.originalTopInset + self.bounds.size.height);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
-        NSLog(@"%f", self.scrollView.contentInset.top);
+//        NSLog(@"%f", self.scrollView.contentInset.top);
     }
 }
 
@@ -225,6 +225,7 @@
 }
 
 - (void)startAnimating{
+    NSLog(@"refreshing...");
     [self doSomethingWhenStartingAnimating];
     
     if(fequalzero(self.scrollView.contentOffset.y)) {
@@ -244,6 +245,7 @@
 }
 
 - (void)stopAnimating {
+    NSLog(@"refresh finished.");
     self.state = CHQPullToRefreshStateStopped;
     [self doSomethingWhenStopingAnimating];
     
@@ -271,6 +273,7 @@
             break;
             
         case CHQPullToRefreshStateTriggered:
+            NSLog(@"triggered.");
             break;
             
         case CHQPullToRefreshStateLoading:

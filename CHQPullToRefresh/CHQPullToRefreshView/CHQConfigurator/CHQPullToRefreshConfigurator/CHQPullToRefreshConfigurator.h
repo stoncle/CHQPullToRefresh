@@ -20,6 +20,8 @@
 @property (nonatomic, assign) float pullToRefreshViewHangingHeight;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) int theme;
+@property (nonatomic, strong) NSString *progressImageName;
+@property (nonatomic, strong) NSString *refreshingImageName;
 
 - (CHQPullToRefreshConfigurator *)initWithScrollView:(UIScrollView *)scrollView;
 

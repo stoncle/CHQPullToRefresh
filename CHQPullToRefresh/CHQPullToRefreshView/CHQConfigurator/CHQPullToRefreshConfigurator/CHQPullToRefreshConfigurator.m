@@ -22,6 +22,8 @@
 @synthesize pullToRefreshViewTriggerHeight = _pullToRefreshViewTriggerHeight;
 @synthesize pullToRefreshViewHangingHeight = _pullToRefreshViewHangingHeight;
 @synthesize theme = _theme;
+@synthesize progressImageName = _progressImageName;
+@synthesize refreshingImageName = _refreshingImageName;
 
 - (CHQPullToRefreshConfigurator *)initWithScrollView:(UIScrollView *)scrollView
 {
@@ -129,6 +131,22 @@
 {
     return _theme;
 }
+- (NSString *)progressImageName
+{
+    if(!_progressImageName)
+    {
+        return @"run@2x.gif";
+    }
+    return _progressImageName;
+}
+- (NSString *)refreshingImageName
+{
+    if(!_refreshingImageName)
+    {
+        return @"run@2x.gif";
+    }
+    return _refreshingImageName;
+}
 
 #pragma mark setters
 - (void)setOriginalTopInset:(float)originalTopInset
@@ -174,6 +192,14 @@
 - (void)setTheme:(int)theme
 {
     _theme = theme;
+}
+- (void)setProgressImageName:(NSString *)progressImageName
+{
+    _progressImageName = progressImageName;
+}
+- (void)setRefreshingImageName:(NSString *)refreshingImageName
+{
+    _refreshingImageName = refreshingImageName;
 }
 
 #pragma private methods

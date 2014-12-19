@@ -65,7 +65,7 @@
 
 - (void)configureView
 {
-    NSLog(@"%f", PullToRefreshViewWidth);
+//    NSLog(@"%f", PullToRefreshViewWidth);
     CGFloat leftViewWidth = MAX(self.arrow.bounds.size.width,self.activityIndicatorView.bounds.size.width);
     
     CGFloat margin = 10;
