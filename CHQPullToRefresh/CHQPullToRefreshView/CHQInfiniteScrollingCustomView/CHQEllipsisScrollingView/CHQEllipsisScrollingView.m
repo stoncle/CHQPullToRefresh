@@ -32,7 +32,6 @@
 
 - (void)setViewConstraints
 {
-    //    NSLog(@"%f, %f", _monActivityView.frame.size.width, _monActivityView.frame.size.height);
     _monActivityView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *monViewCenterX = [NSLayoutConstraint constraintWithItem:self.monActivityView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:-self.monActivityView.frame.size.width/2];
     NSLayoutConstraint *monViewCenterY = [NSLayoutConstraint constraintWithItem:self.monActivityView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
@@ -96,7 +95,6 @@
         _monActivityView.delegate = self;
         _monActivityView.internalSpacing = 4;
         _monActivityView.duration = 0.6;
-        NSLog(@"%f, %f", self.center.x, self.center.y/2);
         _monActivityView.numberOfCircles = 3;
         [_monActivityView addCirCle:3];
         [self addSubview:_monActivityView];

@@ -35,6 +35,7 @@
 {
     self.view = [[UIView alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     StickyHeaderLayout *collectionLayout = [[StickyHeaderLayout alloc]init];
+//    UICollectionViewFlowLayout *collectionLayout = [[UICollectionViewFlowLayout alloc] init];
     _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:collectionLayout];
     
     [_collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:kCellIdentifier];
@@ -60,7 +61,8 @@
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:_collectionView];
     
     configurator.frame = CGRectMake(0, [UIScreen mainScreen].applicationFrame.size.height/4-60, 768, 60);
-    configurator.theme = CHQRefreshThemeDefault;
+    configurator.theme = CHQRefreshThemeArrow;
+    configurator.treatAsSubView = NO;
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";
     [_collectionView addPullToRefreshWithActionHandler:^{
@@ -103,32 +105,32 @@
 //            [d.pullToRefreshView stopAnimating];
 //        });
 //    }];
-    [_collectionView addInfiniteScrollingWithActionHandler:^{
-        // append data to data source, insert new cells at the end of table view
-        // call [tableView.infiniteScrollingView stopAnimating] when done
-        
-//        NSLog(@"good");
-        int j = [a count];
-        NSMutableArray *arr = [[NSMutableArray alloc]init];
-        
-        for(int i=0; i<20; i++)
-        {
-            [a addObject:@"hhh"];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
-            [arr addObject:indexPath];
-        }
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [d insertItemsAtIndexPaths:arr];
-            srand((unsigned)time(0));
-            int i = rand() % 3;
-            [d changeCurrentRefreshThemeToTheme:i];
-            [d.infiniteScrollingView stopAnimating];
-        });
-    
-        
-    }];
+//    [_collectionView addInfiniteScrollingWithActionHandler:^{
+//        // append data to data source, insert new cells at the end of table view
+//        // call [tableView.infiniteScrollingView stopAnimating] when done
+//        
+////        NSLog(@"good");
+//        int j = [a count];
+//        NSMutableArray *arr = [[NSMutableArray alloc]init];
+//        
+//        for(int i=0; i<20; i++)
+//        {
+//            [a addObject:@"hhh"];
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j+i inSection:0];
+//            [arr addObject:indexPath];
+//        }
+//        
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [d insertItemsAtIndexPaths:arr];
+//            srand((unsigned)time(0));
+//            int i = rand() % 3;
+//            [d changeCurrentRefreshThemeToTheme:i];
+//            [d.infiniteScrollingView stopAnimating];
+//        });
+//    
+//        
+//    }];
     
     
 //    [_collectionView addInfiniteScrollingWithActionHandler:^{

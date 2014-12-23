@@ -15,46 +15,33 @@
 
 @implementation CHQPullToRefreshView
 
-// public properties
-@synthesize pullToRefreshActionHandler;
-
-@synthesize state = _state;
-@synthesize scrollView = _scrollView;
-@synthesize showsPullToRefresh = _showsPullToRefresh;
-
-
-
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         
-        // default styling values
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.state = CHQPullToRefreshStateStopped;
-        
         self.wasTriggeredByUser = YES;
-        [self configureView];
     }
-    
     return self;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.superview && newSuperview == nil) {
-        //use self.superview, not self.scrollView. Why self.scrollView == nil here?
         UIScrollView *scrollView = self.scrollView;
-//        if (scrollView.showsPullToRefresh) {
             if (self.isObserving) {
-                //If enter this branch, it is the moment just before "CHQPullToRefreshView's dealloc", so remove observer here
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-//                [scrollView removeObserver:self forKeyPath:@"contentSize"];
                 [scrollView removeObserver:self forKeyPath:@"frame"];
                 self.isObserving = NO;
             }
-//        }
     }
 }
 
 - (void)configureView
+{
+    
+}
+
+- (void)setConstraints
 {
     
 }
@@ -110,7 +97,6 @@
 - (void)setScrollViewContentInsetForLoading {
     CGFloat offset = MAX(self.scrollView.contentOffset.y * -1, 0);
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
-    NSLog(@"%f", self.pullToRefreshViewHangingHeight);
     currentInsets.top = MIN(offset, self.originalTopInset + self.pullToRefreshViewHangingHeight);
     [self setScrollViewContentInset:currentInsets
                             Handler:nil];
@@ -128,9 +114,7 @@
                          {
                              actionHandler();
                          }
-//                         NSLog(@"%f", self.scrollView.contentInset.top);
                      }];
-//    self.scrollView.contentInset = contentInset;
 }
 
 - (void)doSomethingWhenLayoutSubviews
@@ -140,7 +124,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if(self.PrevWidth != PullToRefreshViewWidth)
+    if(self.PrevWidth != PullToRefreshViewWidth && self.PrevWidth != 0)
     {
         [self configureView];
     }
@@ -153,7 +137,10 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
     {
-        [self changeFrameWithContentOffsetNew:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue] Old:[[change valueForKey:NSKeyValueChangeOldKey]CGPointValue]];
+        if(self.superview != self.scrollView)
+        {
+            [self changeFrameWithContentOffsetNew:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue] Old:[[change valueForKey:NSKeyValueChangeOldKey]CGPointValue]];
+        }
         if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y > 0)
         {
             return;
@@ -162,13 +149,6 @@
 
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     }
-//    else if([keyPath isEqualToString:@"contentSize"]) {
-//        [self setNeedsLayout];
-//        [self layoutIfNeeded];
-//        CGFloat yOrigin;
-//        yOrigin = -CHQPullToRefreshViewHeight;
-//        self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, CHQPullToRefreshViewHeight);
-//    }
     else if([keyPath isEqualToString:@"frame"])
     {
         [self setNeedsLayout];
@@ -184,16 +164,13 @@
 - (void)changeFrameWithContentOffsetNew:(CGPoint)contentOffsetNew Old:(CGPoint)contentOffsetOld
 {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y - (contentOffsetNew.y-contentOffsetOld.y), self.frame.size.width, self.frame.size.height);
-//    NSLog(@"%f", self.frame.origin.y);
 }
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
     [self doSomethingWhenScrolling:contentOffset];
     if(self.state != CHQPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold = 0;
-//        scrollOffsetThreshold = self.frame.origin.y - self.originalTopInset;
         scrollOffsetThreshold = -self.pullToRefreshViewTriggerHeight - self.originalTopInset;
-//        NSLog(@"%f", self.frame.origin.y);
         if(!self.scrollView.isDragging && self.state == CHQPullToRefreshStateTriggered)
             self.state = CHQPullToRefreshStateLoading;
         else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == CHQPullToRefreshStateStopped)
@@ -207,7 +184,6 @@
         offset = MIN(offset, self.originalTopInset + self.pullToRefreshViewHangingHeight);
         contentInset = self.scrollView.contentInset;
         self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
-//        NSLog(@"%f", self.scrollView.contentInset.top);
     }
 }
 
@@ -255,7 +231,6 @@
 }
 
 - (void)setState:(CHQPullToRefreshState)newState {
-    
     if(_state == newState)
         return;
     CHQPullToRefreshState prevState = _state;

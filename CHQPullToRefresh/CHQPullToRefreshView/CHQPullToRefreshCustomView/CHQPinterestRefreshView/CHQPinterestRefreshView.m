@@ -17,17 +17,56 @@
 @end
 
 @implementation CHQPinterestRefreshView
-@synthesize activityView = _activityView;
-@synthesize iconLayer = _iconLayer;
-@synthesize circleLayer = _circleLayer;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        [self commonInit];
+        [self configureView];
     }
     return self;
+}
+
+- (void)commonInit
+{
+    self.backgroundColor = [UIColor whiteColor];
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityView.frame = CGRectMake(0, 0, 20.0f, 20.0f);
+    self.activityView.hidesWhenStopped = YES;
+    self.activityView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    [self addSubview:self.activityView];
+
+    self.iconLayer = [CALayer layer];
+    self.iconLayer.frame = CGRectMake(0, 0, 24.0f, 24.0f);
+    self.iconLayer.contentsGravity = kCAGravityCenter;
+    self.iconLayer.contents = (id)[UIImage imageNamed:@"pinterest_pin"].CGImage;
+    self.iconLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    self.iconLayer.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        self.iconLayer.contentsScale = [[UIScreen mainScreen] scale];
+    }
+#endif
+    [[self layer] addSublayer:_iconLayer];
+    
+    self.circleLayer = [CAShapeLayer layer];
+    self.circleLayer.frame = CGRectMake(0, 0, 25.0f, 25.0f);
+    self.circleLayer.contentsGravity = kCAGravityCenter;
+    
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:self.circleLayer.position
+                                                              radius:CGRectGetMidX(self.circleLayer.bounds)
+                                                          startAngle:0
+                                                            endAngle:(360) / 180.0 * M_PI
+                                                           clockwise:NO];
+    self.circleLayer.path = circlePath.CGPath;
+    
+    self.circleLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    self.circleLayer.fillColor = [UIColor clearColor].CGColor;
+    self.circleLayer.strokeColor = [UIColor colorWithRed:0.79 green:0.12 blue:0.15 alpha:1.0].CGColor;
+    self.circleLayer.lineWidth =2.0f;
+    self.circleLayer.strokeEnd = 0.0f;
+    [[self layer] addSublayer:self.circleLayer];
 }
 
 - (void)configureView
@@ -87,76 +126,10 @@
 
 - (void)doSomethingWhenStopingAnimating
 {
-//        if (state == RHRefreshStatePulling) {
             self.iconLayer.opacity = 0;
             self.circleLayer.opacity = 0;
-//        }
     
         [_activityView stopAnimating];
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-#pragma mark getters
-- (UIActivityIndicatorView *)activityView
-{
-    if(!_activityView)
-    {
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityView.frame = CGRectMake(0, 0, 20.0f, 20.0f);
-        _activityView.hidesWhenStopped = YES;
-        _activityView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-        [self addSubview:_activityView];
-    }
-    return _activityView;
-}
-- (CALayer *)iconLayer
-{
-    if(!_iconLayer)
-    {
-        _iconLayer = [CALayer layer];
-        _iconLayer.frame = CGRectMake(0, 0, 24.0f, 24.0f);
-        _iconLayer.contentsGravity = kCAGravityCenter;
-        _iconLayer.contents = (id)[UIImage imageNamed:@"pinterest_pin"].CGImage;
-        _iconLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-        _iconLayer.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-            _iconLayer.contentsScale = [[UIScreen mainScreen] scale];
-        }
-#endif
-        [[self layer] addSublayer:_iconLayer];
-    }
-    return _iconLayer;
-}
-- (CAShapeLayer *)circleLayer
-{
-    if(!_circleLayer)
-    {
-        _circleLayer = [CAShapeLayer layer];
-        _circleLayer.frame = CGRectMake(0, 0, 25.0f, 25.0f);
-        _circleLayer.contentsGravity = kCAGravityCenter;
-        
-        UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_circleLayer.position
-                                                                  radius:CGRectGetMidX(_circleLayer.bounds)
-                                                              startAngle:0
-                                                                endAngle:(360) / 180.0 * M_PI
-                                                               clockwise:NO];
-        _circleLayer.path = circlePath.CGPath;
-        
-        _circleLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-        _circleLayer.fillColor = [UIColor whiteColor].CGColor;
-        _circleLayer.strokeColor = [UIColor colorWithRed:0.79 green:0.12 blue:0.15 alpha:1.0].CGColor;
-        _circleLayer.lineWidth =2.0f;
-        _circleLayer.strokeEnd = 0.0f;
-        [[self layer] addSublayer:_circleLayer];
-    }
-    return _circleLayer;
 }
 
 @end

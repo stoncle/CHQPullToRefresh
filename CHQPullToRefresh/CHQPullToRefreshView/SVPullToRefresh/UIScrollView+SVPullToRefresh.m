@@ -18,15 +18,9 @@
 #import "CHQBalloonRefreshView.h"
 #import "CHQPinterestRefreshView.h"
 #import <objc/runtime.h>
-
-
-
-
-//fequal() and fequalzro() from http://stackoverflow.com/a/1614761/184130
-
+#import <objc/runtime.h>
 
 #pragma mark - UIScrollView (SVPullToRefresh)
-#import <objc/runtime.h>
 
 static char UIScrollViewPullToRefreshView;
 
@@ -57,7 +51,6 @@ static char UIScrollViewPullToRefreshView;
         frame = previousView.frame;
         [previousView removeFromSuperview];
     }
-    
     switch (configurator.theme) {
         case CHQRefreshThemeArrow:
             view = [[CHQArrowRefreshView alloc] initWithFrame:frame];
@@ -101,7 +94,7 @@ static char UIScrollViewPullToRefreshView;
         view.configurator = configurator;
         view.pullToRefreshActionHandler = actionHandler;
         [view addNotifications:view];
-        [self.superview insertSubview:view belowSubview:self];
+        
         view.originalTopInset = configurator.originalTopInset;
         view.portraitTopInset = configurator.portraitTopInset;
         view.landscapeTopInset = configurator.landscapeTopInset;
@@ -110,10 +103,27 @@ static char UIScrollViewPullToRefreshView;
         view.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
         view.backgroundColor = configurator.backgroundColor;
         view.originalBottomInset = self.contentInset.bottom;
+        if(configurator.treatAsSubView)
+        {
+            [self addSubview:view];
+        }
+        else
+        {
+            [self.superview insertSubview:view belowSubview:self];
+        }
+        
         //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
         //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
+//        view.translatesAutoresizingMaskIntoConstraints = NO;
+//        NSLayoutConstraint *marginLeft = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0];
+//        NSLayoutConstraint *marginRight = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0f constant:0];
+//        [self.superview addConstraint:marginLeft];
+//        [self.superview addConstraint:marginRight];
+//        [self.superview setNeedsLayout];
+//        [self.superview layoutIfNeeded];
         self.pullToRefreshView = view;
         self.showsPullToRefresh = YES;
+        
     }
 }
 
@@ -124,9 +134,7 @@ static char UIScrollViewPullToRefreshView;
         CHQPullToRefreshView *previousView = self.pullToRefreshView;
         [previousView removeNotifications:previousView];
         CGRect frame = previousView.frame;
-//        NSLog(@"%@", previousView.superview);
         [previousView removeFromSuperview];
-        
         CHQPullToRefreshView *view;
         switch (theme) {
             case CHQRefreshThemeArrow:
@@ -162,8 +170,6 @@ static char UIScrollViewPullToRefreshView;
             view.scrollView = self;
             [view addNotifications:view];
             [self.superview insertSubview:view belowSubview:self];
-//
-//            [self addSubview:view];
             self.pullToRefreshView = view;
             view.originalTopInset = view.configurator.originalTopInset;
             view.portraitTopInset = view.configurator.portraitTopInset;
@@ -172,7 +178,6 @@ static char UIScrollViewPullToRefreshView;
             view.pullToRefreshViewTriggerHeight = view.configurator.pullToRefreshViewTriggerHeight;
             view.pullToRefreshViewHangingHeight = view.configurator.pullToRefreshViewHangingHeight;
             view.backgroundColor = view.configurator.backgroundColor;
-//            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
             self.showsPullToRefresh = YES;
         }
     }
@@ -206,7 +211,6 @@ static char UIScrollViewPullToRefreshView;
     if(!showsPullToRefresh) {
         if (self.pullToRefreshView.isObserving) {
             [self removeObserver:self.pullToRefreshView forKeyPath:@"contentOffset"];
-//            [self removeObserver:self.pullToRefreshView forKeyPath:@"contentSize"];
             [self removeObserver:self.pullToRefreshView forKeyPath:@"frame"];
             [self.pullToRefreshView resetScrollViewContentInset :nil];
             self.pullToRefreshView.isObserving = NO;
@@ -215,7 +219,6 @@ static char UIScrollViewPullToRefreshView;
     else {
         if (!self.pullToRefreshView.isObserving) {
             [self addObserver:self.pullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//            [self addObserver:self.pullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.pullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
             self.pullToRefreshView.isObserving = YES;
         }

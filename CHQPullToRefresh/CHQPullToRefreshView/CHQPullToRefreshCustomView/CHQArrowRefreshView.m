@@ -35,37 +35,45 @@
 
 @implementation CHQArrowRefreshView
 
-// public properties
-@synthesize arrowColor, textColor, activityIndicatorViewColor, activityIndicatorViewStyle, lastUpdatedDate, dateFormatter;
-
-@synthesize arrow = _arrow;
-@synthesize activityIndicatorView = _activityIndicatorView;
-
-@synthesize titleLabel = _titleLabel;
-@synthesize dateLabel = _dateLabel;
-
-
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
-        
-        // default styling values
-        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-        self.textColor = [UIColor darkGrayColor];
-        self.showsDateLabel = NO;
-        
-        self.titles = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Pull to refresh...",),
-                       NSLocalizedString(@"Release to refresh...",),
-                       NSLocalizedString(@"Loading...",),
-                       nil];
-        
-        self.subtitles = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
+        [self commonInit];
+        [self configureView];
     }
     return self;
 }
 
+- (void)commonInit
+{
+    self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.textColor = [UIColor darkGrayColor];
+    self.showsDateLabel = NO;
+    
+    self.titles = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Pull to refresh...",),
+                   NSLocalizedString(@"Release to refresh...",),
+                   NSLocalizedString(@"Loading...",),
+                   nil];
+    
+    self.subtitles = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
+    
+    self.arrow = [[CHQPullToRefreshArrow alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-54, 22, 48)];
+    self.arrow.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.arrow];
+    
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorViewStyle];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    [self addSubview:self.activityIndicatorView];
+    
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 210, 20)];
+    self.titleLabel.text = NSLocalizedString(@"Pull to refresh...",);
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.titleLabel.backgroundColor = [UIColor clearColor];
+    self.titleLabel.textColor = self.textColor;
+    [self addSubview:self.titleLabel];
+}
+
 - (void)configureView
 {
-//    NSLog(@"%f", PullToRefreshViewWidth);
     CGFloat leftViewWidth = MAX(self.arrow.bounds.size.width,self.activityIndicatorView.bounds.size.width);
     
     CGFloat margin = 10;
@@ -155,134 +163,6 @@
 - (void)doSomethingWhenStateChanges
 {
     [self setLabelContent];
-}
-
-#pragma mark - Getters
-
-- (CHQPullToRefreshArrow *)arrow {
-    if(!_arrow) {
-        _arrow = [[CHQPullToRefreshArrow alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-54, 22, 48)];
-        _arrow.backgroundColor = [UIColor clearColor];
-        [self addSubview:_arrow];
-    }
-    return _arrow;
-}
-
-- (UIActivityIndicatorView *)activityIndicatorView {
-    if(!_activityIndicatorView) {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        _activityIndicatorView.hidesWhenStopped = YES;
-        [self addSubview:_activityIndicatorView];
-    }
-    return _activityIndicatorView;
-}
-
-- (UILabel *)titleLabel {
-    if(!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 210, 20)];
-        _titleLabel.text = NSLocalizedString(@"Pull to refresh...",);
-        _titleLabel.font = [UIFont boldSystemFontOfSize:14];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = textColor;
-        [self addSubview:_titleLabel];
-    }
-    return _titleLabel;
-}
-
-- (UILabel *)subtitleLabel {
-    if(!_subtitleLabel) {
-        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 210, 20)];
-        _subtitleLabel.font = [UIFont systemFontOfSize:12];
-        _subtitleLabel.backgroundColor = [UIColor clearColor];
-        _subtitleLabel.textColor = textColor;
-        [self addSubview:_subtitleLabel];
-    }
-    return _subtitleLabel;
-}
-
-- (UILabel *)dateLabel {
-    return self.showsDateLabel ? self.subtitleLabel : nil;
-}
-
-- (NSDateFormatter *)dateFormatter {
-    if(!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        dateFormatter.locale = [NSLocale currentLocale];
-    }
-    return dateFormatter;
-}
-
-- (UIColor *)arrowColor {
-    return self.arrow.arrowColor; // pass through
-}
-
-- (UIColor *)textColor {
-    return self.titleLabel.textColor;
-}
-
-- (UIColor *)activityIndicatorViewColor {
-    return self.activityIndicatorView.color;
-}
-
-- (UIActivityIndicatorViewStyle)activityIndicatorViewStyle {
-    return self.activityIndicatorView.activityIndicatorViewStyle;
-}
-
-#pragma mark - Setters
-
-- (void)setArrowColor:(UIColor *)newArrowColor {
-    self.arrow.arrowColor = newArrowColor; // pass through
-    [self.arrow setNeedsDisplay];
-}
-
-- (void)setTitle:(NSString *)title forState:(CHQPullToRefreshState)state {
-    if(!title)
-        title = @"";
-    
-    if(state == CHQPullToRefreshStateAll)
-        [self.titles replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[title, title, title]];
-    else
-        [self.titles replaceObjectAtIndex:state withObject:title];
-    
-    [self setNeedsLayout];
-}
-
-- (void)setSubtitle:(NSString *)subtitle forState:(CHQPullToRefreshState)state {
-    if(!subtitle)
-        subtitle = @"";
-    
-    if(state == CHQPullToRefreshStateAll)
-        [self.subtitles replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[subtitle, subtitle, subtitle]];
-    else
-        [self.subtitles replaceObjectAtIndex:state withObject:subtitle];
-    
-    [self setNeedsLayout];
-}
-
-- (void)setTextColor:(UIColor *)newTextColor {
-    textColor = newTextColor;
-    self.titleLabel.textColor = newTextColor;
-    self.subtitleLabel.textColor = newTextColor;
-}
-
-- (void)setActivityIndicatorViewColor:(UIColor *)color {
-    self.activityIndicatorView.color = color;
-}
-
-- (void)setActivityIndicatorViewStyle:(UIActivityIndicatorViewStyle)viewStyle {
-    self.activityIndicatorView.activityIndicatorViewStyle = viewStyle;
-}
-
-- (void)setLastUpdatedDate:(NSDate *)newLastUpdatedDate {
-    self.showsDateLabel = YES;
-    self.dateLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Last Updated: %@",), newLastUpdatedDate?[self.dateFormatter stringFromDate:newLastUpdatedDate]:NSLocalizedString(@"Never",)];
-}
-
-- (void)setDateFormatter:(NSDateFormatter *)newDateFormatter {
-    dateFormatter = newDateFormatter;
-    self.dateLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Last Updated: %@",), self.lastUpdatedDate?[newDateFormatter stringFromDate:self.lastUpdatedDate]:NSLocalizedString(@"Never",)];
 }
 
 #pragma mark -

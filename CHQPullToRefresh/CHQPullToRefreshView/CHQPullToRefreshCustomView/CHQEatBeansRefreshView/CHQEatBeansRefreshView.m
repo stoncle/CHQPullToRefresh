@@ -24,19 +24,39 @@
 @end
 
 @implementation CHQEatBeansRefreshView
-@synthesize pac = _pac;
-@synthesize dotsView = _dotsView;
-@synthesize dots = _dots;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refresh)];
-        self.displayLink.paused = YES;
-        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        [self commonInit];
+        [self configureView];
     }
     return self;
+}
+
+- (void)commonInit
+{
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refresh)];
+    self.displayLink.paused = YES;
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    
+    self.pac = [[Pac alloc] init];
+    self.pac.center = CGPointMake(-(self.pac.frame.size.width / 2), PullToRefreshViewHeight / 2);
+    [self addSubview:self.pac];
+    
+    self.dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PullToRefreshViewWidth, PullToRefreshViewHeight)];
+    self.dotsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self addSubview:self.dotsView];
+    
+    self.dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];
+    for (int i = 0; i < kStartingNumberOfDots; ++i)
+    {
+        UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        [self.dots addObject:iv];
+        iv.center = CGPointMake(PullToRefreshViewWidth / 2, PullToRefreshViewHeight / 2);
+        [self.dotsView addSubview:iv];
+    }
 }
 
 - (void)configureView
@@ -80,7 +100,6 @@
 {
     self.dotSpacing = self.bounds.size.width / kStartingNumberOfDots;
     [self.pac tick:delta];
-//    NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
     if (self.pac.center.x < self.frame.size.width / 2)
     {
         for (UIImageView *dot in self.dots)
@@ -94,12 +113,10 @@
         CGRect frame = self.pac.frame;
         frame.origin.x = x;
         self.pac.frame = frame;
-//        NSLog(@"%f, %f", self.pac.center.x, self.pac.center.y);
     }
     else
     {
         self.pac.center = CGPointMake(self.frame.size.width / 2, self.pac.center.y);
-        
         for (UIImageView *dot in self.dots)
         {
             if (!dot.hidden)
@@ -154,43 +171,5 @@
         self.displayLink.paused = YES;
     }
 }
-
-#pragma mark getters
-- (Pac *)pac
-{
-    if(!_pac)
-    {
-        _pac = [[Pac alloc] init];
-        _pac.center = CGPointMake(-(_pac.frame.size.width / 2), PullToRefreshViewHeight / 2);
-        [self addSubview:_pac];
-    }
-    return _pac;
-}
-- (UIView *)dotsView
-{
-    if(!_dotsView)
-    {
-        _dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PullToRefreshViewWidth, PullToRefreshViewHeight)];
-        _dotsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_dotsView];
-    }
-    return _dotsView;
-}
-- (NSMutableArray *)dots
-{
-    if(!_dots)
-    {
-        _dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];
-        for (int i = 0; i < kStartingNumberOfDots; ++i)
-        {
-            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
-            [_dots addObject:iv];
-            iv.center = CGPointMake(PullToRefreshViewWidth / 2, PullToRefreshViewHeight / 2);
-            [self.dotsView addSubview:iv];
-        }
-    }
-    return _dots;
-}
-
 
 @end

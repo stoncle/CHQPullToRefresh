@@ -32,19 +32,55 @@
     if(self) {
         self.pImgArrProgress = progressImages;
         self.pImgArrLoading = refreshingImages;
-        self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
-        self.contentMode = UIViewContentModeRedraw;
-        //number of frame per second
-        self.LoadingFrameRate = 30;
+        [self commonInit];
+        [self configureView];
     }
     return self;
+}
+
+- (void)commonInit
+{
+    self.activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
+    self.contentMode = UIViewContentModeRedraw;
+    //number of frame per second
+    self.LoadingFrameRate = 60;
+    self.backgroundColor = [UIColor clearColor];
+    self.alpha = 0;
+    
+    if(![self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]])
+    {
+        NSLog(@"loading image not a gif image.");
+    }
+    self.imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
+    self.imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.imageViewLoading.frame = self.bounds;
+    self.imageViewLoading.animationImages = self.pImgArrLoading;
+    self.imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)_imageViewLoading.animationImages.count);
+    self.imageViewLoading.alpha = 0;
+    self.imageViewLoading.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.imageViewLoading];
+    
+    if(![_pImgArrProgress.lastObject isKindOfClass:[UIImage class]])
+    {
+        NSLog(@"progress image not an gif image.");
+    }
+    self.imageViewProgress = [[UIImageView alloc] initWithImage:[self.pImgArrProgress lastObject]];
+    self.imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+    self.imageViewProgress.frame = self.bounds;
+    self.imageViewProgress.backgroundColor = [UIColor clearColor];
+    [self addSubview:_imageViewProgress];
+    
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.frame = self.bounds;
+    [self addSubview:self.activityIndicatorView];
 }
 
 - (void)configureView
 {
     
-    self.backgroundColor = [UIColor clearColor];
-    self.alpha = 0;
 }
 
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset
@@ -75,8 +111,6 @@
         self.alpha = alphaValue;
     }
     if (progress >= 0 && progress <=1.0) {
-        //Animation
-//        NSLog(@"%lu", (unsigned long)self.pImgArrProgress.count);
         NSInteger index = (NSInteger)roundf((self.pImgArrProgress.count ) * progress);
         if(index ==0)
         {
@@ -103,7 +137,6 @@
 - (void)setFrameSizeByProgressImage
 {
     UIImage *image1 = self.pImgArrProgress.lastObject;
-//    NSLog(@"%@", self.scrollView);
     if(image1)
         self.frame = CGRectMake((self.scrollView.bounds.size.width - image1.size.width)/2, -image1.size.height, image1.size.width, image1.size.height);
 }
@@ -161,7 +194,6 @@
         {
             [self.imageViewLoading stopAnimating];
             self.imageViewLoading.alpha = 0.0;
-            
         }
         else
         {
@@ -175,73 +207,11 @@
             if(self.isVariableSize)
                 [self setFrameSizeByProgressImage];
         }];
-        
     }];
 }
 - (void)doSomethingWhenChangingOrientation
 {
     
 }
-#pragma mark getters
-- (UIImageView *)imageViewLoading
-{
-    if(!_imageViewLoading)
-    {
-        if(![self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]])
-        {
-            NSLog(@"loading image not a gif image.");
-        }
-//        NSAssert([self.pImgArrLoading.lastObject isKindOfClass:[UIImage class]], @"pImgArrLoading Array has object that is not image");
-        _imageViewLoading = [[UIImageView alloc] initWithImage:[self.pImgArrLoading firstObject]];
-        _imageViewLoading.contentMode = UIViewContentModeScaleAspectFit;
-        _imageViewLoading.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _imageViewLoading.frame = self.bounds;
-        _imageViewLoading.animationImages = self.pImgArrLoading;
-        _imageViewLoading.animationDuration = (CGFloat)ceilf((1.0/(CGFloat)self.LoadingFrameRate) * (CGFloat)_imageViewLoading.animationImages.count);
-        _imageViewLoading.alpha = 0;
-        _imageViewLoading.backgroundColor = [UIColor clearColor];
-        [self addSubview:_imageViewLoading];
-    }
-    return _imageViewLoading;
-}
-- (UIImageView *)imageViewProgress
-{
-    if(!_imageViewProgress)
-    {
-        if(![_pImgArrProgress.lastObject isKindOfClass:[UIImage class]])
-        {
-            NSLog(@"progress image not an gif image.");
-        }
-//        NSAssert([_pImgArrProgress.lastObject isKindOfClass:[UIImage class]], @"pImgArrProgress Array has object that is not image");
-        _imageViewProgress = [[UIImageView alloc] initWithImage:[self.pImgArrProgress lastObject]];
-        _imageViewProgress.contentMode = UIViewContentModeScaleAspectFit;
-        _imageViewProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-        _imageViewProgress.frame = self.bounds;
-//        NSLog(@"%f, %f", _imageViewProgress.frame.size.width, _imageViewProgress.frame.size.height);
-        _imageViewProgress.backgroundColor = [UIColor clearColor];
-        [self addSubview:_imageViewProgress];
-    }
-    return _imageViewProgress;
-}
-- (UIActivityIndicatorView *)activityIndicatorView
-{
-    if(!_activityIndicatorView)
-    {
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorStyle];
-        _activityIndicatorView.hidesWhenStopped = YES;
-        _activityIndicatorView.frame = self.bounds;
-        [self addSubview:_activityIndicatorView];
-    }
-    return _activityIndicatorView;
-}
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

@@ -10,7 +10,7 @@
 
 @interface CHQPullToRefreshConfigurator : NSObject
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic) bool treatAsSubView;
 @property (nonatomic, assign) float originalTopInset;
 @property (nonatomic, assign) float portraitTopInset;
 @property (nonatomic, assign) float landscapeTopInset;

@@ -17,21 +17,33 @@
 @end
 
 @implementation CHQEllipsisRefreshView
-@synthesize monActivityView = _monActivityView;
 
 - (id)initWithFrame:(CGRect)frame
 {
     if((self = [super initWithFrame:frame]))
     {
-        [self setViewConstraints];
+        [self commonInit];
+        [self configureView];
     }
     return self;
 }
 
+- (void)commonInit
+{
+    self.monActivityView = [[MONActivityIndicatorView alloc] init];
+    self.monActivityView.radius = 6;
+    self.monActivityView.delegate = self;
+    self.monActivityView.internalSpacing = 4;
+    self.monActivityView.duration = 0.6;
+    self.monActivityView.numberOfCircles = 3;
+    [self.monActivityView addCirCle:3];
+    [self addSubview:self.monActivityView];
+    [self setViewConstraints];
+}
+
 - (void)setViewConstraints
 {
-//    NSLog(@"%f, %f", _monActivityView.frame.size.width, _monActivityView.frame.size.height);
-    _monActivityView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.monActivityView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *monViewCenterX = [NSLayoutConstraint constraintWithItem:self.monActivityView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:-self.monActivityView.frame.size.width/2];
     NSLayoutConstraint *monViewCenterY = [NSLayoutConstraint constraintWithItem:self.monActivityView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
     [self addConstraint:monViewCenterX];
@@ -77,14 +89,11 @@
             [_monActivityView changeCirCle:1 withZoomRatio:1.0f];
             [_monActivityView changeCirCle:2 withZoomRatio:ratio];
         }
-    
 }
 
 - (void)doSomethingWhenStartingAnimating
 {
     [_monActivityView removeEasyInAnimation];
-    
-    // Display loading activity
     _monActivityView.numberOfCircles = EllipsisNumber;
     if(EllipsisNumber > 3)
     {
@@ -110,31 +119,6 @@
       circleBackgroundColorAtIndex:(NSUInteger)index
 {
     return [UIColor blackColor];
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-#pragma mark getters
-- (MONActivityIndicatorView *)monActivityView
-{
-    if(!_monActivityView)
-    {
-        _monActivityView = [[MONActivityIndicatorView alloc] init];
-        _monActivityView.radius = 6;
-        _monActivityView.delegate = self;
-        _monActivityView.internalSpacing = 4;
-        _monActivityView.duration = 0.6;
-        NSLog(@"%f, %f", self.center.x, self.center.y/2);
-        _monActivityView.numberOfCircles = 3;
-        [_monActivityView addCirCle:3];
-        [self addSubview:_monActivityView];
-    }
-    return _monActivityView;
 }
 
 @end

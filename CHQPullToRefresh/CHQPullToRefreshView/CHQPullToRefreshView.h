@@ -53,7 +53,6 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 - (void)setScrollViewContentInsetForLoading;
 - (void)setScrollViewContentInset:(UIEdgeInsets)insets Handler:(void (^)(void))actionHandler;
 - (void)scrollViewDidScroll:(CGPoint)contentOffset;
-- (void)didFinishRefresh;
 - (void)addNotifications:(CHQPullToRefreshView *)view;
 - (void)removeNotifications:(CHQPullToRefreshView *)view;
 - (void)statusBarFrameOrOrientationChanged:(NSNotification *)notification;

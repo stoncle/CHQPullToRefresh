@@ -25,7 +25,6 @@ typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
 @property (nonatomic, readwrite) BOOL enabled;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, readwrite) CHQInfiniteScrollingState state;
-@property (nonatomic, strong) NSMutableArray *viewForState;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
@@ -35,9 +34,6 @@ typedef NS_ENUM(NSUInteger, CHQInfiniteScrollingState){
 - (void)resetScrollViewContentInset;
 - (void)setScrollViewContentInsetForInfiniteScrolling;
 - (void)setScrollViewContentInset:(UIEdgeInsets)insets;
-
-- (void)setCustomView:(UIView *)view forState:(CHQInfiniteScrollingState)state;
-
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
 - (void)doSomethingWhenStartingAnimating;
 - (void)doSomethingWhenStopingAnimating;

@@ -13,25 +13,14 @@
 
 @implementation CHQInfiniteScrollingView
 
-@synthesize infiniteScrollingHandler, activityIndicatorViewStyle;
-
-@synthesize state = _state;
-@synthesize scrollView = _scrollView;
-//@synthesize activityIndicatorView = _activityIndicatorView;
-
-
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
-        
-        // default styling values
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.state = CHQInfiniteScrollingStateStopped;
         self.enabled = YES;
-        self.viewForState = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
         [self configureView];
     }
-    
     return self;
 }
 
@@ -68,10 +57,7 @@
     [self doSomethingWhenLayoutSubviews];
 }
 
-
-
 #pragma mark - Scroll View
-
 - (void)resetScrollViewContentInset {
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.bottom = self.originalBottomInset;
@@ -99,7 +85,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
     {
-//        NSLog(@"%f,%f", [[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y, [[change valueForKey:NSKeyValueChangeOldKey] CGPointValue].y);
         if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y < self.scrollView.contentSize.height - self.scrollView.frame.size.height)
         {
             return;
@@ -112,7 +97,6 @@
             [self layoutSubviews];
             self.frame = CGRectMake(0, self.scrollView.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight);
         }
-//        NSLog(@"%f,%f", [[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y, [[change valueForKey:NSKeyValueChangeOldKey] CGPointValue].y);
     }
 }
 
@@ -121,7 +105,6 @@
     if(self.state != CHQInfiniteScrollingStateLoading && self.enabled) {
         CGFloat scrollViewContentHeight = self.scrollView.contentSize.height;
         CGFloat scrollOffsetThreshold = scrollViewContentHeight-self.scrollView.bounds.size.height;
-        
         if(!self.scrollView.isDragging && self.state == CHQInfiniteScrollingStateTriggered)
             self.state = CHQInfiniteScrollingStateLoading;
         else if(contentOffset.y > scrollOffsetThreshold && self.state == CHQInfiniteScrollingStateStopped && self.scrollView.isDragging)
@@ -137,7 +120,6 @@
 }
 
 #pragma mark - Getters
-
 - (UIActivityIndicatorView *)activityIndicatorView {
     if(!_activityIndicatorView) {
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -152,20 +134,6 @@
 }
 
 #pragma mark - Setters
-
-- (void)setCustomView:(UIView *)view forState:(CHQInfiniteScrollingState)state {
-    id viewPlaceholder = view;
-    
-    if(!viewPlaceholder)
-        viewPlaceholder = @"";
-    
-    if(state == CHQInfiniteScrollingStateAll)
-        [self.viewForState replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[viewPlaceholder, viewPlaceholder, viewPlaceholder]];
-    else
-        [self.viewForState replaceObjectAtIndex:state withObject:viewPlaceholder];
-    
-    self.state = self.state;
-}
 
 - (void)setActivityIndicatorViewStyle:(UIActivityIndicatorViewStyle)viewStyle {
     self.activityIndicatorView.activityIndicatorViewStyle = viewStyle;
@@ -205,49 +173,21 @@
         return;
     
     _state = newState;
-    
-    for(id otherView in self.viewForState) {
-        if([otherView isKindOfClass:[UIView class]])
-            [otherView removeFromSuperview];
-    }
-    
-    id customView = [self.viewForState objectAtIndex:newState];
-    BOOL hasCustomView = [customView isKindOfClass:[UIView class]];
-    
-    if(hasCustomView) {
-        [self addSubview:customView];
-        CGRect viewBounds = [customView bounds];
-        CGPoint origin = CGPointMake(roundf((self.bounds.size.width-viewBounds.size.width)/2), roundf((self.bounds.size.height-viewBounds.size.height)/2));
-        [customView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
-    }
-    else {
-        CGRect viewBounds = [self.activityIndicatorView bounds];
-        CGPoint origin = CGPointMake(roundf((self.bounds.size.width-viewBounds.size.width)/2), roundf((self.bounds.size.height-viewBounds.size.height)/2));
-        [self.activityIndicatorView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
+    CGRect viewBounds = [self.activityIndicatorView bounds];
+    CGPoint origin = CGPointMake(roundf((self.bounds.size.width-viewBounds.size.width)/2), roundf((self.bounds.size.height-viewBounds.size.height)/2));
+    [self.activityIndicatorView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
         
-        switch (newState) {
-            case CHQInfiniteScrollingStateStopped:
-//                [self.activityIndicatorView stopAnimating];
-                break;
+    switch (newState) {
+        case CHQInfiniteScrollingStateStopped:
+            break;
                 
-            case CHQInfiniteScrollingStateTriggered:
-//                [self.activityIndicatorView startAnimating];
-                break;
+        case CHQInfiniteScrollingStateTriggered:
+            break;
                 
-            case CHQInfiniteScrollingStateLoading:
-//                [self.activityIndicatorView startAnimating];
-                [self startAnimating];
-                break;
-        }
+        case CHQInfiniteScrollingStateLoading:
+            [self startAnimating];
+            break;
     }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

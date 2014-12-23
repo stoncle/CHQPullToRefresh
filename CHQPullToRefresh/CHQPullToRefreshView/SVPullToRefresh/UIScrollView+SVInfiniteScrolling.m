@@ -44,9 +44,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
             view.scrollView = self;
             [self addSubview:view];
             view.originalBottomInset = self.contentInset.bottom;
-//            view.originalBottomInset = CHQInfiniteScrollingViewHeight;
         }
-//        self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.infiniteScrollingView = view;
         self.showsInfiniteScrolling = YES;
     }
@@ -56,7 +54,6 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 {
     if(!self.infiniteScrollingView) {
         UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:loadingImageName]];
-//        NSLog(@"%f", self.contentSize.height);
         CHQGIFScrollingView *view = [[CHQGIFScrollingView alloc] initWithRefreshingImage:refreshingImage WithFrame:CGRectMake(0, self.contentSize.height, self.bounds.size.width, CHQInfiniteScrollingViewHeight)];
         view.infiniteScrollingHandler = actionHandler;
         view.scrollView = self;
@@ -92,7 +89,6 @@ UIEdgeInsets scrollViewOriginalContentInsets;
             view.originalBottomInset = self.contentInset.bottom;
         }
         self.infiniteScrollingView = view;
-//        self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.showsInfiniteScrolling = YES;
     }
     else
@@ -103,7 +99,6 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 
 - (void)triggerInfiniteScrolling {
     self.infiniteScrollingView.state = CHQInfiniteScrollingStateLoading;
-//    [self.infiniteScrollingView startAnimating];
 }
 
 - (void)setInfiniteScrollingView:(CHQInfiniteScrollingView *)infiniteScrollingView {
