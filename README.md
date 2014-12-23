@@ -26,6 +26,15 @@ Being a catagory of UIScrollView, you may find the following methods in it:
         // prepend data to dataSource, insert cells at top of table view
         // call [collectionView.pullToRefreshView stopAnimating] when done
     }];
+####Adding Pull to Refresh with a configurator
+    configurator.theme = CHQRefreshThemeGif;
+    configurator.treatAsSubView = NO;
+    configurator.progressImageName = @"run@2x.gif";
+    configurator.refreshingImageName = @"run@2x.gif";
+    [collectionView addPullToRefreshWithActionHandler:^{
+        // prepend data to dataSource, insert cells at top of table view
+        // call [collectionView.pullToRefreshView stopAnimating] when done
+    } WithConfigurator:configurator];
 ###Adding Infinite Scrolling
     [tableView addInfiniteScrollingWithActionHandler:^{
     // append data to data source, insert new cells at the end of table view
