@@ -60,6 +60,8 @@ use [[CHQPullToRefreshConfigurator alloc]initWithScrollView:] to create a config
     the content inset of the scrollview when in portrait mode, set this when the default inset of the pulltorefreshview doesn't meet your demand.
 ####landscapeTopInset
     the content inset of the scrollview when in landscape mode.
+####treatAsSubView
+    if set to Yes, the pulltorefresh view would be added to your scrollview as a subview, if set to NO, it would be added as a sibling view. Default is yes.(to tell the differences, for example, as a subview, the refreshview would cover the content of the scrollview, when set to sibling view, it could be covered by the scrollview.)
 ####frame
     the frame you want to add your pulltorefreshview to.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview.
 ####pullToRefreshViewHeight
