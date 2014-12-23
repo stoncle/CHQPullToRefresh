@@ -46,7 +46,6 @@
     [self addSubview:self.pac];
     
     self.dotsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PullToRefreshViewWidth, PullToRefreshViewHeight)];
-    self.dotsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.dotsView];
     
     self.dots = [[NSMutableArray alloc] initWithCapacity:kStartingNumberOfDots];

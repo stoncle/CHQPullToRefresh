@@ -8,7 +8,6 @@
 
 #import "CHQBalloonRefreshView.h"
 
-#define BalloonPullToRefreshViewTriggerAreaHeight 101
 #define BalloonPullToRefreshViewParticleSize 0.5
 #define BalloonPullToRefreshViewAnimationRadius 35.0
 #define BalloonPullToRefreshViewParticlesCount 8
@@ -67,7 +66,7 @@
         float angle = - (i * BalloonPullToRefreshViewAnimationAngle + animationStep * 5) * M_PI / 180;
         float radius = BalloonPullToRefreshViewAnimationRadius;
         UIView *particleView = self.particles [i];
-        particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+        particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((self.pullToRefreshViewTriggerHeight / 2) + radius * sin(angle)));
     }
 }
 
@@ -124,7 +123,7 @@
                              float angle = - (i * BalloonPullToRefreshViewAnimationAngle) * M_PI / 180;
                              float radius = BalloonPullToRefreshViewAnimationRadius;
                              UIView *particleView = self.particles [i];
-                             particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+                             particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((self.pullToRefreshViewTriggerHeight / 2) + radius * sin(angle)));
                          }
                      }
                      completion:^(BOOL finished){
@@ -171,33 +170,40 @@
         contentOffset = -10;
     }
     
-    if (contentOffset > BalloonPullToRefreshViewTriggerAreaHeight / 2) {
-        contentOffset = BalloonPullToRefreshViewTriggerAreaHeight / 2;
+    if (contentOffset > self.pullToRefreshViewTriggerHeight / 2 + (self.originalTopInset) / 2) {
+        contentOffset = self.pullToRefreshViewTriggerHeight / 2  + (self.originalTopInset) / 2;
     }
     
     lastOffset = contentOffset * 2;
     
     float ratio = (contentOffset / 2);
     
-    if (contentOffset == BalloonPullToRefreshViewTriggerAreaHeight / 2) {
-        for (int i=0; i<self.particles.count; i++) {
-            UIView *particleView = self.particles [i];
-            particleView.center = CGPointMake(PullToRefreshViewWidth / 2, self.frame.size.height - contentOffset);
-        }
+    if (contentOffset == self.pullToRefreshViewTriggerHeight / 2  + (self.originalTopInset) / 2) {
+        [UIView animateWithDuration:0.3
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             for (int i=0; i<self.particles.count; i++) {
+                                 UIView *particleView = self.particles [i];
+                                 particleView.center = CGPointMake((PullToRefreshViewWidth / 2), self.frame.size.height - 30);
+                             }
+                         }
+                         completion:^(BOOL finished){
+                         }];
+        
     } else {
         for (int i=0; i<self.particles.count; i++) {
             
-            float angle = - (i * BalloonPullToRefreshViewAnimationAngle + contentOffset) * M_PI / 180;
-            float radius = 200 - (contentOffset * 4);
+            float angle = - (i * BalloonPullToRefreshViewAnimationAngle + contentOffset + (-self.originalTopInset) / 2 + 100) * M_PI / 180;
+            float radius = 130 - ((contentOffset + (-self.originalTopInset) / 2) * 4);
             
             UIView *particleView = self.particles [i];
             
             particleView.frame = CGRectMake(0, 0, BalloonPullToRefreshViewParticleSize + ratio, BalloonPullToRefreshViewParticleSize + ratio);
-            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((BalloonPullToRefreshViewTriggerAreaHeight / 2) + radius * sin(angle)));
+            particleView.center = CGPointMake((PullToRefreshViewWidth / 2) + radius * cos (angle), self.frame.size.height - ((self.pullToRefreshViewTriggerHeight / 2) + radius * sin(angle)));
         }
     }
     
     [self setNeedsDisplay];
 }
-
 @end

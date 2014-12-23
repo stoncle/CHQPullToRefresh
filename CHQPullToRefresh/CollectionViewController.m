@@ -61,8 +61,9 @@
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:_collectionView];
     
     configurator.frame = CGRectMake(0, [UIScreen mainScreen].applicationFrame.size.height/4-60, 768, 60);
-    configurator.theme = CHQRefreshThemeArrow;
+    configurator.theme = CHQRefreshThemeEatBeans;
     configurator.treatAsSubView = NO;
+    configurator.backgroundColor = [UIColor blueColor];
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";
     [_collectionView addPullToRefreshWithActionHandler:^{

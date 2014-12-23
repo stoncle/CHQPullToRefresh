@@ -99,5 +99,21 @@ float scrollViewWidth;
     }
     return target;
 }
+- (void)setPortraitTopInset:(float)portraitTopInset
+{
+    _portraitTopInset = portraitTopInset;
+    if(UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+    {
+        self.originalTopInset = self.portraitTopInset;
+    }
+}
+- (void)setLandscapeTopInset:(float)landscapeTopInset
+{
+    _landscapeTopInset = landscapeTopInset;
+    if(UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+    {
+        self.originalTopInset = self.landscapeTopInset;
+    }
+}
 
 @end
