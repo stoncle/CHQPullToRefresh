@@ -78,6 +78,7 @@ float scrollViewWidth;
         }
     }
     self.treatAsSubView = YES;
+    self.shouldScrollWithScrollView = YES;
     self.backgroundColor = [UIColor clearColor];
     self.pullToRefreshViewHeight = kRefreshViewDefaultHeight;
     self.pullToRefreshViewTriggerHeight = kRefreshViewDefaultTriggerHeight;

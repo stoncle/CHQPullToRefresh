@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;
+@property (nonatomic) bool shouldScrollWithScrollView;
 
 @property (nonatomic, strong) CHQPullToRefreshConfigurator *configurator;
 

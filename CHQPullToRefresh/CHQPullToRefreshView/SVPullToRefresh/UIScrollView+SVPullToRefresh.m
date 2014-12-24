@@ -103,6 +103,7 @@ static char UIScrollViewPullToRefreshView;
         view.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
         view.backgroundColor = configurator.backgroundColor;
         view.originalBottomInset = self.contentInset.bottom;
+        view.shouldScrollWithScrollView = configurator.shouldScrollWithScrollView;
         if(configurator.treatAsSubView)
         {
             [self addSubview:view];

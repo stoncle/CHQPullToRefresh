@@ -137,7 +137,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"contentOffset"])
     {
-        if(self.superview != self.scrollView)
+        if(self.superview != self.scrollView && self.shouldScrollWithScrollView)
         {
             [self changeFrameWithContentOffsetNew:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue] Old:[[change valueForKey:NSKeyValueChangeOldKey]CGPointValue]];
         }
