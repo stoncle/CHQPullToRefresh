@@ -27,10 +27,10 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.superview && newSuperview == nil) {
-        UIScrollView *scrollView = self.scrollView;
             if (self.isObserving) {
-                [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-                [scrollView removeObserver:self forKeyPath:@"frame"];
+                [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+                [self.scrollView removeObserver:self forKeyPath:@"frame"];
+                [self removeNotifications:self];
                 self.isObserving = NO;
             }
     }
@@ -263,5 +263,7 @@
 {
     
 }
+
+
 
 @end

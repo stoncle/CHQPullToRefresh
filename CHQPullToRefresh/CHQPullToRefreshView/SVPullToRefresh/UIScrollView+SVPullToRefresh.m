@@ -170,7 +170,6 @@ static char UIScrollViewPullToRefreshView;
             view.pullToRefreshActionHandler = previousView.pullToRefreshActionHandler;
             view.scrollView = self;
             [view addNotifications:view];
-            [self.superview insertSubview:view belowSubview:self];
             self.pullToRefreshView = view;
             view.originalTopInset = view.configurator.originalTopInset;
             view.portraitTopInset = view.configurator.portraitTopInset;
@@ -179,6 +178,14 @@ static char UIScrollViewPullToRefreshView;
             view.pullToRefreshViewTriggerHeight = view.configurator.pullToRefreshViewTriggerHeight;
             view.pullToRefreshViewHangingHeight = view.configurator.pullToRefreshViewHangingHeight;
             view.backgroundColor = view.configurator.backgroundColor;
+            if(view.configurator.treatAsSubView)
+            {
+                [self addSubview:view];
+            }
+            else
+            {
+                [self.superview insertSubview:view belowSubview:self];
+            }
             self.showsPullToRefresh = YES;
         }
     }

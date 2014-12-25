@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 
 @property (nonatomic, copy) void (^pullToRefreshActionHandler)(void);
 @property (nonatomic, readwrite) CHQPullToRefreshState state;
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, assign) UIScrollView *scrollView;
 @property (nonatomic, readwrite) CGFloat originalTopInset;
 @property (nonatomic, assign) CGFloat landscapeTopInset;
 @property (nonatomic, assign) CGFloat portraitTopInset;
