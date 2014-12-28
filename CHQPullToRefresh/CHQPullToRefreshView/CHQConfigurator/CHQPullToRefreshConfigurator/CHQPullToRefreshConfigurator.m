@@ -86,6 +86,7 @@ float scrollViewWidth;
     self.frame = CGRectMake(0, -self.pullToRefreshViewHeight, scrollViewWidth, self.pullToRefreshViewHeight);
     self.progressImageName = @"run@2x.gif";
     self.refreshingImageName = @"run@2x.gif";
+    self.animateDuration = 0.5;
 }
 
 #pragma private methods

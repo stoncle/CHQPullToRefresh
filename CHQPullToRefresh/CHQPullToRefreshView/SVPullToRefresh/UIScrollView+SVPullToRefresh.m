@@ -94,17 +94,8 @@ static char UIScrollViewPullToRefreshView;
         view.configurator = configurator;
         view.pullToRefreshActionHandler = actionHandler;
         [view addNotifications:view];
-        
-        view.originalTopInset = configurator.originalTopInset;
-        view.portraitTopInset = configurator.portraitTopInset;
-        view.landscapeTopInset = configurator.landscapeTopInset;
-        view.pullToRefreshViewHeight = configurator.pullToRefreshViewHeight;
-        view.pullToRefreshViewTriggerHeight = configurator.pullToRefreshViewTriggerHeight;
-        view.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
-        view.backgroundColor = configurator.backgroundColor;
         view.originalBottomInset = self.contentInset.bottom;
-        view.shouldScrollWithScrollView = configurator.shouldScrollWithScrollView;
-        if(configurator.treatAsSubView)
+        if(view.treatAsSubView)
         {
             [self addSubview:view];
         }
@@ -115,13 +106,7 @@ static char UIScrollViewPullToRefreshView;
         
         //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
         //            self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
-//        view.translatesAutoresizingMaskIntoConstraints = NO;
-//        NSLayoutConstraint *marginLeft = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0f constant:0];
-//        NSLayoutConstraint *marginRight = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0f constant:0];
-//        [self.superview addConstraint:marginLeft];
-//        [self.superview addConstraint:marginRight];
-//        [self.superview setNeedsLayout];
-//        [self.superview layoutIfNeeded];
+        self.contentInset = UIEdgeInsetsMake(view.originalTopInset, self.contentInset.left, view.originalBottomInset, self.contentInset.right);
         self.pullToRefreshView = view;
         self.showsPullToRefresh = YES;
         
@@ -171,14 +156,7 @@ static char UIScrollViewPullToRefreshView;
             view.scrollView = self;
             [view addNotifications:view];
             self.pullToRefreshView = view;
-            view.originalTopInset = view.configurator.originalTopInset;
-            view.portraitTopInset = view.configurator.portraitTopInset;
-            view.landscapeTopInset = view.configurator.landscapeTopInset;
-            view.pullToRefreshViewHeight = view.configurator.pullToRefreshViewHeight;
-            view.pullToRefreshViewTriggerHeight = view.configurator.pullToRefreshViewTriggerHeight;
-            view.pullToRefreshViewHangingHeight = view.configurator.pullToRefreshViewHangingHeight;
-            view.backgroundColor = view.configurator.backgroundColor;
-            if(view.configurator.treatAsSubView)
+            if(view.treatAsSubView)
             {
                 [self addSubview:view];
             }

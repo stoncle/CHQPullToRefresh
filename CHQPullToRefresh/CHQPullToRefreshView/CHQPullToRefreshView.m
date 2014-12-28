@@ -103,7 +103,7 @@
 }
 
 - (void)setScrollViewContentInset:(UIEdgeInsets)contentInset Handler:(void (^)(void))actionHandler{
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:self.animateDuration
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
@@ -262,6 +262,21 @@
 - (void)doSomethingWhenStateChanges
 {
     
+}
+
+- (void)setConfigurator:(CHQPullToRefreshConfigurator *)configurator
+{
+    _configurator = configurator;
+    self.originalTopInset = configurator.originalTopInset;
+    self.portraitTopInset = configurator.portraitTopInset;
+    self.landscapeTopInset = configurator.landscapeTopInset;
+    self.pullToRefreshViewHeight = configurator.pullToRefreshViewHeight;
+    self.pullToRefreshViewTriggerHeight = configurator.pullToRefreshViewTriggerHeight;
+    self.pullToRefreshViewHangingHeight = configurator.pullToRefreshViewHangingHeight;
+    self.backgroundColor = configurator.backgroundColor;
+    self.shouldScrollWithScrollView = configurator.shouldScrollWithScrollView;
+    self.animateDuration = configurator.animateDuration;
+    self.treatAsSubView = configurator.treatAsSubView;
 }
 
 

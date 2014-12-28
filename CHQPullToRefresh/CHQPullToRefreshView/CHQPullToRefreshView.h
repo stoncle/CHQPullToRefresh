@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class CHQPullToRefreshConfigurator;
-//#define CHQPullToRefreshViewHeight 60
-//#define CHQPullToRefreshViewTriggerHeight 65
-//#define CHQPullToRefreshViewHangingHeight 60
 #define PullToRefreshViewWidth  self.bounds.size.width
 #define PullToRefreshViewHeight self.bounds.size.height
 
@@ -37,7 +34,9 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;
+@property (nonatomic) bool treatAsSubView;
 @property (nonatomic) bool shouldScrollWithScrollView;
+@property (nonatomic, assign) float animateDuration;
 
 @property (nonatomic, strong) CHQPullToRefreshConfigurator *configurator;
 

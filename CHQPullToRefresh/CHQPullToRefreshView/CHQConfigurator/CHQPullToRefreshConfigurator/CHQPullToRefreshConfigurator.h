@@ -23,6 +23,7 @@
 @property (nonatomic, assign) int theme;
 @property (nonatomic, strong) NSString *progressImageName;
 @property (nonatomic, strong) NSString *refreshingImageName;
+@property (nonatomic, assign) float animateDuration;
 
 - (CHQPullToRefreshConfigurator *)initWithScrollView:(UIScrollView *)scrollView;
 

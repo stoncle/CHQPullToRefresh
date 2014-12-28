@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface StickyHeaderLayout : UICollectionViewFlowLayout
-
+@property (nonatomic) NSInteger numberOfColumn;
+@property (nonatomic) CGFloat headerHeight;
+@property (nonatomic) CGFloat height;
 @end

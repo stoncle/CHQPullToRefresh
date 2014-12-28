@@ -49,7 +49,7 @@
     self.navigationController.delegate = self;
     _presentAnimation.delegate = self;
     _collectionView.alwaysBounceVertical = YES;
-    _collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
+//    _collectionView.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
     _data = [[NSMutableArray alloc]initWithCapacity:10];
     _displayArray = [[NSMutableArray alloc]init];
     [_collectionView setDataSource:self];
@@ -60,10 +60,10 @@
     __block NSMutableArray *a = _data;
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:_collectionView];
     
-    configurator.frame = CGRectMake(0, [UIScreen mainScreen].applicationFrame.size.height/4, 768, 60);
+    configurator.frame = CGRectMake(0, 256 + 60, 768, 60);
     configurator.theme = CHQRefreshThemeEatBeans;
     configurator.treatAsSubView = NO;
-//    configurator.shouldScrollWithScrollView = NO;
+    configurator.shouldScrollWithScrollView = NO;
     configurator.backgroundColor = [UIColor blueColor];
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";
@@ -150,7 +150,7 @@
             [arr addObject:indexPath];
         }
         
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d insertItemsAtIndexPaths:arr];
             srand((unsigned)time(0));
@@ -202,30 +202,30 @@
     cell.backgroundColor = [UIColor grayColor];
     return cell;
 }
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    static CGFloat duration = .3;
-    static NSUInteger xOffset = 0;
-    static NSUInteger yOffset = 300;
-    if(indexPath.row >= _displayArray.count)
-    {
-        [_displayArray addObject:[NSNumber numberWithBool:NO]];
-    }//    if(collectionView.visibleCells.count <12 && ![collectionView.visibleCells containsObject:cell])
-//    NSLog(@"%@", [_displayArray objectAtIndex:indexPath.row]);
-//    if(collectionView.infiniteScrollingView.state == SVInfiniteScrollingStateLoading && ![collectionView.visibleCells containsObject:cell] && [_displayArray objectAtIndex:indexPath.row] == NO)
-    if(collectionView.infiniteScrollingView.state == CHQInfiniteScrollingStateLoading)
-    if(![collectionView.visibleCells containsObject:cell])
-    if([_displayArray objectAtIndex:indexPath.row] == [NSNumber numberWithBool:NO])
-    {
-        cell.frame = CGRectMake(cell.frame.origin.x - xOffset, cell.frame.origin.y+yOffset, cell.frame.size.width, cell.frame.size.height);
-        [UIView animateWithDuration:duration
-                         animations:^{
-                             cell.frame = CGRectMake(cell.frame.origin.x + xOffset, cell.frame.origin.y - yOffset, cell.frame.size.width, cell.frame.size.height);
-                         } completion:^(BOOL finished) {
-                         }];
-    }
-    [_displayArray setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:indexPath.row];
-}
+//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static CGFloat duration = .3;
+//    static NSUInteger xOffset = 0;
+//    static NSUInteger yOffset = 300;
+//    if(indexPath.row >= _displayArray.count)
+//    {
+//        [_displayArray addObject:[NSNumber numberWithBool:NO]];
+//    }//    if(collectionView.visibleCells.count <12 && ![collectionView.visibleCells containsObject:cell])
+////    NSLog(@"%@", [_displayArray objectAtIndex:indexPath.row]);
+////    if(collectionView.infiniteScrollingView.state == SVInfiniteScrollingStateLoading && ![collectionView.visibleCells containsObject:cell] && [_displayArray objectAtIndex:indexPath.row] == NO)
+//    if(collectionView.infiniteScrollingView.state == CHQInfiniteScrollingStateLoading)
+//    if(![collectionView.visibleCells containsObject:cell])
+//    if([_displayArray objectAtIndex:indexPath.row] == [NSNumber numberWithBool:NO])
+//    {
+//        cell.frame = CGRectMake(cell.frame.origin.x - xOffset, cell.frame.origin.y+yOffset, cell.frame.size.width, cell.frame.size.height);
+//        [UIView animateWithDuration:duration
+//                         animations:^{
+//                             cell.frame = CGRectMake(cell.frame.origin.x + xOffset, cell.frame.origin.y - yOffset, cell.frame.size.width, cell.frame.size.height);
+//                         } completion:^(BOOL finished) {
+//                         }];
+//    }
+//    [_displayArray setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:indexPath.row];
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -239,33 +239,33 @@
 
 
 #pragma mark UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGRect r = [UIScreen mainScreen].applicationFrame;
-//    NSLog(@"%f, %f", r.size.width, r.size.height);
-    if(r.size.width > r.size.height)
-        return CGSizeMake((r.size.height+20)/3.09, (r.size.height+20)/3*1.15);
-    else
-        return CGSizeMake(r.size.width/3.09, r.size.width/3*1.15);
-//    NSLog(@"%f", r.size.width/3.05);
-	
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 5;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 5;
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    CGRect r = [UIScreen mainScreen].applicationFrame;
-    if(r.size.width > r.size.height)
-        return CGSizeMake(r.size.width, (r.size.width-20)/4);
-    else
-        return CGSizeMake(r.size.width, r.size.height/4);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    CGRect r = [UIScreen mainScreen].applicationFrame;
+////    NSLog(@"%f, %f", r.size.width, r.size.height);
+//    if(r.size.width > r.size.height)
+//        return CGSizeMake((r.size.height+20)/3.09, (r.size.height+20)/3*1.15);
+//    else
+//        return CGSizeMake(r.size.width/3.09, r.size.width/3*1.15);
+////    NSLog(@"%f", r.size.width/3.05);
+//	
+//}
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    return 5;
+//}
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    return 5;
+//}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//    CGRect r = [UIScreen mainScreen].applicationFrame;
+//    if(r.size.width > r.size.height)
+//        return CGSizeMake(r.size.width, (r.size.width-20)/4);
+//    else
+//        return CGSizeMake(r.size.width, r.size.height/4);
+//}
 
 #pragma mark UIViewControllerTransitioningDelegate
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
