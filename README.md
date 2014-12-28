@@ -73,8 +73,10 @@ use [[CHQPullToRefreshConfigurator alloc]initWithScrollView:] to create a config
     if set to Yes, the pulltorefresh view would be added to your scrollview as a subview, if set to NO, it would be added as a sibling view. Default is yes.(to tell the differences, for example, as a subview, the refreshview would cover the content of the scrollview, when set to sibling view, it could be covered by the scrollview.)
 ####shouldScrollWithScrollView
     When treatAsSubView is No, if this property is set to Yes, the pulltorefresh view would scroll with the scrollview.
-####frame
-    the frame you want to add your pulltorefreshview to.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview.
+####portraitFrame
+    the frame you want to add your pulltorefreshview to when in portrait mode.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview.
+####landscapeFrame
+    the frame you want to add your pulltorefreshview to when in landscape mode.
 ####pullToRefreshViewHeight
     the height of the refresh view.
 ####pullToRefreshViewTriggerHeight
@@ -89,6 +91,8 @@ use [[CHQPullToRefreshConfigurator alloc]initWithScrollView:] to create a config
     display image when dragging the scrollview, when theme being set to CHQRefreshThemeGif, you can set this to the name of your favorite gif image.
 ####refreshingImageName
     display image when refreshing, hen theme being set to CHQRefreshThemeGif, you can set this to the name of your favorite gif image.
+####animateDuration
+    the duration when pulltorefresh animate your scrollview.
 feel free to customize your configurator, just don't forget to attach it to the refresh view.
 ```Objective-C
     configurator.frame = CGRectMake(0, 200, 768, 60);
