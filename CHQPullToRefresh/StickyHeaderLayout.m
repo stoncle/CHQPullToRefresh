@@ -115,7 +115,6 @@
 {
     NSDictionary *cellLayout=[self.layoutInfo objectForKey:@"cellLayout"];
     UICollectionViewLayoutAttributes *attribute=[cellLayout objectForKey:indexPath];
-    NSLog(@"%d",indexPath.row);
     return attribute;
 }
 

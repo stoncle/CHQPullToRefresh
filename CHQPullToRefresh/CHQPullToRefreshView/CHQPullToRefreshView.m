@@ -70,13 +70,34 @@
         {
             if(cNotEqualFloats( self.landscapeTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
                 self.originalTopInset = self.landscapeTopInset;
+            if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+            {
+                CGRect newFrame = CGRectMake(self.landscapeFrame.origin.x, self.landscapeFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.landscapeFrame.size.width, self.landscapeFrame.size.height);
+                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+            }
+            else
+            {
+                CGRect newFrame = self.landscapeFrame;
+                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+            }
         }
         else
         {
             if(cNotEqualFloats( self.portraitTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
                 self.originalTopInset = self.portraitTopInset;
+            if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+            {
+                CGRect newFrame = CGRectMake(self.portraitFrame.origin.x, self.portraitFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.portraitFrame.size.width, self.portraitFrame.size.height);
+                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+            }
+            else
+            {
+                CGRect newFrame = self.portraitFrame;
+                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+            }
         }
     });
+
     [self doSomethingWhenChangingOrientation];
 }
 
@@ -117,6 +138,36 @@
                      }];
 }
 
+- (void)setPullToRefreshViewFrame:(CGRect)frame Handler:(void (^)(void))actionHandler{
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         self.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         if(actionHandler)
+                         {
+                             actionHandler();
+                         }
+                     }];
+}
+
+- (void)setPullToRefreshViewAlpha:(CGFloat)alpha Handler:(void (^)(void))actionHandler{
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         self.alpha = alpha;
+                     }
+                     completion:^(BOOL finished){
+                         if(actionHandler)
+                         {
+                             actionHandler();
+                         }
+                     }];
+}
+
 - (void)doSomethingWhenLayoutSubviews
 {
     
@@ -141,12 +192,12 @@
         {
             [self changeFrameWithContentOffsetNew:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue] Old:[[change valueForKey:NSKeyValueChangeOldKey]CGPointValue]];
         }
-        if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y > 0)
+        if([[change valueForKey:NSKeyValueChangeNewKey] CGPointValue].y >= -self.originalTopInset)
         {
+            [self setPullToRefreshViewAlpha:0 Handler:nil];
             return;
         }
-        
-
+        [self setPullToRefreshViewAlpha:1 Handler:nil];
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     }
     else if([keyPath isEqualToString:@"frame"])
@@ -245,7 +296,9 @@
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
             if(prevState == CHQPullToRefreshStateLoading)
-                [self resetScrollViewContentInset:nil];
+                [self resetScrollViewContentInset:^{
+                    [self setPullToRefreshViewAlpha:0 Handler:nil];
+                }];
             break;
             
         case CHQPullToRefreshStateTriggered:
@@ -277,6 +330,8 @@
     self.shouldScrollWithScrollView = configurator.shouldScrollWithScrollView;
     self.animateDuration = configurator.animateDuration;
     self.treatAsSubView = configurator.treatAsSubView;
+    self.portraitFrame = configurator.portraitFrame;
+    self.landscapeFrame = configurator.landscapeFrame;
 }
 
 

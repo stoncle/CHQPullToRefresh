@@ -37,6 +37,7 @@
 
 - (void)commonInit
 {
+    self.backgroundColor = [UIColor blueColor];
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(refresh)];
     self.displayLink.paused = YES;
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
@@ -60,7 +61,6 @@
 
 - (void)configureView
 {
-    self.backgroundColor = [UIColor blueColor];
     self.dotSpacing = PullToRefreshViewWidth / kStartingNumberOfDots;
     [self reset];
 }

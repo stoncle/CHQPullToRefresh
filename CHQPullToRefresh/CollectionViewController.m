@@ -60,10 +60,11 @@
     __block NSMutableArray *a = _data;
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:_collectionView];
     
-    configurator.frame = CGRectMake(0, 256 + 60, 768, 60);
+    configurator.portraitFrame = CGRectMake(0, 256 + 60, 768, 60);
+    configurator.landscapeFrame = CGRectMake(0, 196 + 60, 1024, 60);
     configurator.theme = CHQRefreshThemeEatBeans;
     configurator.treatAsSubView = NO;
-    configurator.shouldScrollWithScrollView = NO;
+    configurator.shouldScrollWithScrollView = YES;
     configurator.backgroundColor = [UIColor blueColor];
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";
