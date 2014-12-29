@@ -15,6 +15,7 @@
 @property (nonatomic, assign) float originalTopInset;
 @property (nonatomic, assign) float portraitTopInset;
 @property (nonatomic, assign) float landscapeTopInset;
+@property (nonatomic) bool customiseFrame;
 @property (nonatomic) CGRect portraitFrame;
 @property (nonatomic) CGRect landscapeFrame;
 @property (nonatomic, assign) float pullToRefreshViewHeight;

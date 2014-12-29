@@ -70,30 +70,36 @@
         {
             if(cNotEqualFloats( self.landscapeTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
                 self.originalTopInset = self.landscapeTopInset;
-            if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+            if(self.customiseFrame)
             {
-                CGRect newFrame = CGRectMake(self.landscapeFrame.origin.x, self.landscapeFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.landscapeFrame.size.width, self.landscapeFrame.size.height);
-                [self setPullToRefreshViewFrame:newFrame Handler:nil];
-            }
-            else
-            {
-                CGRect newFrame = self.landscapeFrame;
-                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+                {
+                    CGRect newFrame = CGRectMake(self.landscapeFrame.origin.x, self.landscapeFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.landscapeFrame.size.width, self.landscapeFrame.size.height);
+                    [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                }
+                else
+                {
+                    CGRect newFrame = self.landscapeFrame;
+                    [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                }
             }
         }
         else
         {
             if(cNotEqualFloats( self.portraitTopInset , 0.0 , cDefaultFloatComparisonEpsilon))
                 self.originalTopInset = self.portraitTopInset;
-            if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+            if(self.customiseFrame)
             {
-                CGRect newFrame = CGRectMake(self.portraitFrame.origin.x, self.portraitFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.portraitFrame.size.width, self.portraitFrame.size.height);
-                [self setPullToRefreshViewFrame:newFrame Handler:nil];
-            }
-            else
-            {
-                CGRect newFrame = self.portraitFrame;
-                [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+                {
+                    CGRect newFrame = CGRectMake(self.portraitFrame.origin.x, self.portraitFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.portraitFrame.size.width, self.portraitFrame.size.height);
+                    [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                }
+                else
+                {
+                    CGRect newFrame = self.portraitFrame;
+                    [self setPullToRefreshViewFrame:newFrame Handler:nil];
+                }
             }
         }
     });
@@ -154,6 +160,10 @@
 }
 
 - (void)setPullToRefreshViewAlpha:(CGFloat)alpha Handler:(void (^)(void))actionHandler{
+    if(self.alpha == alpha)
+    {
+        return;
+    }
     [UIView animateWithDuration:0.3
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction
@@ -330,6 +340,7 @@
     self.shouldScrollWithScrollView = configurator.shouldScrollWithScrollView;
     self.animateDuration = configurator.animateDuration;
     self.treatAsSubView = configurator.treatAsSubView;
+    self.customiseFrame = configurator.customiseFrame;
     self.portraitFrame = configurator.portraitFrame;
     self.landscapeFrame = configurator.landscapeFrame;
 }

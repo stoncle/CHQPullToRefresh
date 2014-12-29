@@ -42,15 +42,22 @@ static char UIScrollViewPullToRefreshView;
     UIImage *progressImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:configurator.progressImageName]];
     UIImage *refreshingImage = [[UIImage alloc] initWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]  stringByAppendingPathComponent:configurator.refreshingImageName]];
     if(!self.pullToRefreshView) {
-        CGRect portraitFrame = configurator.portraitFrame;
-        CGRect landscapeFrame = configurator.landscapeFrame;
-        if(UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+        if(configurator.customiseFrame)
         {
-            frame = landscapeFrame;
+            CGRect portraitFrame = configurator.portraitFrame;
+            CGRect landscapeFrame = configurator.landscapeFrame;
+            if(UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+            {
+                frame = landscapeFrame;
+            }
+            else
+            {
+                frame = portraitFrame;
+            }
         }
         else
         {
-            frame = portraitFrame;
+            frame = CGRectMake(0, -configurator.pullToRefreshViewHeight, self.bounds.size.width, configurator.pullToRefreshViewHeight);
         }
     }
     else
@@ -128,17 +135,8 @@ static char UIScrollViewPullToRefreshView;
     {
         CHQPullToRefreshView *previousView = self.pullToRefreshView;
         [previousView removeNotifications:previousView];
-        CGRect frame = previousView.frame;
-        CGRect portraitFrame = previousView.portraitFrame;
-        CGRect landscapeFrame = previousView.landscapeFrame;
-        if(UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
-        {
-            frame = landscapeFrame;
-        }
-        else
-        {
-            frame = portraitFrame;
-        }
+        CGRect frame;
+        frame = previousView.frame;
         [previousView removeFromSuperview];
         CHQPullToRefreshView *view;
         switch (theme) {

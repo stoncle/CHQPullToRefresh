@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic, assign) CGFloat landscapeTopInset;
 @property (nonatomic, assign) CGFloat portraitTopInset;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
+@property (nonatomic) bool customiseFrame;
 @property (nonatomic) CGRect portraitFrame;
 @property (nonatomic) CGRect landscapeFrame;
 @property (nonatomic, assign) BOOL wasTriggeredByUser;

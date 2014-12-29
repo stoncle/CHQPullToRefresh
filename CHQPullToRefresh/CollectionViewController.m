@@ -59,7 +59,7 @@
     __block UICollectionView *d = _collectionView;
     __block NSMutableArray *a = _data;
     CHQPullToRefreshConfigurator *configurator = [[CHQPullToRefreshConfigurator alloc]initWithScrollView:_collectionView];
-    
+    configurator.customiseFrame = YES;
     configurator.portraitFrame = CGRectMake(0, 256 + 60, 768, 60);
     configurator.landscapeFrame = CGRectMake(0, 196 + 60, 1024, 60);
     configurator.theme = CHQRefreshThemeEatBeans;

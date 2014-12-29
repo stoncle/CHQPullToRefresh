@@ -83,6 +83,7 @@ float scrollViewWidth;
     self.pullToRefreshViewHeight = kRefreshViewDefaultHeight;
     self.pullToRefreshViewTriggerHeight = kRefreshViewDefaultTriggerHeight;
     self.pullToRefreshViewHangingHeight = kRefreshViewDefaultHangingHeight;
+    self.customiseFrame = NO;
     self.portraitFrame = CGRectMake(0, -self.pullToRefreshViewHeight, scrollViewWidth, self.pullToRefreshViewHeight);
     self.landscapeFrame = CGRectMake(0, -self.pullToRefreshViewHeight, scrollViewWidth, self.pullToRefreshViewHeight);
     self.progressImageName = @"run@2x.gif";
