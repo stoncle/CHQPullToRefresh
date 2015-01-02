@@ -2,7 +2,7 @@ CHQPullToRefresh
 ================
 base on [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by [@samvermette](https://github.com/samvermette)  
 
-Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(like TableView and CollectionView), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing(both PullToRefresh and InfiniteScrolling).You can also customize it.
+Allow you to add a "pull to refresh view AND infinite scrolling" to any ScrollView(anywhere!anytime!), also provide an easy way to change the refresh theme.You are able to display a gif picture when triggering refreshing(both PullToRefresh and InfiniteScrolling).You can also customize it.
 Being a catagory of UIScrollView, you may find the following methods in it:  
 ```Objective-C
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
@@ -102,20 +102,6 @@ feel free to customize your configurator, just don't forget to attach it to the 
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";
     [_collectionView addPullToRefreshWithActionHandler:^{
-        NSMutableArray *arr = [[NSMutableArray alloc]init];
-        if(a.count > 20)
-        {
-            for(int i=0; i<20; i++)
-            {
-                [a removeObjectAtIndex:i];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [arr addObject:indexPath];
-            }
-        }
-        if(arr.count > 0)
-        {
-            [d deleteItemsAtIndexPaths:arr];
-        }
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [d.pullToRefreshView stopAnimating];
@@ -145,32 +131,12 @@ feel free to customize your configurator, just don't forget to attach it to the 
 * New Theme coming soon...
   * you can also make your own theme and if you would like to make a pull request to me, I'd appreciate it !
 
-####arrow theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/arrow.png)
-####spiral theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/spiral.png)
-####eatBeans theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/eatBeans.png)
-####gif theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gif.png)
-####pandulum theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pandulum.png)
-####ellipsis theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsis.png)
-####balloon theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/balloon.png)
-####pinterest theme
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pinterest.png)
-####gif infinite scrolling
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gifinfinite.png)
-####ellipsis infinite scrolling
-![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsisScrolling.png)
-
-###You can design your own theme
-  by subclassing the CHQPullToRefreshView
+##You can design your own theme
+  by subclassing the CHQPullToRefreshView and CHQInfiniteScrollingView
   
-  to create your own refresh view, you need to subclassing the CHQPullToRefreshView, the parent class itself implement the refreshing logic already, so you just need to focus on configuring your personalized view.
+  to create your own refresh view, you need to subclassing the CHQPullToRefreshView(CHQInfiniteScrollingView), the parent class itself implement the refreshing logic already, so you just need to focus on configuring your personalized view.
   
+###Implement From CHQPullToRefreshView
   the parent CHQPullToRefreshView provide the following methods for you to implement:
 ```Objective-C
 - (void)configureView;
@@ -201,3 +167,46 @@ feel free to customize your configurator, just don't forget to attach it to the 
         or colors in this method.
     # doSomethingWhenLayoutSubviews
         this method would be called when refresh view called layoutSubviews.
+
+####Implement From CHQInfiniteScrollingView
+  the parent CHQInfiniteScrollingView provide the following methods for you to implement:
+```Objective-C
+- (void)configureView;
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
+- (void)doSomethingWhenStartingAnimating;
+- (void)doSomethingWhenStopingAnimating
+```
+    # configureView
+        this method would be called when first time the view is generated, and each time the scroll view change
+        its orientation. You can implement this method to configure your view and recaculate it when orientation changes.
+    # doSomethingWhenScrolling:(*)
+        this method would be called when the infiniteScrolling view is about to appear in your sights, implement 
+        it to define the behavior of your infiniteScrolling view when it scrolls with your scroll view.
+    # doSomethingWhenStartingAnimating(*)
+        this method would be called right before the infiniteScrolling view animating, implement it to define 
+        the behavior of your infiniteScrolling view when it is in refreshing process.
+    # doSomethingWhenStopingAnimating(*)
+        this method would be called right after the infiniteScrolling view finishing its animating, implement it
+        to define the behavior or your infiniteScrolling view when it is finishing refreshing.
+       
+##Theme Pictures
+####arrow theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/arrow.png)
+####spiral theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/spiral.png)
+####eatBeans theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/eatBeans.png)
+####gif theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gif.png)
+####pandulum theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pandulum.png)
+####ellipsis theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsis.png)
+####balloon theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/balloon.png)
+####pinterest theme
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/pinterest.png)
+####gif infinite scrolling
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/gifinfinite.png)
+####ellipsis infinite scrolling
+![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsisScrolling.png)
