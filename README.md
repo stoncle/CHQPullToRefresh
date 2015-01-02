@@ -167,6 +167,37 @@ feel free to customize your configurator, just don't forget to attach it to the 
 ![](https://github.com/stoncle/CHQPullToRefresh/blob/master/CHQPullToRefresh/testImage/ellipsisScrolling.png)
 
 ###You can design your own theme
-  by subclassing the CHQPullToRefresh  
-  I will place the detail for how to make your own theme.
-
+  by subclassing the CHQPullToRefreshView
+  
+  to create your own refresh view, you need to subclassing the CHQPullToRefreshView, the parent class itself implement the refreshing logic already, so you just need to focus on configuring your personalized view.
+  
+  the parent CHQPullToRefreshView provide the following methods for you to implement:
+```Objective-C
+- (void)configureView;
+- (void)doSomethingWhenScrolling:(CGPoint)contentOffset;
+- (void)doSomethingWhenStartingAnimating;
+- (void)doSomethingWhenStopingAnimating;
+- (void)doSomethingWhenChangingOrientation;
+- (void)doSomethingWhenStateChanges;
+- (void)doSomethingWhenLayoutSubviews;
+```
+    # configureView
+        this method would be called when first time the view is generated, and each time the scroll view change
+        its orientation. You can implement this method to configure your view and recaculate it when orientation changes.
+    # doSomethingWhenScrolling:(*)
+        this method would be called when the refresh view is about to appear in your sights, implement it to 
+        define the behavior of your refresh view when it scrolls with your scroll view.
+    # doSomethingWhenStartingAnimating(*)
+        this method would be called right before the refresh view animating, implement it to define the behavior 
+        of your refresh view when it is in refreshing process.
+    # doSomethingWhenStopingAnimating(*)
+        this method would be called right after the refresh view finishing its animating, implement it to define
+        the behavior or your refresh view when it is finishing refreshing.
+    # doSomethingWhenChangingOrientation
+        this method would be called when the orientation of the scrollview changes, implement it if you need to
+        offer behavior on orientation changes.
+    # doSomethingWhenStateChanges(*)
+        this method would be called when the state of the state of the refresh view changes, change your label text
+        or colors in this method.
+    # doSomethingWhenLayoutSubviews
+        this method would be called when refresh view called layoutSubviews.
