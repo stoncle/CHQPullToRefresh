@@ -73,10 +73,12 @@ use [[CHQPullToRefreshConfigurator alloc]initWithScrollView:] to create a config
     if set to Yes, the pulltorefresh view would be added to your scrollview as a subview, if set to NO, it would be added as a sibling view. Default is yes.(to tell the differences, for example, as a subview, the refreshview would cover the content of the scrollview, when set to sibling view, it could be covered by the scrollview.)
 ####shouldScrollWithScrollView
     When treatAsSubView is No, if this property is set to Yes, the pulltorefresh view would scroll with the scrollview.
+####customiseFrame
+    bool value, set it to yes if you want to cusromise the frame of the pull to refresh view.
 ####portraitFrame
-    the frame you want to add your pulltorefreshview to when in portrait mode.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview.
+    the frame you want to add your pulltorefreshview to when in portrait mode.With setting this, you may add the refresh view to anywhere of your scrollview,default is on the top of the scrollview. this property won't take effect if customiseFrame is set to NO
 ####landscapeFrame
-    the frame you want to add your pulltorefreshview to when in landscape mode.
+    the frame you want to add your pulltorefreshview to when in landscape mode.this property won't take effect if customiseFrame is set to NO
 ####pullToRefreshViewHeight
     the height of the refresh view.
 ####pullToRefreshViewTriggerHeight
