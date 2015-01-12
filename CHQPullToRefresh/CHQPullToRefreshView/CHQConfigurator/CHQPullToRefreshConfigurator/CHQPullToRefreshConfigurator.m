@@ -89,6 +89,9 @@ float scrollViewWidth;
     self.progressImageName = @"run@2x.gif";
     self.refreshingImageName = @"run@2x.gif";
     self.animateDuration = 0.5;
+    self.appearsWhenReadyToFresh = NO;
+    self.shouldAnimateWhenSettingContentInset = YES;
+    self.belowScrollView = YES;
 }
 
 #pragma private methods

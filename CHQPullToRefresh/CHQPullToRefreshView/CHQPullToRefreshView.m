@@ -11,6 +11,9 @@
 
 @interface CHQPullToRefreshView()
 @property (nonatomic, assign) CGFloat PrevWidth;
+@property (nonatomic) bool inSight;
+//use for orientation change
+@property (nonatomic) CGFloat refreshViewOffset;
 @end
 
 @implementation CHQPullToRefreshView
@@ -72,9 +75,9 @@
                 self.originalTopInset = self.landscapeTopInset;
             if(self.customiseFrame)
             {
-                if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+                if((!self.treatAsSubView && self.shouldScrollWithScrollView) || (self.appearsWhenReadyToFresh))
                 {
-                    CGRect newFrame = CGRectMake(self.landscapeFrame.origin.x, self.landscapeFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.landscapeFrame.size.width, self.landscapeFrame.size.height);
+                    CGRect newFrame = CGRectMake(self.landscapeFrame.origin.x, self.landscapeFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight + self.refreshViewOffset, self.landscapeFrame.size.width, self.landscapeFrame.size.height);
                     [self setPullToRefreshViewFrame:newFrame Handler:nil];
                 }
                 else
@@ -90,9 +93,9 @@
                 self.originalTopInset = self.portraitTopInset;
             if(self.customiseFrame)
             {
-                if(!self.treatAsSubView && self.shouldScrollWithScrollView)
+                if((!self.treatAsSubView && self.shouldScrollWithScrollView) || (self.appearsWhenReadyToFresh))
                 {
-                    CGRect newFrame = CGRectMake(self.portraitFrame.origin.x, self.portraitFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight, self.portraitFrame.size.width, self.portraitFrame.size.height);
+                    CGRect newFrame = CGRectMake(self.portraitFrame.origin.x, self.portraitFrame.origin.y -self.scrollView.contentOffset.y - self.pullToRefreshViewHeight + self.refreshViewOffset, self.portraitFrame.size.width, self.portraitFrame.size.height);
                     [self setPullToRefreshViewFrame:newFrame Handler:nil];
                 }
                 else
@@ -216,6 +219,20 @@
         [self layoutIfNeeded];
     }
 }
+- (void)animatePullToRefreshViewInSight
+{
+    [UIView animateWithDuration:self.animateDuration animations:^{
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, self.pullToRefreshViewHeight);
+    }];
+    self.refreshViewOffset = self.pullToRefreshViewHeight;
+}
+- (void)animatePullToRefreshViewOutSight
+{
+    [UIView animateWithDuration:self.animateDuration animations:^{
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y - self.frame.size.height, self.frame.size.width, self.pullToRefreshViewHeight);
+    }];
+    self.refreshViewOffset = 0;
+}
 
 - (void)doSomethingWhenScrolling:(CGPoint)contentOffset
 {
@@ -244,7 +261,10 @@
         offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
         offset = MIN(offset, self.originalTopInset + self.pullToRefreshViewHangingHeight);
         contentInset = self.scrollView.contentInset;
-        self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
+        if(self.shouldAnimateWhenSettingContentInset)
+        {
+            self.scrollView.contentInset = UIEdgeInsetsMake(offset, contentInset.left, contentInset.bottom, contentInset.right);
+        }
     }
 }
 
@@ -301,22 +321,42 @@
     [self layoutIfNeeded];
     
     [self doSomethingWhenStateChanges];
-    
+    if(self.customiseFrame && self.appearsWhenReadyToFresh)
+    {
+        if((newState != CHQPullToRefreshStateTriggered && newState != CHQPullToRefreshStateLoading) && self.inSight)
+        {
+            [self animatePullToRefreshViewOutSight];
+            self.inSight = NO;
+        }
+    }
     switch (newState) {
         case CHQPullToRefreshStateAll:
         case CHQPullToRefreshStateStopped:
             if(prevState == CHQPullToRefreshStateLoading)
-                [self resetScrollViewContentInset:^{
-                    [self setPullToRefreshViewAlpha:0 Handler:nil];
-                }];
+            {
+                if(self.shouldAnimateWhenSettingContentInset)
+                {
+                    [self resetScrollViewContentInset:^{
+                        [self setPullToRefreshViewAlpha:0 Handler:nil];
+                    }];
+                }
+            }
             break;
             
         case CHQPullToRefreshStateTriggered:
+            if(self.customiseFrame && self.appearsWhenReadyToFresh && !self.inSight)
+            {
+                [self animatePullToRefreshViewInSight];
+                self.inSight = YES;
+            }
             NSLog(@"triggered.");
             break;
             
         case CHQPullToRefreshStateLoading:
-            [self setScrollViewContentInsetForLoading];
+            if(self.shouldAnimateWhenSettingContentInset)
+            {
+                [self setScrollViewContentInsetForLoading];
+            }
             [self startAnimating];
             break;
     }
@@ -343,6 +383,9 @@
     self.customiseFrame = configurator.customiseFrame;
     self.portraitFrame = configurator.portraitFrame;
     self.landscapeFrame = configurator.landscapeFrame;
+    self.appearsWhenReadyToFresh = configurator.appearsWhenReadyToFresh;
+    self.shouldAnimateWhenSettingContentInset = configurator.shouldAnimateWhenSettingContentInset;
+    self.belowScrollView = configurator.belowScrollView;
 }
 
 

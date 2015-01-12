@@ -41,9 +41,16 @@
     [_collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:kCellIdentifier];
     [_collectionView registerClass:[CollectionViewHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderIdentifier];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    NSLog(@"%f, %f", self.view.frame.size.width, self.view.frame.size.height);
+}
 
 - (void)viewDidLoad
 {
+    
+    NSLog(@"%f, %f", self.view.frame.size.width, self.view.frame.size.height);
     self.automaticallyAdjustsScrollViewInsets = NO;
     _presentAnimation = [[ScaleAnimation alloc]initWithNavigationController:self.navigationController];
     self.navigationController.delegate = self;
@@ -64,7 +71,7 @@
     configurator.landscapeFrame = CGRectMake(0, 196 + 60, 1024, 60);
     configurator.theme = CHQRefreshThemeEatBeans;
     configurator.treatAsSubView = NO;
-    configurator.shouldScrollWithScrollView = YES;
+    configurator.shouldScrollWithScrollView = NO;
     configurator.backgroundColor = [UIColor blueColor];
     configurator.progressImageName = @"run@2x.gif";
     configurator.refreshingImageName = @"run@2x.gif";

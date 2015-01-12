@@ -117,7 +117,14 @@ static char UIScrollViewPullToRefreshView;
         }
         else
         {
-            [self.superview insertSubview:view belowSubview:self];
+            if(view.belowScrollView)
+            {
+                [self.superview insertSubview:view belowSubview:self];
+            }
+            else
+            {
+                [self.superview insertSubview:view aboveSubview:self];
+            }
         }
         
         //since the following code acts differently in different ways the navigation bar added(by code or by storyboard, decided to note this)
@@ -179,7 +186,14 @@ static char UIScrollViewPullToRefreshView;
             }
             else
             {
-                [self.superview insertSubview:view belowSubview:self];
+                if(view.belowScrollView)
+                {
+                    [self.superview insertSubview:view belowSubview:self];
+                }
+                else
+                {
+                    [self.superview insertSubview:view aboveSubview:self];
+                }
             }
             self.showsPullToRefresh = YES;
         }

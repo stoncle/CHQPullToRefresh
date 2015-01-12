@@ -40,6 +40,9 @@ typedef NS_ENUM(NSUInteger, CHQPullToRefreshState) {
 @property (nonatomic) bool treatAsSubView;
 @property (nonatomic) bool shouldScrollWithScrollView;
 @property (nonatomic, assign) float animateDuration;
+@property (nonatomic) bool appearsWhenReadyToFresh;
+@property (nonatomic) bool shouldAnimateWhenSettingContentInset;
+@property (nonatomic) bool belowScrollView;
 
 @property (nonatomic, strong) CHQPullToRefreshConfigurator *configurator;
 

@@ -26,6 +26,9 @@
 @property (nonatomic, strong) NSString *progressImageName;
 @property (nonatomic, strong) NSString *refreshingImageName;
 @property (nonatomic, assign) float animateDuration;
+@property (nonatomic) bool appearsWhenReadyToFresh;
+@property (nonatomic) bool shouldAnimateWhenSettingContentInset;
+@property (nonatomic) bool belowScrollView;
 
 - (CHQPullToRefreshConfigurator *)initWithScrollView:(UIScrollView *)scrollView;
 
